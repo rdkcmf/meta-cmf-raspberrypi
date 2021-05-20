@@ -1,0 +1,16 @@
+[Unit]
+Description=RDKBROWSER2 service
+
+[Service]
+Type=simple
+
+# rdkbrowser2.conf is processed on boot but /dev/vchiq seems to be overriden by another
+# process, forcing it here again without using chmod
+ExecStartPre=/bin/systemd-tmpfiles --create rdkbrowser2.conf
+
+ExecStart=/container/RDKBROWSER2/launcher/rdkbrowser2.sh start
+ExecStop=/container/RDKBROWSER2/launcher/rdkbrowser2.sh stop
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

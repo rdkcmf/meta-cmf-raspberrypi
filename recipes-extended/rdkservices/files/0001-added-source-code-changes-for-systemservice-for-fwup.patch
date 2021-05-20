@@ -1,0 +1,28 @@
+From b67882d5b9238e32f3f4473f166183b0a4eb297a Mon Sep 17 00:00:00 2001
+From: balajivivek-code <balaji.vivek08@gmail.com>
+Date: Wed, 23 Dec 2020 18:34:28 +0530
+Subject: [PATCH] added source code changes for systemservice for fwupgrade
+reason:
+SystemService plugins is a part of rdkservices which invokes a method called UpdateFirmware is which a script file named as deviceInitiatedFWDnld.sh 3 1 and with two parameters
+1.)the first parameter "3" is to "set the retry count for Xconfig"   
+2.)second parameter is to "set the Image upgrade Trigger type" here 1 represents "Image to be  Upgrade During Bootup ..!
+
+---
+ SystemServices/SystemServices.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/SystemServices/SystemServices.cpp b/SystemServices/SystemServices.cpp
+index 2d6f07f..f327c21 100644
+--- a/SystemServices/SystemServices.cpp
++++ b/SystemServices/SystemServices.cpp
+@@ -688,7 +688,7 @@ namespace WPEFramework {
+                 JsonObject& response)
+         {
+             LOGWARN("SystemService updatingFirmware\n");
+-            string command("/lib/rdk/deviceInitiatedFWDnld.sh 0 4 >> /opt/logs/swupdate.log &");
++            string command("/lib/rdk/deviceInitiatedFWDnld.sh 3 1 >> /opt/logs/swupdate.log &");
+             Utils::cRunScript(command.c_str());
+             returnResponse(true);
+         }
+-- 
+2.7.4

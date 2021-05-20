@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+################################################################################
+# If not stated otherwise in this file or this component's Licenses.txt file the
+# following copyright and licenses apply:
+#
+# Copyright 2017 Liberty Global B.V.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+################################################################################
+-->
+
+<CONTAINER  SandboxName="CCSPCR">
+    <LxcParams>
+        <LauncherName>CcspCrSsp</LauncherName>
+        <ExecName>/usr/bin/CcspCrSsp</ExecName>
+        <ExecParams>-subsys eRT.</ExecParams>
+        <SystemdNotify create="yes">
+            <PidFile>/var/tmp/CcspCrSsp.pid</PidFile>
+        </SystemdNotify>
+        <StopFunction enable="true"></StopFunction>
+    </LxcParams>
+    <LxcConfig>
+        <UserName>ccspcr</UserName>
+        <GroupName>ccspcr</GroupName> 
+        <CGroupSettings>
+            <DeviceCgroup>
+                <DevicesDeny>a</DevicesDeny>
+                <AllowDefaultDevices enable="yes"/>
+            </DeviceCgroup>
+        </CGroupSettings>
+        <Environment>
+           <Variable>DBUS_SESSION_BUS_ADDRESS=unix:path=/var/run/dbus/system_bus_socket</Variable>
+        </Environment>
+        <Network type="none"></Network>
+            <Dbus enable="true"></Dbus>
+        <Rootfs create="yes">
+        <MountPoints>
+            <Entry type="file">
+                <Source>/bin/sh</Source>
+                <Destination>bin/sh</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/bin/systemctl</Source>
+                <Destination>bin/systemctl</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+
+<!-- CR -->
+            <Entry type="file">
+                <Source>/usr/bin/CcspCrSsp</Source>
+                <Destination>usr/bin/CcspCrSsp</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/ccsp/cr-deviceprofile.xml</Source>
+                <Destination>cr-deviceprofile.xml</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/ccsp/ccsp_msg.cfg</Source>
+                <Destination>usr/ccsp/ccsp_msg.cfg</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/bin/touch</Source>
+                <Destination>bin/touch</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+
+<!-- /proc -->
+            <Entry type="dir">
+                <Source>proc</Source>
+                <Destination>proc</Destination>
+                <FsType>proc</FsType>
+                <Options>defaults,noexec,nosuid,nodev,hidepid=2</Options>
+            </Entry>
+
+<!-- /sysfs -->
+            <Entry type="dir">
+                <Source>sysfs</Source>
+                <Destination>sys</Destination>
+                <FsType>sysfs</FsType>
+                <Options>defaults,noexec,nosuid,nodev</Options>
+            </Entry>
+
+<!-- /tmp -->
+            <Entry type="dir">
+                <Source>/tmp</Source>
+                <Destination>tmp</Destination>
+                <FsType>tmpfs</FsType>
+                <Options>defaults,noexec,nosuid,size=16m</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/tmp/ccsp_msg.cfg</Source>
+                <Destination>tmp/ccsp_msg.cfg</Destination>
+                <Options>ro,bind,nosuid,nodev,noexec,create=file</Options>
+            </Entry>
+
+<!-- /var -->
+            <Entry type="dir">
+                <Source>/var/tmp</Source>
+                <Destination>var/tmp/</Destination>
+                <FsType>tmpfs</FsType>
+                <Options>rw,noexec,nosuid,create=dir</Options>
+            </Entry>
+                
+<!-- /etc -->
+            <Entry type="file">
+                <Source>/etc/resolv.conf</Source>
+                <Destination>etc/resolv.conf</Destination>
+                <Options>ro,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/hosts</Source>
+                <Destination>etc/hosts</Destination>
+                <Options>ro,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="dir">
+                <Source>/etc/ssl/certs</Source>
+                <Destination>etc/ssl/certs</Destination>
+                <Options>ro,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/debug.ini</Source>
+                <Destination>etc/debug.ini</Destination>
+                <Options>ro,bind,nosuid,nodev,noexec</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/log4crc</Source>
+                <Destination>etc/log4crc</Destination>
+                <Options>ro,bind,nosuid,nodev,noexec</Options>
+            </Entry>
+
+<!--rdklogs-->
+            <Entry type="dir">
+                <Source>/rdklogs</Source>
+                <Destination>rdklogs</Destination>
+                <Options>rw,bind,noexec,nosuid</Options>
+            </Entry>
+        </MountPoints>
+
+        <LibsRoBindMounts>
+            <Entry>ld</Entry>
+            <Entry>libtr181</Entry>
+            <Entry>libxml2</Entry>
+            <Entry>libz</Entry>
+            <Entry>libccsp_common</Entry>
+            <Entry>libsyscfg</Entry>
+            <Entry>libsysevent</Entry>
+            <Entry>libutctx</Entry>
+            <Entry>libdbus</Entry>
+            <Entry>libutopiautil</Entry>
+            <Entry>libcap</Entry>
+            <Entry>libpthread</Entry>
+            <Entry>libc</Entry>
+            <Entry>libattr</Entry>
+            <Entry>libm</Entry>
+            <Entry>libnsl</Entry>
+            <Entry>libnss_compat</Entry>
+            <Entry>libgcc_s</Entry>
+            <Entry>libnss_dns</Entry>
+            <Entry>libstdc++</Entry>
+            <Entry>libsystemd</Entry>
+            <Entry>librdkloggers</Entry>
+            <Entry>libssl</Entry>
+            <Entry>libcrypto</Entry>
+            <Entry>liblog4c</Entry>
+            <Entry>librt</Entry>
+            <Entry>libresolv</Entry>
+            <Entry>liblzma</Entry>
+            <Entry>libdl</Entry>
+            <Entry>libtinfo</Entry>
+            <Entry>libthreadutil</Entry>
+            <Entry>libbreakpadwrapper</Entry>
+            <Entry>libapi_dhcpv4c</Entry>
+            <Entry>libcimplog</Entry>
+            <Entry>libcjson</Entry>
+            <Entry>libcm_mgnt</Entry>
+            <Entry>libcurl</Entry>
+            <Entry>libhal_ethsw</Entry>
+            <Entry>libhal_moca</Entry>
+            <Entry>libhal_msomgmt</Entry>
+            <Entry>libhal_platform</Entry>
+            <Entry>liblibparodus</Entry>
+            <Entry>liblmapi</Entry>
+            <Entry>libmsgpackc</Entry>
+            <Entry>libsecure_wrapper</Entry>
+            <Entry>libtime_conversion</Entry>
+            <Entry>libtrower-base64</Entry>
+            <Entry>libulog</Entry>
+            <Entry>libutapi</Entry>
+            <Entry>libwrp-c</Entry>
+            <Entry>libnanomsg</Entry>
+            <Entry>libanl-2.24</Entry>
+            <Entry>libanl</Entry>
+            <Entry>libsafec</Entry>
+            <Entry>librbus-core</Entry>
+            <Entry>librtMessage</Entry>
+            <Entry>libglib-2.0</Entry>
+            <Entry>libpcre</Entry>
+            <Entry>libwebconfig_framework</Entry>
+            <Entry>libtelemetry_msgsender</Entry>
+            <Entry>libutils</Entry>
+            <Entry>libprivilege</Entry>
+            <Entry>librbus</Entry>
+            <Entry>libjsoncpp</Entry>
+        </LibsRoBindMounts>
+    </Rootfs>
+</LxcConfig>
+</CONTAINER>
+

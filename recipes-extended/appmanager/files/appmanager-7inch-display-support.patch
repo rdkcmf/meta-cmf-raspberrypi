@@ -1,0 +1,88 @@
+From: pnandy200 <pavan_nandyala3@comcast.com>
+Date: Wed Jun 26 12:28:37 2019 +0000
+
+Subject: REFPLTV-316 : 7 inch display support on Raspberrypi platform
+
+Reason for change: Added appmanager and refapp  UI changes to support
+7-inch lcd display.
+Test Procedure: Build ref image for 7-inch display and can verify
+the appmanager resolution on it.
+Risks: None
+
+Signed-off-by: pnandy200 <pavan_nandyala3@comcast.com>
+Source: Comcast
+---
+
+--- git/js_files/startup_partnerapp.js	2019-06-26 13:16:59.002348154 +0000
++++ git/js_files/startup_partnerapp_modified.js	2019-06-26 16:16:37.608645350 +0000
+@@ -59,7 +59,7 @@
+             currentRow = 0;
+             launchPage();
+         }
+-        else if (e.keyCode == keys.M && keys.is_CTRL( e.flags ))
++       else if ((e.keyCode == keys.M && keys.is_CTRL( e.flags )) || e.keyCode == 139)
+         {
+             console.log("Menu Pressed showing Menu");
+             showMenu();
+@@ -158,8 +158,8 @@
+             t: "object",
+             x: 0,
+             y: 0,
+-            w: scene.h,
+-            h: scene.h,
++            w: 800,
++            h: 480,
+             a: 0.7,
+             parent: root
+         });
+@@ -192,8 +192,8 @@
+                t: "text",
+                text: "eth0 IP: " + ethIP,
+                parent: menu,
+-               x: 1050,
+-               y: 680,
++               x: 600,
++               y: 400,
+                textColor: 0xeeeeeeff,
+                pixelSize: 14,
+                a: 0.6
+@@ -218,7 +218,7 @@
+                 parent: row,
+                 x: 10,
+                 textColor: 0xfaebd7ff,
+-                pixelSize: 36
++                pixelSize: 16
+             });
+             var t2 = scene.create({
+                 t: "text",
+@@ -226,7 +226,7 @@
+                 parent: row,
+                 x: 20,
+                 textColor: 0xeeeeeeff,
+-                pixelSize: 14,
++                pixelSize: 12,
+                 a: 0.6
+             });
+ 
+@@ -368,9 +368,9 @@
+         
+             console.log("ControlBar");
+             
+-            this.buttonPLAY 	= new ControlBarTextButton(inParent, offsetX, 	offsetY, 100, 40, "Launch", 0x00FF00ff, 0xFFFFFFff, 0xFF0000ff, this.launchApplication);
+-            this.buttonPAUSE 	= new ControlBarTextButton(inParent, offsetX + 120, 	offsetY, 100, 40, "Suspend", 0xFFFF66ff, 0xFFFFFFff, 0xFF0000ff, this.suspendApplication);
+-            this.buttonSTOP 	= new ControlBarTextButton(inParent, offsetX + 240, 	offsetY, 100, 40, "Stop", 0xFF0000ff, 0xFFFFFFff, 0xFF0000ff, this.stopApplication);
++            this.buttonPLAY 	= new ControlBarTextButton(inParent, offsetX - 100, 	offsetY - 20, 100, 40, "Launch", 0x00FF00ff, 0xFFFFFFff, 0xFF0000ff, this.launchApplication);
++            this.buttonPAUSE 	= new ControlBarTextButton(inParent, offsetX + 20, 	offsetY - 20, 100, 40, "Suspend", 0xFFFF66ff, 0xFFFFFFff, 0xFF0000ff, this.suspendApplication);
++            this.buttonSTOP 	= new ControlBarTextButton(inParent, offsetX + 140, 	offsetY - 20, 100, 40, "Stop", 0xFF0000ff, 0xFFFFFFff, 0xFF0000ff, this.stopApplication);
+             
+             this.focused = true;
+             this.focusedButton 	= this.buttonPLAY;
+@@ -532,7 +532,7 @@
+ 
+        controlBarScene = scene.create({ t: "object", x: 500, y: 0, w: 400, h: 50, parent:menu });
+        var insets = {l: 10, r: 10, t: 10, b: 10};
+-       controlBar = new ControlBar(0, 0, 360, 60, controlBarScene);
++       controlBar = new ControlBar(-100, -20, 360, 60, controlBarScene);
+ 
+        select = scene.create({
+             t: "rect",

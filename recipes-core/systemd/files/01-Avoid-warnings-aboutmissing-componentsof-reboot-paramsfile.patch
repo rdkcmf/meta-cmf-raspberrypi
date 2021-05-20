@@ -1,0 +1,37 @@
+From: pnandyala <pavan.nandyala@lnttechservices.com>
+Date: Mon Sep 17 14:42:31 2018 +0000
+
+Subject: REFPLTV-218: Reboot -f is giving Failed to read reboot parameter file: No such file or directory
+
+Reason for change: Need to introduce condition to avoid warnings
+about missing of reboot-paramsfile.
+Test Procedure: After reboot -f it should not show any warning message.
+Risks:None.
+
+Source: RDK-Community
+---
+
+diff -Naur a/src/core/shutdown.c b/git/src/core/shutdown.c
+--- a/src/core/shutdown.c	2018-09-17 12:23:53.885979642 +0000
++++ b/src/core/shutdown.c	2018-09-17 12:26:08.411725084 +0000
+@@ -398,7 +398,7 @@
+                         _cleanup_free_ char *param = NULL;
+ 
+                         r = read_one_line_file("/run/systemd/reboot-param", &param);
+-                        if (r < 0)
++                        if (r < 0 && r != -ENOENT)
+                                 log_warning_errno(r, "Failed to read reboot parameter file: %m");
+ 
+                         if (!isempty(param)) {
+diff -Naur a/src/systemctl/systemctl.c b/src/systemctl/systemctl.c
+--- a/src/systemctl/systemctl.c	2018-09-17 12:23:53.869979912 +0000
++++ b/src/systemctl/systemctl.c	2018-09-17 12:26:08.391725419 +0000
+@@ -7528,7 +7528,7 @@
+                 _cleanup_free_ char *param = NULL;
+ 
+                 r = read_one_line_file("/run/systemd/reboot-param", &param);
+-                if (r < 0)
++                if (r < 0 && r != -ENOENT)
+                         log_warning_errno(r, "Failed to read reboot parameter file: %m");
+ 
+                 if (!isempty(param)) {

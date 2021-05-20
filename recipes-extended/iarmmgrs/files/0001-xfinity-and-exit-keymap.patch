@@ -1,0 +1,33 @@
+From: pnandyala <pavan.nandyala@lnttechservices.com>
+Subject: TS-16 : For a single IR key press, double action takes place
+
+Reason for change: Need to add this change to support xfinity and
+exit keycodes in rpi platform
+Test Procedure: Keys should be handled by irmgr
+Risks: none
+
+Source: RDK-Community
+---
+
+diff -Naur git/hal/include/comcastIrKeyCodes.h git-new/hal/include/comcastIrKeyCodes.h
+--- git/hal/include/comcastIrKeyCodes.h	2019-09-06 15:05:01.493392186 +0000
++++ git-new/hal/include/comcastIrKeyCodes.h	2019-09-06 15:07:00.286269790 +0000
+@@ -104,7 +104,7 @@
+ #define KED_ARROWRIGHT	  	0x00000084UL
+ #define KED_SELECT		    0x00000085UL
+ #define KED_ENTER		    0x00000086UL
+-#define KED_EXIT	  	    0x00000087UL
++#define KED_EXIT	  	    0x0013002aUL
+ #define KED_CHANNELUP	  	0x00000088UL
+ #define KED_CHANNELDOWN	  	0x00000089UL
+ #define KED_VOLUMEUP	  	0x0000008AUL
+@@ -151,7 +151,7 @@
+ #define KED_TVPOWER		    0x000000C1UL	// Alt remote
+ #define KED_PREVIOUS		0x000000C3UL	// Alt remote
+ #define KED_NEXT		    0x000000C4UL	// Alt remote
+-#define KED_MENU       		0x000000C0UL	// Alt remote
++#define KED_MENU       		0x001d0020UL	// Alt remote
+ #define KED_INPUTKEY		0x000000D0UL	//
+ #define KED_LIVE		    0x000000D1UL	//
+ #define KED_MYDVR		    0x000000D2UL	//
+

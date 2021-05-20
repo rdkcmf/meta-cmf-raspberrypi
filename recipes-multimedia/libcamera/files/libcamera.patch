@@ -1,0 +1,28 @@
+From: gnanesha gowda <gnanesha.gowda@ltts.com>
+Date: Mon Jan 18 16:22:01 2021 +0000
+
+Subject: REFPLTCAM-106:fixing zoom issue observed on libcamerasrc video capture
+
+REFPLTCAM-107:crash observed during capturing video using libcamerasrc after 40+ seconds of capture
+
+Reason for change: Added for fixing the zoomand crash issue while validating REFPLTCAM 68
+Test Procedure: Able to record video without without zoom and crash. Risks: None
+
+Signed-off-by: gnanesha gowda <gnanesha.gowda@ltts.com>
+---
+
+--- git/src/libcamera/pipeline/raspberrypi/raspberrypi.cpp	2021-01-18 15:23:58.593175792 +0000
++++ git1/src/libcamera/pipeline/raspberrypi/raspberrypi.cpp	2021-01-18 15:27:21.059595568 +0000
+@@ -110,7 +110,11 @@
+ 			else if (info.bitsPerPixel == 8)
+ 				score += PENALTY_8BIT;
+ 
+-			if (score <= bestScore) {
++#if defined( ENABLE_LIBCAMERA_RPI_CONFIG )
++			if( (modeWidth == 1640 && modeHeight == 1232) && (v4l2Format.toString() == "pRAA") ){
++#else
++ 			if (score <= bestScore) {
++#endif
+ 				bestScore = score;
+ 				bestMode.fourcc = v4l2Format;
+ 				bestMode.size = Size(modeWidth, modeHeight);

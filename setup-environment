@@ -1,0 +1,131 @@
+#!/usr/bin/env bash
+##########################################################################
+# If not stated otherwise in this file or this component's Licenses.txt
+# file the following copyright and licenses apply:
+#
+# Copyright 2021 RDK Management
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+##########################################################################
+unset _RDK_FLAVOR
+
+TOP_DIR=$(pwd)
+export RDK_BSP_LAYER=none
+
+# default BSP layer is meta-cmf-raspberrypi for R-PI builds
+export RDK_BSP_LAYER=meta-cmf-raspberrypi
+
+if [ -d $TOP_DIR/meta-cmf ] && [ -z "$(echo $MACHINE | grep -- -rdk-broadband)" ]; then
+    # add RDK WPE targets to conf file
+    # this step has to be added before calling meta-cmf/setup-environment
+    # so that the target is displayed to the user
+    if [ $(grep -c 'rdk-generic-mediaclient-wpe-image' $TOP_DIR/meta-rdk/conf/conf-notes.txt) -eq 0 ]; then
+        sed -i -e "/rdk-generic-mediaclient-image/a \ \ \ \ rdk-generic-mediaclient-wpe-image" $TOP_DIR/meta-rdk/conf/conf-notes.txt
+    fi
+    if [ $(grep -c 'rdk-generic-hybrid-wpe-image' $TOP_DIR/meta-rdk/conf/conf-notes.txt) -eq 0 ]; then
+        sed -i -e "/rdk-generic-hybrid-image/a \ \ \ \ rdk-generic-hybrid-wpe-image" $TOP_DIR/meta-rdk/conf/conf-notes.txt
+    fi
+    if [ $(grep -c 'rdk-generic-hybrid-wpe-lxc-image' $TOP_DIR/meta-rdk/conf/conf-notes.txt) -eq 0 ]; then
+        sed -i -e "/rdk-generic-hybrid-wpe-image/a \ \ \ \ rdk-generic-hybrid-wpe-lxc-image" $TOP_DIR/meta-rdk/conf/conf-notes.txt
+    fi
+    if [ $(grep -c 'rdk-generic-hybrid-refapp-image' $TOP_DIR/meta-rdk/conf/conf-notes.txt) -eq 0 ]; then
+        sed -i -e "/rdk-generic-hybrid-wpe-image/a \ \ \ \ rdk-generic-hybrid-refapp-image" $TOP_DIR/meta-rdk/conf/conf-notes.txt
+    fi
+    if [ $(grep -c 'rdk-generic-hybrid-dtv-image' $TOP_DIR/meta-rdk/conf/conf-notes.txt) -eq 0 ]; then
+        sed -i -e "/rdk-generic-hybrid-wpe-image/a \ \ \ \ rdk-generic-hybrid-dtv-image" $TOP_DIR/meta-rdk/conf/conf-notes.txt
+    fi
+fi
+
+source meta-cmf/setup-environment
+if [ $? -ne 0 ]; then
+    return 1
+fi
+
+# at this point the current directory should be the build dir
+BUILD_DIR=$(pwd)
+
+if [[ -z $(grep 'meta-cmf-raspberrypi' conf/bblayers.conf) ]] && [[ -d  ../meta-cmf-raspberrypi ]]
+then
+    cat >> conf/bblayers.conf <<EOF
+BBLAYERS =+ "\${RDKROOT}/meta-cmf-raspberrypi"
+EOF
+fi
+
+# Add meta-raspberrypi only if not already present.
+if [[ $(grep '^BBLAYERS' conf/bblayers.conf | grep -c 'meta-raspberrypi') -eq 0 ]] && [[ -d  ../meta-raspberrypi ]]
+then
+    cat >> conf/bblayers.conf <<EOF
+BBLAYERS =+ "\${RDKROOT}/meta-raspberrypi"
+EOF
+fi
+
+# Add meta-cmf-raspberrypi-restricted only if not already present.
+if [[ $(grep '^BBLAYERS' conf/bblayers.conf | grep -c 'meta-cmf-raspberrypi-restricted') -eq 0 ]] && [[ -d  ../meta-cmf-raspberrypi-restricted ]]
+then
+    cat >> conf/bblayers.conf <<EOF
+BBLAYERS =+ "\${RDKROOT}/meta-cmf-raspberrypi-restricted"
+EOF
+fi
+
+# ${_RDK_FLAVOR} value should be available from meta-rdk/setup-environment
+# Hack: sometimes _RDK_FLAVOR doesn't seem to persist in the environment.
+if [ -z "$_RDK_FLAVOR" ]; then
+    if [[ ! -z $(grep 'rdkv' conf/local.conf) ]]
+    then
+        _RDK_FLAVOR="rdkv"
+    elif [[ ! -z $(grep 'rdkc' conf/local.conf) ]]
+    then
+        _RDK_FLAVOR="rdkc"
+    else
+        _RDK_FLAVOR="rdkb"
+    fi
+fi
+
+# Add meta-dvb only if not already present for RDK-V
+if [ "${_RDK_FLAVOR}" = "rdkv" ]
+then
+    if [[ $(grep '^BBLAYERS' conf/bblayers.conf | grep -c 'meta-dvb') -eq 0 ]] && [[ -d  ../meta-dvb ]]
+    then
+        cat >> conf/bblayers.conf <<EOF
+BBLAYERS =+ "\${RDKROOT}/meta-dvb"
+EOF
+    fi
+fi
+
+# Add meta-rtlwifi only if not already present for RDK-V
+if [ "${_RDK_FLAVOR}" = "rdkb" ]
+then
+    if [[ $(grep '^BBLAYERS' conf/bblayers.conf | grep -c 'meta-rtlwifi') -eq 0 ]] && [[ -d  ../meta-rtlwifi ]]
+    then
+        cat >> conf/bblayers.conf <<EOF
+BBLAYERS =+ "\${RDKROOT}/meta-rtlwifi"
+EOF
+    fi
+fi
+
+
+# replace RDK FLAVOR to set BBMASKS
+sed -e "s|##RDK_FLAVOR##|${_RDK_FLAVOR}|g" -i $TOP_DIR/meta-cmf-raspberrypi/conf/layer.conf
+
+if [ "$BUILD_FOR_UBOOT" = "1" ]; then
+     echo "KERNEL_IMAGETYPE = \"uImage\"" >> conf/local.conf
+     echo "RPI_USE_U_BOOT = \"1\"" >> conf/local.conf
+     unset BUILD_FOR_UBOOT
+fi
+
+if [ "${RDK_ENABLE_REFERENCE_IMAGE}" = "y" ]; then
+    if [ $(grep conf/local.conf -c -e 'reference.inc') -eq 0 ]; then
+        echo "require conf/distro/include/reference.inc" >>  conf/local.conf
+        echo "export RDK_ENABLE_REFERENCE_IMAGE = \"y\"" >> conf/local.conf
+    fi
+fi

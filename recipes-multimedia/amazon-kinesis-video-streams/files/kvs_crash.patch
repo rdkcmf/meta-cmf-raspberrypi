@@ -1,0 +1,46 @@
+From: e.savidha <e.savidha@ltts.com>
+Date: Tue Oct 27 06:23:16 2020 +0000
+
+Subject: REFPLTCAM-69: CVR functionality not working with RPi 3 board
+
+Reason for change: Resolved CVR core dump issue in RPI3 target
+Test Procedure: CVR functionality should work with kvssink plugin.
+Risks: None
+
+Signed-off-by: e.savidha <e.savidha@ltts.com>
+---
+
+--- git/kinesis-video-pic/src/view/src/ContentView.c	2020-11-25 15:25:11.232747548 +0000
++++ git_modify/kinesis-video-pic/src/view/src/ContentView.c	2020-11-25 15:44:55.336508692 +0000
+@@ -647,6 +647,7 @@
+ 
+ CleanUp:
+ 
++#if !defined ( KVS_PLATFORM_RPI )
+     // Set the values
+     if (pCurrentDuration != NULL) {
+         *pCurrentDuration = currentDuration;
+@@ -655,6 +656,7 @@
+     if (pWindowDuration != NULL) {
+         *pWindowDuration = windowDuration;
+     }
++#endif /* KVS_PLATFORM_RPI */
+ 
+     LEAVES();
+     return retStatus;
+@@ -744,6 +746,7 @@
+ 
+ CleanUp:
+ 
++#if !defined ( KVS_PLATFORM_RPI )
+     // Set the values
+     if (pCurrentAllocationSize != NULL) {
+         *pCurrentAllocationSize = currentAllocationSize;
+@@ -752,6 +755,7 @@
+     if (pWindowAllocationSize != NULL) {
+         *pWindowAllocationSize = windowAllocationSize;
+     }
++#endif /* KVS_PLATFORM_RPI */
+ 
+     LEAVES();
+     return retStatus;

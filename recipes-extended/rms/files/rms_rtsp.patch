@@ -1,0 +1,33 @@
+From: e.savidha <e.savidha@ltts.com>
+Date: Tue Dec 1 13:01:14 2020 +0000
+
+Subject: REFPLTCAM-89: Support RTSP streaming in RMS.
+
+Reason for change: Enabled RTSP streaming in rms component.
+Test Procedure: Able to play live streaming content in VLC player.
+                RPI target and local PC should be in same network.
+Risks: None
+
+Signed-off-by: e.savidha <e.savidha@ltts.com>
+---
+
+--- git/builders/make2/CCdist/rms/config/config.lua	2020-12-01 10:25:05.121193519 +0000
++++ git_modify/builders/make2/CCdist/rms/config/config.lua	2020-12-01 10:27:19.265293495 +0000
+@@ -118,14 +118,14 @@
+ 					protocol="inboundBinVariant",
+ 					clustering=true
+ 				},
+-
++	]]--
+ 				-- RTSP
+ 				{
+-					ip="127.0.0.1",
++					ip="0.0.0.0",
+ 					port=5544,
+ 					protocol="inboundRtsp",
+ 				},
+-
++	--[[
+ 				-- LiveFLV ingest
+ 				{
+ 					ip="127.0.0.1",

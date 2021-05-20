@@ -1,0 +1,12 @@
+[Unit]
+Description=Parodus
+After=multi-user.target update-device-details.service update-reboot-info.service
+Requires=wpa_supplicant.service
+
+[Service]
+ExecStart=/bin/sh -c '(/lib/rdk/startParodus.sh)' &
+Type=forking
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

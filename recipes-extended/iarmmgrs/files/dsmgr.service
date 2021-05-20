@@ -1,0 +1,19 @@
+[Unit]
+Description=IARM Mgr Daemon DS MGR
+After=lighttpd.service iarmbusd.service sysmgr.service
+#OnFailure=reboot-notifier@%i.service
+
+[Service]
+#ExecStartPre=/bin/mkdir -p /opt/persistent/ds
+Type=notify
+NotifyAccess=all
+# dsmgr.conf is processed on boot but /dev/vchiq seems to be overriden by another
+# process, forcing it here again without using chmod
+ExecStartPre=/bin/systemd-tmpfiles --create dsmgr.conf
+ExecStart=/container/PLATFORMCONTROL/launcher/platformcontrol.sh dsmgr
+KillSignal=SIGKILL
+KillMode=process
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

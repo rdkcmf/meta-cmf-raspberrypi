@@ -1,0 +1,21 @@
+[Unit]
+Description=RMF Streamer
+After=lighttpd.service network-online.target rmfstreamer.service westeros.service
+Requires=network-online.target rmfstreamer.service lighttpd.service
+
+[Service]
+WorkingDirectory=/usr/bin
+
+#Introducing environment setting required to communicate with westeros
+EnvironmentFile=-/etc/default/westeros-env
+
+#runnig wizardkit on hybrid box
+ExecStart=/usr/bin/WPELauncher http://127.0.0.1/wizardkit/ui/guide.html
+#running wizardkit on client box
+#ExecStart=/usr/bin/WPELauncher http://127.0.0.1/wizardkit/ui/guide.html
+#running youtube on either hybrid or client box
+#ExecStart=/usr/bin/WPELauncher http://youtube.tv
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

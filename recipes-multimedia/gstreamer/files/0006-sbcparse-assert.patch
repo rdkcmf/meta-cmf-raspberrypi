@@ -1,0 +1,34 @@
+From: Simon Chung <simon.c.chung@accenture.com>
+Date: Mon Dec 23 14:40:41 2019 +0000
+
+Subject: Port bluetooth changes
+
+From Comcast meta-raspberrypi stable2_morty branch.
+
+RDK-25104, RDKPI-263 : Avoid assertion failures
+Reason for change: Facing assertion failures for map size less than 6 when doing sbcparse
+Test Procedure: Make sure Bluetooth Audio In feature works fine for pi
+Risks: Medium
+Signed-off-by: jkuria002c <Josekutty_Kuriakose@cable.comcast.com>
+---
+
+Index: gst-plugins-good-1.10.4/gst/audioparsers/gstsbcparse.c
+===================================================================
+--- gst-plugins-good-1.10.4.orig/gst/audioparsers/gstsbcparse.c
++++ gst-plugins-good-1.10.4/gst/audioparsers/gstsbcparse.c
+@@ -192,7 +192,14 @@ gst_sbc_parse_handle_frame (GstBaseParse
+ 
+   gst_buffer_map (frame->buffer, &map, GST_MAP_READ);
+ 
++#if 0
++  /* Original Code */
+   g_assert (map.size >= 6);
++#else
++  /* Modified Code */
++  if (map.size < 6)
++    GST_WARNING_OBJECT (parse, "AVOID ASSERT - map.size = %d", map.size);
++#endif
+ 
+   frame_len = gst_sbc_parse_header (map.data, &rate, &n_blocks, &ch_mode,
+       &alloc_method, &n_subbands, &bitpool);
+

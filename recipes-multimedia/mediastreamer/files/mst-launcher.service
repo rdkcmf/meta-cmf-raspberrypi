@@ -1,0 +1,11 @@
+[Unit]
+Description=Mediastreamer
+After=multi-user.target
+
+[Service]
+ExecStart=/bin/sh -c '(/lib/rdk/startMST.sh)' &
+Type=forking
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,30 @@
+From: pnandyala <pavan.nandyala@lnttechservices.com>
+Date: Wed Jun 20 10:09:37 2018 +0000
+
+Subject: REFPLTV-182 : appmanager issue in raspberry pi video image
+
+Reason for change: Need to add this patch to handle KEY_MENU
+key code 139 in sparks application for Xfinity remote to work
+Test Procedure: Xfinity Remote 139 key should be handled
+Risks: None
+
+Signed-off-by: pnandyala <pavan.nandyala@lnttechservices.com>
+---
+
+diff --git a/src/pxWindowUtil.cpp b/src/pxWindowUtil.cpp
+index f13b4176e..e82579d22 100644
+--- a/src/pxWindowUtil.cpp
++++ b/src/pxWindowUtil.cpp
+@@ -397,8 +400,9 @@ uint32_t keycodeFromNative(uint32_t nativeKeycode)
+ 
+   default:
+     //TODO move rtLog support to pxCore so we can use here
+-    printf("pxWindowUtils: Unhandled keycode %d\n", nativeKeycode);
+-    break;
++   printf("pxWindowUtils: Unhandled keycode %d\n", nativeKeycode);
++   commonKeycode = nativeKeycode; 
++   break;
+   }
+   return commonKeycode;
+ }
+

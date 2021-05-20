@@ -1,0 +1,51 @@
+From 460d5d59df45c37af24639e57faae74cf306cc18 Mon Sep 17 00:00:00 2001
+From: Simon Chung <simon.c.chung@accenture.com>
+Date: Mon, 4 Sep 2017 14:37:23 +0100
+Subject: [PATCH] Nettle add aarch64 support
+
+---
+ config.guess | 7 +++++++
+ config.sub   | 2 ++
+ 2 files changed, 9 insertions(+)
+
+diff --git a/config.guess b/config.guess
+index f7dd69e..ffafdee 100755
+--- a/config.guess
++++ b/config.guess
+@@ -860,6 +860,13 @@ EOF
+     i*86:Minix:*:*)
+ 	echo ${UNAME_MACHINE}-pc-minix
+ 	exit ;;
++    aarch64:Linux:*:*)
++    echo ${UNAME_MACHINE}-unknown-linux-${LIBC}
++    exit ;;
++    aarch64_be:Linux:*:*)
++    UNAME_MACHINE=aarch64_be
++    echo ${UNAME_MACHINE}-unknown-linux-${LIBC}
++    exit ;;
+     alpha:Linux:*:*)
+ 	case `sed -n '/^cpu model/s/^.*: \(.*\)/\1/p' < /proc/cpuinfo` in
+ 	  EV5)   UNAME_MACHINE=alphaev5 ;;
+diff --git a/config.sub b/config.sub
+index da19a88..73e58b2 100755
+--- a/config.sub
++++ b/config.sub
+@@ -247,6 +247,7 @@ case $basic_machine in
+ 	# Some are omitted here because they have special meanings below.
+ 	1750a | 580 \
+ 	| a29k \
++	| aarch64 | aarch64_be \
+ 	| alpha | alphaev[4-8] | alphaev56 | alphaev6[78] | alphapca5[67] \
+ 	| alpha64 | alpha64ev[4-8] | alpha64ev56 | alpha64ev6[78] | alpha64pca5[67] \
+ 	| am33_2.0 \
+@@ -354,6 +355,7 @@ case $basic_machine in
+ 	# Recognize the basic CPU types with company name.
+ 	580-* \
+ 	| a29k-* \
++	| aarch64-* | aarch64_be-* \
+ 	| alpha-* | alphaev[4-8]-* | alphaev56-* | alphaev6[78]-* \
+ 	| alpha64-* | alpha64ev[4-8]-* | alpha64ev56-* | alpha64ev6[78]-* \
+ 	| alphapca5[67]-* | alpha64pca5[67]-* | arc-* \
+-- 
+2.8.3
+

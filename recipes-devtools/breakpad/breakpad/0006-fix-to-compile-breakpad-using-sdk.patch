@@ -1,0 +1,30 @@
+From: Immaneni.Kanthikiran <Immaneni.Kanthikiran@lnttechservices.com>
+Date: Mon May 27 06:14:22 2019 +0000
+
+Subject: REFPLTV-229: Unable to build RNE Image due to sysint installation failure
+
+Reason for change:Added necessary changes to build an RNE image.
+Test Procedure:Build should get success.
+Risks:None
+
+Signed-off-by: Immaneni.Kanthikiran <Immaneni.Kanthikiran@lnttechservices.com>
+---
+
+--- a/src/google_breakpad/common/breakpad_types.h	2019-05-24 12:47:02.035456230 +0000
++++ b/src/google_breakpad/common/breakpad_types.h	2019-05-24 12:56:30.368328694 +0000
+@@ -39,13 +39,13 @@
+ 
+ #ifndef GOOGLE_BREAKPAD_COMMON_BREAKPAD_TYPES_H__
+ #define GOOGLE_BREAKPAD_COMMON_BREAKPAD_TYPES_H__
+-
++/*
+ #if (defined(_INTTYPES_H) || defined(_INTTYPES_H_)) && \
+     !defined(__STDC_FORMAT_MACROS)
+ #error "inttypes.h has already been included before this header file, but "
+ #error "without __STDC_FORMAT_MACROS defined."
+ #endif
+-
++*/
+ #ifndef __STDC_FORMAT_MACROS
+ #define __STDC_FORMAT_MACROS
+ #endif  /* __STDC_FORMAT_MACROS */

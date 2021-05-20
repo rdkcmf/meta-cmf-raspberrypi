@@ -1,0 +1,13 @@
+[Unit]
+Description=IARM Mgr Daemon SYS MGR
+After=lighttpd.service iarmbusd.service
+
+[Service]
+Type=notify
+ExecStart=/container/PLATFORMCONTROL/launcher/platformcontrol.sh start
+KillSignal=SIGKILL
+KillMode=process
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

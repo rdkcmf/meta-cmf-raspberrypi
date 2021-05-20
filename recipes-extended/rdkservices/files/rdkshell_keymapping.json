@@ -1,0 +1,20 @@
+{
+  "keyMappings": [
+    { "keyCode": 1, "mapped": { "keyCode": 8, "modifiers": [] }},
+    { "keyCode": 50, "mapped": { "keyCode": 27, "modifiers": [] }},
+    { "keyCode": 62, "mapped": { "keyCode": 69, "modifiers": ["ctrl"] }},
+    { "keyCode": 111, "mapped": { "keyCode": 76, "modifiers": ["ctrl"] }},
+    { "keyCode": 110, "mapped": { "keyCode": 77, "modifiers": ["ctrl"] }},
+    { "keyCode": 68, "mapped": { "keyCode": 87, "modifiers": ["ctrl"] }},
+    { "keyCode": 87, "mapped": { "keyCode": 80, "modifiers": ["ctrl"] }},
+    { "keyCode": 88, "mapped": { "keyCode": 70, "modifiers": ["ctrl"] }},
+    { "keyCode": 102, "mapped": { "keyCode": 27, "modifiers": [] }},
+    { "keyCode": 55, "mapped": { "keyCode": 173, "modifiers": [] }},
+    { "keyCode": 74, "mapped": { "keyCode": 174, "modifiers": [] }},
+    { "keyCode": 78, "mapped": { "keyCode": 175, "modifiers": [] }},
+    { "keyCode": 185, "mapped": { "keyCode": 27, "modifiers": [] }},
+    { "keyCode": 172, "mapped": { "keyCode": 36, "modifiers": [] }},
+    { "keyCode": 158, "mapped": { "keyCode": 76, "modifiers": ["ctrl"] }},
+    { "keyCode": 353, "mapped": { "keyCode": 13, "modifiers": [] }}
+  ]
+}

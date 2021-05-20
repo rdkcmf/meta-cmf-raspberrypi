@@ -1,0 +1,15 @@
+[Unit]
+Description=IARM Mgr Daemon IR MGR
+After=lighttpd.service iarmbusd.service rf4ce.service sysmgr.service
+
+[Service]
+Type=notify
+NotifyAccess=all
+ExecStart=/container/PLATFORMCONTROL/launcher/platformcontrol.sh irmgr
+KillSignal=SIGKILL
+KillMode=process
+
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

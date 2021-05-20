@@ -1,0 +1,18 @@
+From: rakesh <rakesh.jain@cognizant.com>
+Date: Thu Jul 28 12:26:12 2016 +0530
+
+Subject: RDKCMF-4053 Integrating LIRC with WPE browser
+---
+
+--- lirc-0.9.2/daemons/lircd.c	2016-07-28 10:24:01.466939312 +0530
++++ lirc-0.9.2/daemons/lircd.c_mod	2016-07-27 17:13:53.152694463 +0530
+@@ -318,7 +318,8 @@
+ /* Use already opened hardware? */
+ int use_hw()
+ {
+-	return (clin > 0 || (useuinput && uinputfd != -1) || repeat_remote != NULL);
++	//return (clin > 0 || (useuinput && uinputfd != -1) || repeat_remote != NULL);
++	return (clin > 0  || repeat_remote != NULL);
+ }
+ 
+ /* set_transmitters only supports 32 bit int */

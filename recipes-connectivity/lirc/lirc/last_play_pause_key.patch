@@ -1,0 +1,36 @@
+From: Bannaravoori Trinod <Bannaravoori.trinod@lnttechservices.com>
+Date: Fri Apr 27 18:06:29 2018 +0530
+
+Subject: REFPLTV-135: Adding play_pause and Last key functionalities to LIRC
+
+Reason for change: Adding support for play_pause and last key functionalities. Also added old lirc config file for key codes.
+
+Testing procedure: Launch WPELaunher upon booting and can verify the above button functionalities.
+
+Risks involved: None
+
+Signed-off-by: Bannaravoori Trinod <Bannaravoori.trinod@lnttechservices.com>
+---
+
+diff --git lirc-0.9.2/lib/lirc/input_map_org.inc lirc-0.9.2/lib/lirc/input_map.inc
+index d10baf5..471f797 100644
+--- lirc-0.9.2/lib/lirc/input_map_org.inc
++++ lirc-0.9.2/lib/lirc/input_map.inc
+@@ -227,7 +227,7 @@
+ {"KEY_KPSLASH", 98},
+ {"KEY_L", 38},
+ {"KEY_LANGUAGE", 0x170},
+-{"KEY_LAST", 0x195},
++{"KEY_LAST", 174},
+ {"KEY_LEFT", 105},
+ {"KEY_LEFTALT", 56},
+ {"KEY_LEFTBRACE", 26},
+@@ -286,7 +286,7 @@
+ {"KEY_PAUSECD", 201},
+ {"KEY_PC", 0x178},
+ {"KEY_PHONE", 169},
+-{"KEY_PLAY", 207},
++{"KEY_PLAY", 28},
+ {"KEY_PLAYCD", 200},
+ {"KEY_PLAYER", 0x183},
+ {"KEY_PLAYPAUSE", 164},

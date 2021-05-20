@@ -1,0 +1,12 @@
+[Unit]
+Description=RMS
+After=multi-user.target mst-launcher.service
+Requires=wpa_supplicant.service mst-launcher.service
+
+[Service]
+ExecStart=/bin/sh -c '(/lib/rdk/startRMS.sh)' &
+Type=forking
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

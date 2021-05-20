@@ -1,0 +1,9 @@
+[Unit]
+Description=Check RPI Wifi Support Initialized Path
+
+[Path]
+PathExists=/tmp/pam_initialized
+Unit=checkrpiwifisupport.service
+
+[Install]
+WantedBy=multi-user.target

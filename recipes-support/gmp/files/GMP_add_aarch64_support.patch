@@ -1,0 +1,95 @@
+From: Simon Chung <simon.c.chung@accenture.com>
+Date: Mon Sep 4 14:59:38 2017 +0100
+
+Subject: RDKBCMF-128 Add aarch64 build support to nettle 2.7.1 and gmp 4.2.1
+---
+
+diff -aNurdw --binary --exclude='.git*' --exclude=.DEPS.git gmp-4.2.1.orig/configfsf.guess gmp-4.2.1.new/configfsf.guess
+--- gmp-4.2.1.orig/configfsf.guess	2006-03-14 15:57:54.000000000 +0000
++++ gmp-4.2.1.new/configfsf.guess	2017-08-25 18:01:27.000000000 +0100
+@@ -901,6 +901,13 @@
+     ppc:Linux:*:*)
+ 	echo powerpc-unknown-linux-gnu
+ 	exit 0 ;;
++    aarch64:Linux:*:*)
++    echo ${UNAME_MACHINE}-unknown-linux-${LIBC}
++    exit ;;
++    aarch64_be:Linux:*:*)
++    UNAME_MACHINE=aarch64_be
++    echo ${UNAME_MACHINE}-unknown-linux-${LIBC}
++    exit ;;
+     ppc64:Linux:*:*)
+ 	echo powerpc64-unknown-linux-gnu
+ 	exit 0 ;;
+diff -aNurdw --binary --exclude='.git*' --exclude=.DEPS.git gmp-4.2.1.orig/configfsf.sub gmp-4.2.1.new/configfsf.sub
+--- gmp-4.2.1.orig/configfsf.sub	2006-03-14 15:57:54.000000000 +0000
++++ gmp-4.2.1.new/configfsf.sub	2017-08-25 18:04:56.000000000 +0100
+@@ -227,6 +227,7 @@
+ 	# Some are omitted here because they have special meanings below.
+ 	1750a | 580 \
+ 	| a29k \
++	| aarch64 | aarch64_be \
+ 	| alpha | alphaev[4-8] | alphaev56 | alphaev6[78] | alphapca5[67] \
+ 	| alpha64 | alpha64ev[4-8] | alpha64ev56 | alpha64ev6[78] | alpha64pca5[67] \
+ 	| am33_2.0 \
+@@ -293,6 +294,7 @@
+ 	# Recognize the basic CPU types with company name.
+ 	580-* \
+ 	| a29k-* \
++	| aarch64-* | aarch64_be-* \
+ 	| alpha-* | alphaev[4-8]-* | alphaev56-* | alphaev6[78]-* \
+ 	| alpha64-* | alpha64ev[4-8]-* | alpha64ev56-* | alpha64ev6[78]-* \
+ 	| alphapca5[67]-* | alpha64pca5[67]-* | arc-* \
+diff -aNurdw --binary --exclude='.git*' --exclude=.DEPS.git gmp-4.2.1.orig/configure gmp-4.2.1.new/configure
+--- gmp-4.2.1.orig/configure	2006-05-04 17:50:26.000000000 +0100
++++ gmp-4.2.1.new/configure	2017-08-25 18:07:42.000000000 +0100
+@@ -2637,6 +2637,15 @@
+     ;;
+ 
+ 
++  arm64*-*-* | aarch64*-*-*)
++    # The compiler clang version 3.4 or earlier requires an explicit -mfpu=neon
++    # for out assembly code.  Since this compiler cloaks as gcc, we have to
++    # fake too.
++    gcc_cflags_maybe="-mfpu=neon"
++    path="arm64"
++    ;;
++
++
+   arm*-*-*)
+     path="arm"
+     gcc_cflags="$gcc_cflags $fomit_frame_pointer"
+diff -aNurdw --binary --exclude='.git*' --exclude=.DEPS.git gmp-4.2.1.orig/longlong.h gmp-4.2.1.new/longlong.h
+--- gmp-4.2.1.orig/longlong.h	2006-03-14 15:57:54.000000000 +0000
++++ gmp-4.2.1.new/longlong.h	2017-08-25 18:09:25.000000000 +0100
+@@ -498,6 +498,30 @@
+ #endif
+ #endif /* __arm__ */
+ 
++#if defined (__aarch64__) && W_TYPE_SIZE == 64
++/* FIXME: Extend the immediate range for the low word by using both
++   ADDS and SUBS, since they set carry in the same way.  */
++#define add_ssaaaa(sh, sl, ah, al, bh, bl) \
++  __asm__ ("adds\t%1, %x4, %5\n\tadc\t%0, %x2, %x3"     \
++     : "=r" (sh), "=&r" (sl)          \
++     : "rZ" ((UDItype)(ah)), "rZ" ((UDItype)(bh)),    \
++       "%r" ((UDItype)(al)), "rI" ((UDItype)(bl)) __CLOBBER_CC)
++#define sub_ddmmss(sh, sl, ah, al, bh, bl) \
++  __asm__ ("subs\t%1, %x4, %5\n\tsbc\t%0, %x2, %x3"     \
++     : "=r,r" (sh), "=&r,&r" (sl)         \
++     : "rZ,rZ" ((UDItype)(ah)), "rZ,rZ" ((UDItype)(bh)),    \
++       "r,Z"   ((UDItype)(al)), "rI,r"  ((UDItype)(bl)) __CLOBBER_CC)
++#define umul_ppmm(ph, pl, m0, m1) \
++  do {                  \
++    UDItype __m0 = (m0), __m1 = (m1);         \
++    __asm__ ("umulh\t%0, %1, %2" : "=r" (ph) : "r" (__m0), "r" (__m1)); \
++    (pl) = __m0 * __m1;             \
++  } while (0)
++#define count_leading_zeros(count, x)  count_leading_zeros_gcc_clz(count, x)
++#define count_trailing_zeros(count, x)  count_trailing_zeros_gcc_ctz(count, x)
++#define COUNT_LEADING_ZEROS_0 64
++#endif /* __aarch64__ */
++
+ #if defined (__clipper__) && W_TYPE_SIZE == 32
+ #define umul_ppmm(w1, w0, u, v) \
+   ({union {UDItype __ll;						\

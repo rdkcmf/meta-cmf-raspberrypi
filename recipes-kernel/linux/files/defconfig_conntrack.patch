@@ -1,0 +1,48 @@
+From: Rajesh Kumar <rajesh39.kumar39@cognizant.com>
+Date: Mon May 22 09:27:01 2017 +0530
+
+Subject: RPI-19 : [Broadband] TFTP log transfer is not happening with the erouter0 interface
+
+Reason for change:
+TFTP is not happening on erouter0 interface because erouter0 is firewall protected
+NF_CONNTRACK_TFTP module is not loaded automatically by linux kernel,so tftp connections
+initiated by gateway to external tftp server is not tracked.As erouter0 is firewall protected
+because of that TFTP ACK packet is getting dropped.
+Changes has been done to build NF_CONNTRACK_TFTP module with kernel image.
+Test Procedure:
+should be able to put file on tftp server located on WAN side using tftp command
+"tftp -l <local_file_name> -r <remote_file_name> -p <WAN TFTP server IP> 69"
+Risks: None
+Signed-off-by: Rajesh Kumar <Rajesh39.Kumar39@cognizant.com>
+---
+
+diff --git a/arch/arm/configs/bcm2709_defconfig b/arch/arm/configs/bcm2709_defconfig
+index ebd31a92fd0c..094e5c154052 100644
+--- a/arch/arm/configs/bcm2709_defconfig
++++ b/arch/arm/configs/bcm2709_defconfig
+@@ -110,14 +110,14 @@ CONFIG_IPV6_MROUTE=y
+ CONFIG_IPV6_MROUTE_MULTIPLE_TABLES=y
+ CONFIG_IPV6_PIMSM_V2=y
+ CONFIG_NETFILTER=y
+-CONFIG_NF_CONNTRACK=m
++CONFIG_NF_CONNTRACK=y
+ CONFIG_NF_CONNTRACK_ZONES=y
+ CONFIG_NF_CONNTRACK_EVENTS=y
+ CONFIG_NF_CONNTRACK_TIMESTAMP=y
+ CONFIG_NF_CT_PROTO_DCCP=m
+ CONFIG_NF_CT_PROTO_UDPLITE=m
+ CONFIG_NF_CONNTRACK_AMANDA=m
+-CONFIG_NF_CONNTRACK_FTP=m
++CONFIG_NF_CONNTRACK_FTP=y
+ CONFIG_NF_CONNTRACK_H323=m
+ CONFIG_NF_CONNTRACK_IRC=m
+ CONFIG_NF_CONNTRACK_NETBIOS_NS=m
+@@ -125,7 +125,7 @@ CONFIG_NF_CONNTRACK_SNMP=m
+ CONFIG_NF_CONNTRACK_PPTP=m
+ CONFIG_NF_CONNTRACK_SANE=m
+ CONFIG_NF_CONNTRACK_SIP=m
+-CONFIG_NF_CONNTRACK_TFTP=m
++CONFIG_NF_CONNTRACK_TFTP=y
+ CONFIG_NF_CT_NETLINK=m
+ CONFIG_NETFILTER_XT_SET=m
+ CONFIG_NETFILTER_XT_TARGET_CHECKSUM=m

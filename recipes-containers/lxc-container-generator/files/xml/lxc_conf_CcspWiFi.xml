@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+################################################################################
+# If not stated otherwise in this file or this component's Licenses.txt file the
+# following copyright and licenses apply:
+#
+# Copyright 2017 Liberty Global B.V.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+################################################################################
+-->
+<!-- XML CONFIGURATION FOR CCSPWIFI-->
+
+<CONTAINER  SandboxName="CCSPWIFI">
+    <LxcParams>
+        <LauncherName>CcspWifiSsp</LauncherName>
+        <ExecName>/usr/bin/CcspWifiSsp</ExecName>
+        <ExecParams>-subsys eRT.</ExecParams>
+        <SystemdNotify create="yes">
+            <PidFile>/var/tmp/CcspWifiSsp.pid</PidFile>
+        </SystemdNotify>
+        <StopFunction enable="true"></StopFunction>
+    </LxcParams>
+        <LxcConfig>
+        <UserName>ccspwifi</UserName>
+        <GroupName>ccspwifi</GroupName>
+        <CGroupSettings>
+            <DeviceCgroup>
+                <DevicesDeny>a</DevicesDeny>
+                <AllowDefaultDevices enable="yes"/>
+            </DeviceCgroup>
+        </CGroupSettings>
+            <Environment>
+               <Variable>DBUS_SESSION_BUS_ADDRESS=unix:path=/var/run/dbus/system_bus_socket</Variable>
+            </Environment>
+        <Network type="none"></Network>
+            <Dbus enable="true"></Dbus>
+        <Rootfs create="yes">
+        <MountPoints>
+<!-- /bin -->
+            <Entry type="file">
+                <Source>/bin/sh</Source>
+                <Destination>bin/sh</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/bin/CcspWifiSsp</Source>
+                <Destination>usr/bin/CcspWifiSsp</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/bin/syscfg_create</Source>
+                <Destination>usr/bin/syscfg_create</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/bin/syscfg</Source>
+                <Destination>usr/bin/syscfg</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/bin/touch</Source>
+                <Destination>bin/touch</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="dir">
+                <Source>/usr/ccsp/wifi/</Source>
+                <Destination>usr/ccsp/wifi/</Destination>
+                <Options>ro,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/ccsp/wifi/CcspDmLib.cfg</Source>
+                <Destination>CcspDmLib.cfg</Destination>
+                <Options>ro,bind,nosuid,nodev,noexec</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/ccsp/wifi/CcspWifi.cfg</Source>
+                <Destination>CcspWifi.cfg</Destination>
+                <Options>ro,bind,nosuid,nodev,noexec</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/ccsp/wifi/CcspWifiSsp</Source>
+                <Destination>usr/ccsp/wifi/CcspWifiSsp</Destination>
+                <Options>ro,bind,nosuid,nodev,noexec</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/ccsp/wifi/checkwifi.sh</Source>
+                <Destination>usr/ccsp/wifi/checkwifi.sh</Destination>
+                <Options>ro,bind,nosuid,nodev,noexec</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/ccsp/wifi/aphealth.sh</Source>
+                <Destination>usr/ccsp/wifi/aphealth.sh</Destination>
+                <Options>ro,bind,nosuid,nodev,noexec</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/ccsp/wifi/aphealth_log.sh</Source>
+                <Destination>usr/ccsp/wifi/aphealth_log.sh</Destination>
+                <Options>ro,bind,nosuid,nodev,noexec</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/ccsp/wifi/br0_ip.sh</Source>
+                <Destination>usr/ccsp/wifi/br0_ip.sh</Destination>
+                <Options>ro,bind,nosuid,nodev,noexec</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/ccsp/wifi/br106_addvlan.sh</Source>
+                <Destination>usr/ccsp/wifi/br106_addvlan.sh</Destination>
+                <Options>ro,bind,nosuid,nodev,noexec</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/ccsp/wifi/cosa_start_wifiagent.sh</Source>
+                <Destination>usr/ccsp/wifi/cosa_start_wifiagent.sh</Destination>
+                <Options>ro,bind,nosuid,nodev,noexec</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/ccsp/wifi/hostapd0.conf</Source>
+                <Destination>usr/ccsp/wifi/hostapd0.conf</Destination>
+                <Options>ro,bind,nosuid,nodev,noexec</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/ccsp/wifi/hostapd1.conf</Source>
+                <Destination>usr/ccsp/wifi/hostapd1.conf</Destination>
+                <Options>ro,bind,nosuid,nodev,noexec</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/ccsp/wifi/hostapd4.conf</Source>
+                <Destination>usr/ccsp/wifi/hostapd4.conf</Destination>
+                <Options>ro,bind,nosuid,nodev,noexec</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/ccsp/wifi/hostapd5.conf</Source>
+                <Destination>usr/ccsp/wifi/hostapd5.conf</Destination>
+                <Options>ro,bind,nosuid,nodev,noexec</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/ccsp/wifi/lfp.sh</Source>
+                <Destination>usr/ccsp/wifi/lfp.sh</Destination>
+                <Options>ro,bind,nosuid,nodev,noexec</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/ccsp/wifi/process_monitor_atom.sh</Source>
+                <Destination>usr/ccsp/wifi/process_monitor_atom.sh</Destination>
+                <Options>ro,bind,nosuid,nodev,noexec</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/ccsp/wifi/radio_param_def.cfg</Source>
+                <Destination>usr/ccsp/wifi/radio_param_def.cfg</Destination>
+                <Options>ro,bind,nosuid,nodev,noexec</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/ccsp/wifi/wifiTelemetrySetup.sh</Source>
+                <Destination>usr/ccsp/wifi/wifiTelemetrySetup.sh</Destination>
+                <Options>ro,bind,nosuid,nodev,noexec</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/ccsp/wifi/wifivAPPercentage.sh</Source>
+                <Destination>usr/ccsp/wifi/wifivAPPercentage.sh</Destination>
+                <Options>ro,bind,nosuid,nodev,noexec</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/bin/wc</Source>
+                <Destination>usr/bin/wc</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/bin/cut</Source>
+                <Destination>usr/bin/cut</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/bin/tr</Source>
+                <Destination>usr/bin/tr</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/sbin/iw</Source>
+                <Destination>usr/sbin/iw</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/sbin/hostapd_cli</Source>
+                <Destination>usr/sbin/hostapd_cli</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/sbin/hostapd</Source>
+                <Destination>usr/sbin/hostapd</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+
+<!-- /sbin -->
+            <Entry type="file">
+                <Source>/sbin/ifconfig</Source>
+                <Destination>sbin/ifconfig</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/sbin/iwconfig</Source>
+                <Destination>sbin/iwconfig</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/sbin/ifconfig</Source>
+                <Destination>sbin/ifconfig</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/sbin/iwlist</Source>
+                <Destination>sbin/iwlist</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+
+<!-- /bin -->
+            <Entry type="file">
+                <Source>/bin/sed</Source>
+                <Destination>bin/sed</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/bin/cat</Source>
+                <Destination>sbin/cat</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/bin/cp</Source>
+                <Destination>bin/cp</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/bin/chmod</Source>
+                <Destination>bin/chmod</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/bin/grep</Source>
+                <Destination>bin/grep</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+
+<!-- /tmp -->
+            <Entry type="dir">
+                <Source>/tmp</Source>
+                <Destination>tmp</Destination>
+                <FsType>tmpfs</FsType>
+                <Options>defaults,noexec,nosuid,size=16m</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/tmp/ccsp_msg.cfg</Source>
+                <Destination>tmp/ccsp_msg.cfg</Destination>
+                <Options>ro,bind,nosuid,nodev,noexec,create=file</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/tmp/syscfg.shmid</Source>
+                <Destination>tmp/syscfg.shmid</Destination>
+                <Options>ro,bind,nosuid,nodev,noexec,create=file</Options>
+            </Entry>
+
+<!-- /var -->
+            <Entry type="dir">
+                <Source>/var/tmp</Source>
+                <Destination>var/tmp/</Destination>
+                <FsType>tmpfs</FsType>
+                <Options>rw,noexec,nosuid,create=dir</Options>
+            </Entry>
+
+<!-- /etc -->
+            <Entry type="file">
+                <Source>/etc/resolv.conf</Source>
+                <Destination>etc/resolv.conf</Destination>
+                <Options>ro,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="dir">
+                <Source>/etc/ssl/certs</Source>
+                <Destination>etc/ssl/certs</Destination>
+                <Options>ro,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="dir">
+                <Source>/etc/hostapd</Source>
+                <Destination>etc/hostapd</Destination>
+                <Options>ro,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/hostapd/hostapd0.psk</Source>
+                <Destination>etc/hostapd/hostapd0.psk</Destination>
+                <Options>ro,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/hostapd/hostapd1.psk</Source>
+                <Destination>etc/hostapd/hostapd1.psk</Destination>
+                <Options>ro,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/hosts</Source>
+                <Destination>etc/hosts</Destination>
+                <Options>ro,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/debug.ini</Source>
+                <Destination>etc/debug.ini</Destination>
+                <Options>ro,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/log4crc</Source>
+                <Destination>etc/log4crc</Destination>
+                <Options>ro,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/partners_defaults.json</Source>
+                <Destination>etc/partners_defaults.json</Destination>
+                <Options>ro,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+
+<!-- /proc -->
+            <Entry type="dir">
+                <Source>proc</Source>
+                <Destination>proc</Destination>
+                <FsType>proc</FsType>
+                <Options>defaults,noexec,nosuid,nodev,hidepid=2</Options>
+            </Entry>
+
+<!-- /sysfs -->
+            <Entry type="dir">
+                <Source>sysfs</Source>
+                <Destination>sys</Destination>
+                <FsType>sysfs</FsType>
+                <Options>defaults,noexec,nosuid,nodev</Options>
+            </Entry>
+
+<!-- /dev -->
+            <Entry type="dev">
+                <Source>/dev/vchiq</Source>
+                <Destination>dev/vchiq</Destination>
+                <Options>bind,optional,create=file,nosuid,noexec</Options>
+            </Entry>
+            <Entry type="dev">
+                <Source>/dev/input</Source>
+                <Destination>dev/input</Destination>
+                <Options>bind,optional,create=dir,nosuid,noexec</Options>
+            </Entry>
+
+<!--rdklogs-->
+            <Entry type="dir">
+                <Source>/rdklogs</Source>
+                <Destination>rdklogs</Destination>
+                <Options>rw,bind,noexec,nosuid</Options>
+            </Entry>
+        </MountPoints>
+
+        <LibsRoBindMounts>
+            <Entry>ld</Entry>
+            <Entry>libtr181</Entry>
+            <Entry>libxml2</Entry>
+            <Entry>libz</Entry>
+            <Entry>libccsp_common</Entry>
+            <Entry>libsyscfg</Entry>
+            <Entry>libsysevent</Entry>
+            <Entry>libutctx</Entry>
+            <Entry>libdbus</Entry>
+            <Entry>libutopiautil</Entry>
+            <Entry>libcap</Entry>
+            <Entry>libpthread</Entry>
+            <Entry>libc</Entry>
+            <Entry>libattr</Entry>
+            <Entry>libm</Entry>
+            <Entry>libnsl</Entry>
+            <Entry>libnss_compat</Entry>
+            <Entry>libgcc_s</Entry>
+            <Entry>libnss_dns</Entry>
+            <Entry>libstdc++</Entry>
+            <Entry>libsystemd</Entry>
+            <Entry>librdkloggers</Entry>
+            <Entry>libssl</Entry>
+            <Entry>libcrypto</Entry>
+            <Entry>liblog4c</Entry>
+            <Entry>librt</Entry>
+            <Entry>libresolv</Entry>
+            <Entry>liblzma</Entry>
+            <Entry>libdl</Entry>
+            <Entry>libtinfo</Entry>
+            <Entry>libhal_moca</Entry>
+            <Entry>libapi_dhcpv4c</Entry>
+            <Entry>libhal_msomgmt</Entry>
+            <Entry>libhal_ethsw</Entry>
+            <Entry>liblmapi</Entry>
+            <Entry>libcm_mgnt</Entry>
+            <Entry>libcurl</Entry>
+            <Entry>libtime_conversion</Entry>
+            <Entry>libhal_platform</Entry>
+            <Entry>libbreakpadwrapper</Entry>
+            <Entry>liblibparodus</Entry>
+            <Entry>libnanomsg</Entry>
+            <Entry>libwrp-c</Entry>
+            <Entry>libmsgpackc</Entry>
+            <Entry>libtrower-base64</Entry>
+            <Entry>libcimplog</Entry>
+            <Entry>libulog</Entry>
+            <Entry>libutapi</Entry>
+            <Entry>libcjson</Entry>
+            <Entry>libnopoll</Entry>
+            <Entry>libwdmp-c</Entry>
+            <Entry>libanl</Entry>
+            <Entry>libwifi</Entry>
+            <Entry>libhal_wifi</Entry>
+            <Entry>libsecure_wrapper</Entry>
+            <Entry>libnl-3</Entry>
+            <Entry>libnl-genl-3</Entry>
+            <Entry>libavro</Entry>
+            <Entry>libuuid</Entry>
+            <Entry>libjansson</Entry>
+            <Entry>libsafec</Entry>
+            <Entry>librbus-core</Entry>
+            <Entry>librtMessage</Entry>
+            <Entry>libglib-2.0</Entry>
+            <Entry>libpcre</Entry>
+            <Entry>libwebconfig_framework</Entry>
+            <Entry>libtelemetry_msgsender</Entry>
+            <Entry>libutils</Entry>
+            <Entry>libprivilege</Entry>
+            <Entry>librbus</Entry>
+            <Entry>libjsoncpp</Entry>
+            <Entry>libprint_uptime</Entry>
+        </LibsRoBindMounts>
+    </Rootfs>
+</LxcConfig>
+</CONTAINER>
+

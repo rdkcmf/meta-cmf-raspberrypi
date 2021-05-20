@@ -1,0 +1,139 @@
+<!--XML CONFIGURATION FOR DBUS-->
+
+<CONTAINER SandboxName="DBUS">
+	<LxcParams>
+		<LauncherName>dbus</LauncherName>
+		<ExecName>/usr/bin/dbus-daemon</ExecName>
+		<ExecParams>--system --nofork --nopidfile --systemd-activation</ExecParams>
+		<StopFunction enable="true"></StopFunction>
+	</LxcParams>
+
+	<LxcConfig>
+		<UserName>dbus</UserName>
+		<GroupName>dbus</GroupName> 
+		<DeviceCgroup>
+			<DevicesDeny>a</DevicesDeny>
+			<AllowDefaultDevices enable="yes"/>
+		</DeviceCgroup>
+		<Environment>
+			<Variable>MALLOC_CHECK_=2</Variable>
+			<!-- set this to 1 to get verbose output. You will also need to update the dbus_%.bbappend file to compile in the verbose option -->
+			<Variable>DBUS_VERBOSE=0</Variable>
+			<!-- systemd sets LISTEN_FDS=1 for use with address=systemd: -->
+			<Variable>LISTEN_FDS=1</Variable>
+			<!-- systemd sets LISTEN_PID to the PID of the process it started, but since it starts lxc-execute instead of dbus-daemon we have to set different PID here. When this container starts, the PID of dbus-daemon is always 4. -->
+		<Variable>LISTEN_PID=4</Variable>
+		</Environment>
+		<Network type="empty"></Network>
+
+		<Rootfs create="yes">
+			<MountPoints>
+<!-- /usr/bin -->
+				<Entry type="file">
+					<Source>/usr/bin/dbus-daemon</Source>
+					<Destination>usr/bin/dbus-daemon</Destination>
+					<Options>ro,bind,nosuid,nodev</Options>
+				</Entry>
+				<Entry type="file">
+                                        <Source>/usr/bin/dbus-send</Source>
+                                        <Destination>usr/bin/dbus-send</Destination>
+                                        <Options>ro,bind,nosuid,nodev</Options>
+                                </Entry>
+
+
+<!-- /usr/share -->
+				<Entry type="dir">
+					<Source>/usr/share/dbus-1</Source>
+					<Destination>usr/share/dbus-1</Destination>
+					<Options>ro,bind,noexec,nosuid,nodev</Options>
+				</Entry>
+
+<!-- /etc -->
+				<Entry type="dir">
+					<Source>/etc/dbus-1</Source>
+					<Destination>etc/dbus-1</Destination>
+					<Options>ro,bind,noexec,nosuid,nodev</Options>
+				</Entry>
+
+				<Entry type="file">
+					<Source>/etc/nsswitch.conf</Source>
+					<Destination>etc/nsswitch.conf</Destination>
+					<Options>ro,bind,noexec,nosuid,nodev</Options>
+				</Entry>
+
+				<Entry type="file">
+					<Source>/etc/resolv.conf</Source>
+					<Destination>etc/resolv.conf</Destination>
+					<Options>ro,bind,noexec,nosuid,nodev</Options>
+				</Entry>
+
+				<Entry type="file">
+					<Source>/etc/passwd</Source>
+					<Destination>etc/passwd</Destination>
+					<Options>ro,bind,noexec,nosuid,nodev</Options>
+				</Entry>
+
+				<Entry type="file">
+					<Source>/etc/group</Source>
+					<Destination>etc/group</Destination>
+					<Options>ro,bind,noexec,nosuid,nodev</Options>
+				</Entry>
+
+
+
+<!-- /proc -->
+				<Entry type="dir">
+					<Source>proc</Source>
+					<Destination>proc</Destination>
+					<FsType>proc</FsType>
+					<Options>defaults,noexec,nosuid,nodev,hidepid=2</Options>
+				</Entry>
+
+<!-- /dev -->
+				<Entry type="dev">
+					<Source>tmpfs</Source>
+					<Destination>/dev/shm</Destination>
+					<FsType>tmpfs</FsType>
+					<Options>defaults,noexec,nosuid</Options>
+				</Entry>
+
+<!-- This is removed to fix dbus container start failure-->
+<!-- /var/run/dbus 
+
+                                <Entry type="dir">
+                                        <Source>/var/run/dbus</Source>
+                                        <Destination>var/run/dbus</Destination>
+                                        <FsType>tmpfs</FsType>
+                                        <Options>defaults,noexec,nosuid,create=dir,size=16m</Options>
+                                </Entry>
+-->
+			</MountPoints>
+
+			<LibsRoBindMounts>
+				<Entry>ld</Entry>
+				<Entry>libattr</Entry>
+				<Entry>libc</Entry>
+				<Entry>libcap</Entry>
+				<Entry>libdl</Entry>
+				<Entry>libexpat</Entry>
+				<Entry>libgcc_s</Entry>
+				<Entry>libglib</Entry>
+				<Entry>libgthread</Entry>
+				<Entry>liblzma</Entry>
+				<Entry>libm</Entry>
+				<Entry>libnsl</Entry>
+				<Entry>libnss_compat</Entry>
+				<Entry>libnss_dns</Entry>
+				<Entry>libnss_files</Entry>
+				<Entry>libpthread</Entry>
+				<Entry>libpcre</Entry>
+				<Entry>libresolv</Entry>
+				<Entry>librt</Entry>
+				<Entry>libsystemd</Entry>
+				<Entry>libstdc++</Entry>
+				<Entry>libdbus-1</Entry>
+			</LibsRoBindMounts>
+		</Rootfs>
+	</LxcConfig>
+</CONTAINER>
+

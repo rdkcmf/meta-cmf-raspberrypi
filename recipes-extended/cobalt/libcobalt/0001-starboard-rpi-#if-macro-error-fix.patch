@@ -1,0 +1,34 @@
+From 83e5a478e7b37768f29442c54541463d45c3fe93 Mon Sep 17 00:00:00 2001
+From: Moorthy Baskar <moorthy.bs@ltts.com>
+Date: Wed, 04 Nov 2020 07:17:42 +0000
+Subject: [PATCH] REFPLTV-699: rpi starboard - fix for #if macro error
+
+error: this use of "defined" may not be portable
+ [-Werror=expansion-to-defined]
+error: offsetof within non-standard-layout type 'quic::QuicStreamFrame'
+is conditionally-supported [-Werror=invalid-offsetof]
+
+Reason for change: above errors thrown by gcc 9.x where
+warnings are treated as errors
+Test Procedure: (build fix)
+build libcobalt on yocto dunfell framework for Rpi platform
+Risks: Low
+
+Signed-off-by: Moorthy Baskar <moorthy.bs@ltts.com>
+Change-Id: Iadabfe5cb899cc76f09552d1d11653a66574b682
+---
+
+diff --git a/src/third_party/starboard/rdk/rpi/gyp_configuration.gypi b/src/third_party/starboard/rdk/rpi/gyp_configuration.gypi
+index dc2a03b..5d34b04 100644
+--- a/src/third_party/starboard/rdk/rpi/gyp_configuration.gypi
++++ b/src/third_party/starboard/rdk/rpi/gyp_configuration.gypi
+@@ -83,6 +83,9 @@
+       # matters: Wall implies Wunused-parameter and Wno-unused-parameter
+       # has no effect if specified before Wall.
+       '-Wno-unused-parameter',
++      # gcc 9.x throws #if macros definitions as error (warnings as errors)
++      '-Wno-expansion-to-defined',
++      '-Wno-invalid-offsetof',
+ 
+       # Specify the sysroot with all your include dependencies.
+       '--sysroot=<(sysroot)',

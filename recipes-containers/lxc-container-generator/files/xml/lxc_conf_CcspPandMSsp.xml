@@ -1,0 +1,1120 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+################################################################################
+# If not stated otherwise in this file or this component's Licenses.txt file the
+# following copyright and licenses apply:
+#
+# Copyright 2017 Liberty Global B.V.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+################################################################################
+-->
+<!-- XML CONFIGURATION FOR RMFSTREAMER-->
+
+<CONTAINER  SandboxName="CCSPPANDM">
+    <LxcParams>
+        <LauncherName>CcspPandMSsp</LauncherName>
+        <ExecName>/usr/bin/gw_prov_ethwan</ExecName>
+        <StopFunction enable="true"></StopFunction>
+    </LxcParams>
+        <LxcConfig>
+        <UserName>pandm</UserName>
+        <GroupName>pandm</GroupName> 
+        <CGroupSettings>
+            <DeviceCgroup>
+                <DevicesDeny>a</DevicesDeny>
+                <AllowDefaultDevices enable="yes"/>
+            </DeviceCgroup>
+        </CGroupSettings>
+        <Environment>
+           <Variable>DBUS_SESSION_BUS_ADDRESS=unix:path=/var/run/dbus/system_bus_socket</Variable>
+        </Environment>
+        <Network type="none"></Network>
+            <Dbus enable="true"></Dbus>
+        <Rootfs create="yes">
+        <MountPoints>
+
+<!-- /sbin -->
+            <Entry type="file">
+                <Source>/sbin/ifconfig</Source>
+                <Destination>sbin/ifconfig</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/sbin/ip</Source>
+                <Destination>sbin/ip</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/sbin/modprobe</Source>
+                <Destination>sbin/modprobe</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/sbin/syslogd</Source>
+                <Destination>sbin/syslogd</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+
+    <!-- /bin -->
+            <Entry type="file">
+                <Source>/bin/sh</Source>
+                <Destination>bin/sh</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/bin/CcspPandMSsp</Source>
+                <Destination>usr/bin/CcspPandMSsp</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/bin/psmcli</Source>
+                <Destination>usr/bin/psmcli</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/bin/gw_prov_ethwan</Source>
+                <Destination>usr/bin/gw_prov_ethwan</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/bin/sysevent</Source>
+                <Destination>usr/bin/sysevent</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/bin/syseventd</Source>
+                <Destination>usr/bin/syseventd</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/bin/syseventd_fork_helper</Source>
+                <Destination>usr/bin/syseventd_fork_helper</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/bin/seq</Source>
+                <Destination>usr/bin/seq</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/bin/expr</Source>
+                <Destination>usr/bin/expr</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/bin/basename</Source>
+                <Destination>usr/bin/basename</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/bin/apply_system_defaults</Source>
+                <Destination>usr/bin/apply_system_defaults</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/bin/cut</Source>
+                <Destination>usr/bin/cut</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/bin/awk</Source>
+                <Destination>usr/bin/awk</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/bin/execute_dir</Source>
+                <Destination>usr/bin/execute_dir</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/sbin/ip6tables</Source>
+                <Destination>usr/sbin/ip6tables</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/sbin/iptables</Source>
+                <Destination>usr/sbin/iptables</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/bin/syscfg_create</Source>
+                <Destination>usr/bin/syscfg_create</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/bin/syscfg_create</Source>
+                <Destination>usr/bin/syscfg_create</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/bin/syscfg_create</Source>
+                <Destination>usr/bin/syscfg_create</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/bin/syscfg</Source>
+                <Destination>usr/bin/syscfg</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/bin/touch</Source>
+                <Destination>bin/touch</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/bin/touch</Source>
+                <Destination>bin/touch</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/bin/cat</Source>
+                <Destination>bin/cat</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/bin/cp</Source>
+                <Destination>bin/cp</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/bin/date</Source>
+                <Destination>bin/date</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/bin/df</Source>
+                <Destination>bin/df</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/bin/dmesg</Source>
+                <Destination>bin/dmesg</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/bin/ln</Source>
+                <Destination>bin/ln</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/bin/ls</Source>
+                <Destination>bin/ls</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/bin/mkdir</Source>
+                <Destination>bin/mkdir</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/bin/rm</Source>
+                <Destination>bin/rm</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/bin/sleep</Source>
+                <Destination>bin/sleep</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/bin/vi</Source>
+                <Destination>bin/vi</Destination>
+                <Options>ro,bind,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="dir">
+                <Source>/usr/ccsp/pam/</Source>
+                <Destination>usr/ccsp/pam/</Destination>
+                <Options>ro,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/ccsp/pam/CcspDmLib.cfg</Source>
+                <Destination>CcspDmLib.cfg</Destination>
+                <Options>ro,bind,nosuid,nodev,noexec</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/ccsp/pam/CcspPam.cfg</Source>
+                <Destination>CcspPam.cfg</Destination>
+                <Options>ro,bind,nosuid,nodev,noexec</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/ccsp/pam/CcspPandMSsp</Source>
+                <Destination>usr/ccsp/pam/CcspPandMSsp</Destination>
+                <Options>ro,bind,nosuid,nodev,noexec</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/ccsp/pam/calc_random_time_to_reboot_dev.sh</Source>
+                <Destination>usr/ccsp/pam/calc_random_time_to_reboot_dev.sh</Destination>
+                <Options>ro,bind,nosuid,nodev,noexec</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/ccsp/pam/ccsp_msg.cfg</Source>
+                <Destination>usr/ccsp/pam/ccsp_msg.cfg</Destination>
+                <Options>ro,bind,nosuid,nodev,noexec</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/ccsp/ccsp_msg.cfg</Source>
+                <Destination>usr/ccsp/ccsp_msg.cfg</Destination>
+                <Options>ro,bind,nosuid,nodev,noexec</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/ccsp/pam/email_notification_monitor.sh</Source>
+                <Destination>usr/ccsp/pam/email_notification_monitor.sh</Destination>
+                <Options>ro,bind,nosuid,nodev,noexec</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/ccsp/pam/moca_status.sh</Source>
+                <Destination>usr/ccsp/pam/moca_status.sh</Destination>
+                <Options>ro,bind,nosuid,nodev,noexec</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/ccsp/pam/network_response.sh</Source>
+                <Destination>usr/ccsp/pam/network_response.sh</Destination>
+                <Options>ro,bind,nosuid,nodev,noexec</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/ccsp/pam/redirect_url.sh</Source>
+                <Destination>usr/ccsp/pam/redirect_url.sh</Destination>
+                <Options>ro,bind,nosuid,nodev,noexec</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/ccsp/pam/revert_redirect.sh</Source>
+                <Destination>usr/ccsp/pam/revert_redirect.sh</Destination>
+                <Options>ro,bind,nosuid,nodev,noexec</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/ccsp/pam/whitelist.sh</Source>
+                <Destination>usr/ccsp/pam/whitelist.sh</Destination>
+                <Options>ro,bind,nosuid,nodev,noexec</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/usr/ccsp/pam/redirect_url.sh</Source>
+                <Destination>usr/ccsp/pam/redirect_url.sh</Destination>
+                <Options>ro,bind,nosuid,nodev,noexec</Options>
+            </Entry>
+
+    <!-- /tmp -->
+            <Entry type="dir">
+                <Source>/tmp</Source>
+                <Destination>tmp</Destination>
+                <FsType>tmpfs</FsType>
+                <Options>defaults,noexec,nosuid,size=16m</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/tmp/ccsp_msg.cfg</Source>
+                <Destination>tmp/ccsp_msg.cfg</Destination>
+                <Options>ro,bind,nosuid,nodev,noexec,create=file</Options>
+            </Entry>
+
+    <!-- /var -->
+            <Entry type="dir">
+                <Source>/var/tmp</Source>
+                <Destination>var/tmp/</Destination>
+                <FsType>tmpfs</FsType>
+                <Options>rw,noexec,nosuid,create=dir</Options>
+            </Entry>
+
+    <!-- /etc -->
+            <Entry type="file">
+                <Source>/etc/resolv.conf</Source>
+                <Destination>etc/resolv.conf</Destination>
+                <Options>ro,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="dir">
+                <Source>/etc/ssl/certs</Source>
+                <Destination>etc/ssl/certs</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/hosts</Source>
+                <Destination>etc/hosts</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/device.properties</Source>
+                <Destination>etc/device.properties</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/debug.ini</Source>
+                <Destination>etc/debug.ini</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/log4crc</Source>
+                <Destination>etc/log4crc</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/partners_defaults.json</Source>
+                <Destination>etc/partners_defaults.json</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+
+            <Entry type="file">
+                <Source>/etc/log_timestamp.sh</Source>
+                <Destination>etc/log_timestamp.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/need_wifi_default.sh</Source>
+                <Destination>etc/utopia/need_wifi_default.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/system_defaults</Source>
+                <Destination>etc/utopia/system_defaults</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/utopia_init.sh</Source>
+                <Destination>etc/utopia/utopia_init.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/post.d/10_firewall</Source>
+                <Destination>etc/utopia/post.d/10_firewall</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/post.d/10_mcastproxy</Source>
+                <Destination>etc/utopia/post.d/10_mcastproxy</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/post.d/10_mldproxy</Source>
+                <Destination>etc/utopia/post.d/10_mldproxy</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/post.d/15_igd</Source>
+                <Destination>etc/utopia/post.d/15_igd</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/post.d/15_misc</Source>
+                <Destination>etc/utopia/post.d/15_misc</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/registration.d/02_bridge</Source>
+                <Destination>etc/utopia/registration.d/02_bridge</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/registration.d/02_forwarding</Source>
+                <Destination>etc/utopia/registration.d/02_forwarding</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/registration.d/02_ipv4</Source>
+                <Destination>etc/utopia/registration.d/02_ipv4</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/registration.d/02_lanHandler</Source>
+                <Destination>etc/utopia/registration.d/02_lanHandler</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/registration.d/02_multinet</Source>
+                <Destination>etc/utopia/registration.d/02_multinet</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/registration.d/02_wan</Source>
+                <Destination>etc/utopia/registration.d/02_wan</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/registration.d/15_ccsphs</Source>
+                <Destination>etc/utopia/registration.d/15_ccsphs</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/registration.d/15_ddnsclient</Source>
+                <Destination>etc/utopia/registration.d/15_ddnsclient</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/registration.d/15_dhcp_server</Source>
+                <Destination>etc/utopia/registration.d/15_dhcp_server</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/registration.d/15_hotspot</Source>
+                <Destination>etc/utopia/registration.d/15_hotspot</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/registration.d/15_ssh_server</Source>
+                <Destination>etc/utopia/registration.d/15_ssh_server</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/registration.d/20_routing</Source>
+                <Destination>etc/utopia/registration.d/20_routing</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/registration.d/25_crond</Source>
+                <Destination>etc/utopia/registration.d/25_crond</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/registration.d/33_cosa</Source>
+                <Destination>etc/utopia/registration.d/33_cosa</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/brcm_ethernet_helper.sh</Source>
+                <Destination>etc/utopia/service.d/brcm_ethernet_helper.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/bring_lan.sh</Source>
+                <Destination>etc/utopia/service.d/bring_lan.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/date_functions.sh</Source>
+                <Destination>etc/utopia/service.d/date_functions.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/ebtable_rules.sh</Source>
+                <Destination>etc/utopia/service.d/ebtable_rules.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/event_flags</Source>
+                <Destination>etc/utopia/service.d/event_flags</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/event_handler_functions.sh</Source>
+                <Destination>etc/utopia/service.d/event_handler_functions.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/firewall_log_handle.sh</Source>
+                <Destination>etc/utopia/service.d/firewall_log_handle.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/HANDLER_TEMPLATE.sh</Source>
+                <Destination>etc/utopia/service.d/HANDLER_TEMPLATE.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/hhs_validate.sh</Source>
+                <Destination>etc/utopia/service.d/hhs_validate.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/hostname_functions.sh</Source>
+                <Destination>etc/utopia/service.d/hostname_functions.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/igd_cmd.sh</Source>
+                <Destination>etc/utopia/service.d/igd_cmd.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/interface_functions.sh</Source>
+                <Destination>etc/utopia/service.d/interface_functions.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/iot_service.sh</Source>
+                <Destination>etc/utopia/service.diot_service.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/ip_functions.sh</Source>
+                <Destination>etc/utopia/service.d/ip_functions.sh</Destination>
+                <Options>ro,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/ipv6_functions.sh</Source>
+                <Destination>etc/utopia/service.d/ipv6_functions.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/lan_handler.sh</Source>
+                <Destination>etc/utopia/service.d/lan_handler.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/log_capture_path.sh</Source>
+                <Destination>etc/utopia/service.d/log_capture_path.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/log_env_var.sh</Source>
+                <Destination>etc/utopia/service.d/log_env_var.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/misc_handler.sh</Source>
+                <Destination>etc/utopia/service.d/misc_handler.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/nvram_cleanup.sh</Source>
+                <Destination>etc/utopia/service.d/nvram_cleanup.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/password_functions.sh</Source>
+                <Destination>etc/utopia/service.d/password_functions.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/pmon.sh</Source>
+                <Destination>etc/utopia/service.d/pmon.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/rebooteMG.sh</Source>
+                <Destination>etc/utopia/service.d/rebooteMG.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/rebootiRouter.sh</Source>
+                <Destination>etc/utopia/service.d/rebootiRouter.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/rt_tables</Source>
+                <Destination>etc/utopia/service.d/rt_tables</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_bootstrap_dns.sh</Source>
+                <Destination>etc/utopia/service.d/service_bootstrap_dns.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_bridge_arm.sh</Source>
+                <Destination>etc/utopia/service.d/service_bridge_arm.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_bridge_puma7.sh</Source>
+                <Destination>etc/utopia/service.d/service_bridge_puma7.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_bridge_rpi.sh</Source>
+                <Destination>etc/utopia/service.d/service_bridge_rpi.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_bridge.sh</Source>
+                <Destination>etc/utopia/service.d/service_bridge.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_byoi.sh</Source>
+                <Destination>etc/utopia/service.d/service_byoi.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_ccsphs.sh</Source>
+                <Destination>etc/utopia/service.d/service_ccsphs.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_ciscoconnect.sh</Source>
+                <Destination>etc/utopia/service.d/service_ciscoconnect.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_configrestore.sh</Source>
+                <Destination>etc/utopia/service.d/service_configrestore.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_cosa_arm.sh</Source>
+                <Destination>etc/utopia/service.d/service_cosa_arm.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_cosa.sh</Source>
+                <Destination>etc/utopia/service.d/service_cosa.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_crond.sh</Source>
+                <Destination>etc/utopia/service.d/service_crond.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_ddns.sh</Source>
+                <Destination>etc/utopia/service.d/service_ddns.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_dhcp_server.sh</Source>
+                <Destination>etc/utopia/service.d/service_dhcp_server.sh</Destination>
+                <Options>ro,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_dhcpv6_client_arm_bci.sh</Source>
+                <Destination>etc/utopia/service.d/service_dhcpv6_client_arm_bci.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_dhcpv6_client_arm.sh</Source>
+                <Destination>etc/utopia/service.d/service_dhcpv6_client_arm.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_dhcpv6_client.sh</Source>
+                <Destination>etc/utopia/service.d/service_dhcpv6_client.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_dhcpv6_server_bci.sh</Source>
+                <Destination>etc/utopia/service.d/service_dhcpv6_server_bci.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_dhcpv6_server.sh</Source>
+                <Destination>etc/utopia/service.d/service_dhcpv6_server.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_forwarding.sh</Source>
+                <Destination>etc/utopia/service.d/service_forwarding.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_ftpserver.sh</Source>
+                <Destination>etc/utopia/service.d/service_ftpserver.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_igd.sh</Source>
+                <Destination>etc/utopia/service.d/service_igd.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_ipv4_bci.sh</Source>
+                <Destination>etc/utopia/service.d/service_ipv4_bci.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_ipv4.sh</Source>
+                <Destination>etc/utopia/service.d/service_ipv4.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_ipv6.sh</Source>
+                <Destination>etc/utopia/service.d/service_ipv6.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_lan.sh</Source>
+                <Destination>etc/utopia/service.d/service_lan.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_mcastproxy.sh</Source>
+                <Destination>etc/utopia/service.d/service_mcastproxy.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_mcastsnooper.sh</Source>
+                <Destination>etc/utopia/service.d/service_mcastsnooper.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_misc.sh</Source>
+                <Destination>etc/utopia/service.d/service_misc.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_mldproxy.sh</Source>
+                <Destination>etc/utopia/service.d/service_mldproxy.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_multinet_exec</Source>
+                <Destination>etc/utopia/service.d/service_multinet_exec</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_multinet.sh</Source>
+                <Destination>etc/utopia/service.d/service_multinet.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_ntpclient.sh</Source>
+                <Destination>etc/utopia/service.d/service_ntpclient.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_ntpd.sh</Source>
+                <Destination>etc/utopia/service.d/service_ntpd.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_registration_functions.sh</Source>
+                <Destination>etc/utopia/service.d/service_registration_functions.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_routed_bci.sh</Source>
+                <Destination>etc/utopia/service.d/service_routed_bci.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_routed.sh</Source>
+                <Destination>etc/utopia/service.d/service_routed.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_sshd.sh</Source>
+                <Destination>etc/utopia/service.d/service_sshd.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_sysevent_proxy.sh</Source>
+                <Destination>etc/utopia/service.d/service_sysevent_proxy.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_syslog.sh</Source>
+                <Destination>etc/utopia/service.d/service_syslog.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_system.sh</Source>
+                <Destination>etc/utopia/service.d/service_system.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_wan.sh</Source>
+                <Destination>etc/utopia/service.d/service_wan.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_wds.sh</Source>
+                <Destination>etc/utopia/service.d/service_wds.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_wecb.sh</Source>
+                <Destination>etc/utopia/service.d/service_wecb.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_wlan.sh</Source>
+                <Destination>etc/utopia/service.d/service_wlan.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_xhs.sh</Source>
+                <Destination>etc/utopia/service.d/service_xhs.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/set_hostname.sh</Source>
+                <Destination>etc/utopia/service.d/set_hostname.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/set_resolv_conf.sh</Source>
+                <Destination>etc/utopia/service.d/set_resolv_conf.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/set_wandomain.sh</Source>
+                <Destination>etc/utopia/service.d/set_wandomain.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/shutdownReady.sh</Source>
+                <Destination>etc/utopia/service.d/shutdownReady.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/syseventd_restart.sh</Source>
+                <Destination>etc/utopia/service.d/syseventd_restart.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/sysevent_functions.sh</Source>
+                <Destination>etc/utopia/service.d/sysevent_functions.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/ulog_functions.sh</Source>
+                <Destination>etc/utopia/service.d/ulog_functions.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/ut_plat.sh</Source>
+                <Destination>etc/utopia/service.d/ut_plat.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/vlan_util_xb6.sh</Source>
+                <Destination>etc/utopia/service.d/vlan_util_xb6.sh</Destination>
+                <Options>ro,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_bridge/dhcp_link.sh</Source>
+                <Destination>etc/utopia/service.d/service_bridge/dhcp_link.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_ddns/ddns_success.sh</Source>
+                <Destination>etc/utopia/service.d/service_ddns/ddns_success.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_dhcp_server/dhcp_server_functions.sh</Source>
+                <Destination>etc/utopia/service.d/service_dhcp_server/dhcp_server_functions.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_dhcp_server/dnsmasq_dhcp.script</Source>
+                <Destination>etc/utopia/service.d/service_dhcp_server/dnsmasq_dhcp.script</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_lan/dhcp_lan.sh</Source>
+                <Destination>etc/utopia/service.d/service_lan/dhcp_lan.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_lan/dhcp_lease_sync.sh</Source>
+                <Destination>etc/utopia/service.d/service_lan/dhcp_lease_sync.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_lan/lan_hooks.sh</Source>
+                <Destination>etc/utopia/service.d/service_lan/lan_hooks.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_lan/wlan.sh</Source>
+                <Destination>etc/utopia/service.d/service_lan/wlan.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_multinet/handle_eth.sh</Source>
+                <Destination>etc/utopia/service.d/service_multinet/handle_eth.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_multinet/handle_gre.sh</Source>
+                <Destination>etc/utopia/service.d/service_multinet/handle_gre.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_multinet/handle_link.sh</Source>
+                <Destination>etc/utopia/service.d/service_multinet/handle_link.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_multinet/handle_sw_puma7.sh</Source>
+                <Destination>etc/utopia/service.d/service_multinet/handle_sw_puma7.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_multinet/handle_sw.sh</Source>
+                <Destination>etc/utopia/service.d/service_multinet/handle_sw.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_multinet/handle_wifi.sh</Source>
+                <Destination>etc/utopia/service.d/service_multinet/handle_wifi.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_syslog/syslog_rotate_monitor.sh</Source>
+                <Destination>etc/utopia/service.d/service_syslog/syslog_rotate_monitor.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_wan/dhcp_link.sh</Source>
+                <Destination>etc/utopia/service.d/service_wan/dhcp_link.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_wan/dhcp_wan.sh</Source>
+                <Destination>etc/utopia/service.d/service_wan/dhcp_wan.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_wan/dns_sync.sh</Source>
+                <Destination>etc/utopia/service.d/service_wan/dns_sync.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_wan/l2tp_wan.sh</Source>
+                <Destination>etc/utopia/service.d/service_wan/l2tp_wan.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_wan/ppp_helpers.sh</Source>
+                <Destination>etc/utopia/service.d/service_wan/ppp_helpers.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_wan/pppoe_link.sh</Source>
+                <Destination>etc/utopia/service.d/service_wan/pppoe_link.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_wan/pppoe_wan.sh</Source>
+                <Destination>etc/utopia/service.d/service_wan/pppoe_wan.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_wan/pptp_wan.sh</Source>
+                <Destination>etc/utopia/service.d/service_wan/pptp_wan.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_wan/static_link.sh</Source>
+                <Destination>etc/utopia/service.d/service_wan/static_link.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_wan/static_wan.sh</Source>
+                <Destination>etc/utopia/service.d/service_wan/static_wan.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+            <Entry type="file">
+                <Source>/etc/utopia/service.d/service_wan/telstra_wan.sh</Source>
+                <Destination>etc/utopia/service.d/service_wan/telstra_wan.sh</Destination>
+                <Options>rwx,bind,noexec,nosuid,nodev</Options>
+            </Entry>
+
+    <!-- /proc -->
+            <Entry type="dir">
+                <Source>proc</Source>
+                <Destination>proc</Destination>
+                <FsType>proc</FsType>
+                <Options>defaults,noexec,nosuid,nodev,hidepid=2</Options>
+            </Entry>
+
+    <!-- /sysfs -->
+            <Entry type="dir">
+                <Source>sysfs</Source>
+                <Destination>sys</Destination>
+                <FsType>sysfs</FsType>
+                <Options>defaults,noexec,nosuid,nodev</Options>
+            </Entry>
+
+    <!-- /dev -->
+            <Entry type="dev">
+                <Source>/dev/vchiq</Source>
+                <Destination>dev/vchiq</Destination>
+                <Options>bind,optional,create=file,nosuid,noexec</Options>
+            </Entry>
+            <Entry type="dev">
+                <Source>/dev/input</Source>
+                <Destination>dev/input</Destination>
+                <Options>bind,optional,create=dir,nosuid,noexec</Options>
+            </Entry>
+
+    <!--rdklogs-->
+            <Entry type="dir">
+                <Source>/rdklogs</Source>
+                <Destination>rdklogs</Destination>
+                <Options>rw,bind,noexec,nosuid</Options>
+            </Entry>
+        </MountPoints>
+
+        <LibsRoBindMounts>
+            <Entry>ld</Entry>
+            <Entry>libtr181</Entry>
+            <Entry>libxml2</Entry>
+            <Entry>libz</Entry>
+            <Entry>libccsp_common</Entry>
+            <Entry>libsyscfg</Entry>
+            <Entry>libsysevent</Entry>
+            <Entry>libutctx</Entry>
+            <Entry>libdbus</Entry>
+            <Entry>libutopiautil</Entry>
+            <Entry>libcap</Entry>
+            <Entry>libpthread</Entry>
+            <Entry>libc</Entry>
+            <Entry>libattr</Entry>
+            <Entry>libm</Entry>
+            <Entry>libnsl</Entry>
+            <Entry>libnss_compat</Entry>
+            <Entry>libgcc_s</Entry>
+            <Entry>libnss_dns</Entry>
+            <Entry>libstdc++</Entry>
+            <Entry>libsystemd</Entry>
+            <Entry>librdkloggers</Entry>
+            <Entry>libssl</Entry>
+            <Entry>libcrypto</Entry>
+            <Entry>liblog4c</Entry>
+            <Entry>librt</Entry>
+            <Entry>libresolv</Entry>
+            <Entry>liblzma</Entry>
+            <Entry>libdl</Entry>
+            <Entry>libtinfo</Entry>
+            <Entry>libhal_moca</Entry>
+            <Entry>libapi_dhcpv4c</Entry>
+            <Entry>libhal_msomgmt</Entry>
+            <Entry>libhal_ethsw</Entry>
+            <Entry>liblmapi</Entry>
+            <Entry>libcm_mgnt</Entry>
+            <Entry>libcurl</Entry>
+            <Entry>libtime_conversion</Entry>
+            <Entry>libhal_platform</Entry>
+            <Entry>libbreakpadwrapper</Entry>
+            <Entry>liblibparodus</Entry>
+            <Entry>libnanomsg</Entry>
+            <Entry>libwrp-c</Entry>
+            <Entry>libmsgpackc</Entry>
+            <Entry>libtrower-base64</Entry>
+            <Entry>libcimplog</Entry>
+            <Entry>libulog</Entry>
+            <Entry>libutapi</Entry>
+            <Entry>libcjson</Entry>
+            <Entry>libnopoll</Entry>
+            <Entry>libwdmp-c</Entry>
+            <Entry>libanl</Entry>
+            <Entry>libsecure_wrapper</Entry>
+            <Entry>libtr181</Entry>
+            <Entry>libip4tc</Entry>
+            <Entry>libip6tc</Entry>
+            <Entry>libxtables</Entry>
+            <Entry>libsrvmgr</Entry>
+            <Entry>libsafec</Entry>
+            <Entry>librbus-core</Entry>
+            <Entry>librtMessage</Entry>
+            <Entry>libglib-2.0</Entry>
+            <Entry>libpcre</Entry>
+            <Entry>libwebconfig_framework</Entry>
+            <Entry>libtelemetry_msgsender</Entry>
+            <Entry>libutils</Entry>
+            <Entry>libprivilege</Entry>
+            <Entry>librbus</Entry>
+            <Entry>libjsoncpp</Entry>
+        </LibsRoBindMounts>
+    </Rootfs>
+</LxcConfig>
+</CONTAINER>
+

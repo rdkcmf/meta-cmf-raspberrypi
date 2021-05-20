@@ -1,0 +1,24 @@
+From: pnandyala <pavan.nandyala@lnttechservices.com>
+Date: Tue Sep 11 09:47:52 2018 +0000
+
+Subject: REFPLTV-152 REFPLTV-213:Mediaframework - Sanity test failures in RDKV
+
+Reason for change:This patch will fix most of the playback issues in rpi
+Test Procedure: scripts should give success
+Risks:None
+
+Signed-off-by: pnandyala <pavan.nandyala@lnttechservices.com>
+---
+
+diff -Naur gstreamer-1.10.4_org/gst/gstbin.c gstreamer-1.10.4/gst/gstbin.c
+--- gstreamer-1.10.4_org/gst/gstbin.c	2018-09-10 15:47:16.988118159 +0000
++++ gstreamer-1.10.4/gst/gstbin.c	2018-09-10 15:47:57.447447656 +0000
+@@ -270,7 +270,7 @@
+   LAST_SIGNAL
+ };
+ 
+-#define DEFAULT_ASYNC_HANDLING	FALSE
++#define DEFAULT_ASYNC_HANDLING	TRUE
+ #define DEFAULT_MESSAGE_FORWARD	FALSE
+ 
+ enum

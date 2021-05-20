@@ -1,0 +1,27 @@
+From: pnandyala <pavan.nandyala@lnttechservices.com>
+Date: Wed Aug 28 09:51:46 2019 +0000
+
+Subject: TS-17 : Exit the video playback from Reference App
+
+Reason for change: Need to add this change to fix XFINITY key issues
+in refapp
+Test Procedure: Now XFinity, exit and guide keys will work for refapp
+Risks: None
+
+Signed-off-by: pnandyala <pavan.nandyala@lnttechservices.com>
+---
+
+diff --git a/examples/pxScene2d/src/rcvrcore/tools/keys.js b/examples/pxScene2d/src/rcvrcore/tools/keys.js
+index 284aaf058..e717b4115 100644
+--- a/examples/pxScene2d/src/rcvrcore/tools/keys.js
++++ b/examples/pxScene2d/src/rcvrcore/tools/keys.js
+@@ -128,7 +128,8 @@ var keys =
+     PLAYPAUSE    : 227,
+     BACK         : 407,
+     MENU         : 408,
+-    HOMEPAGE     : 409
++    HOMEPAGE     : 409,
++    EXIT         : 174
+ };
+ 
+ // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

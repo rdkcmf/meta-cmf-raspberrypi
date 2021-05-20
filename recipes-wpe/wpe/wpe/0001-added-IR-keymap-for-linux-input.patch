@@ -1,0 +1,37 @@
+From: rakesh <rakesh.jain@cognizant.com>
+Date: Thu Jul 28 12:26:12 2016 +0530
+
+Subject: RDKCMF-4053 Integrating LIRC with WPE browser
+---
+
+diff --git a/Source/WPE/Source/Input/LinuxInput/KeyMappingLinuxInput.cpp b/Source/WPE/Source/Input/LinuxInput/KeyMappingLinuxInput.cpp
+index ab927e7..3748cc3 100644
+--- a/Source/WPE/Source/Input/LinuxInput/KeyMappingLinuxInput.cpp
++++ b/Source/WPE/Source/Input/LinuxInput/KeyMappingLinuxInput.cpp
+@@ -302,6 +302,9 @@ int windowsKeyCodeForKeyEvent(const KeyboardEvent& event)
+ // VK_SHIFT (0x10)
+ // VK_CONTROL (0x11) // CTRL key
+ // VK_MENU (0x12) // ALT key
++        
++        case KEY_MENU:
++             return VK_MENU;      // (0x12) // ALT key
+         case KEY_PAUSE:
+             return VK_PAUSE;      // (0x13) PAUSE key
+         case KEY_CAPSLOCK:
+@@ -312,6 +315,7 @@ int windowsKeyCodeForKeyEvent(const KeyboardEvent& event)
+ // VK_FINAL (0x18) // IME final mode
+ // VK_HANJA (0x19) // IME Hanja mode
+ // VK_KANJI (0x19) // IME Kanji mode
++        case KEY_EXIT: 
+         case KEY_ESC:
+             return VK_ESCAPE;     // (0x1B) ESC key
+ // VK_CONVERT (0x1C) // IME convert
+@@ -457,6 +461,8 @@ int windowsKeyCodeForKeyEvent(const KeyboardEvent& event)
+             return VK_DECIMAL;    // (0x6E) Decimal key
+         case KEY_KPSLASH:
+             return VK_DIVIDE;     // (0x6F) Divide key
++        case KEY_RECORD:
++            return VK_F2;
+         case KEY_F1:              // VK_F1 0x70
+         case KEY_F2:              // VK_F2 0x71
+         case KEY_F3:              // VK_F3 0x72
