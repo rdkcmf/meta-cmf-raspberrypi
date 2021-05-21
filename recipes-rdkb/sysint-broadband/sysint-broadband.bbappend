@@ -47,10 +47,10 @@ do_install_append_rpi() {
     install -m 0755 ${S}/devicerpi/lib/rdk/swupdate_utility.sh ${D}${base_libdir}/rdk
     install -m 0755 ${S}/devicerpi/lib/rdk/dcaSplunkUpload.sh ${D}${base_libdir}/rdk
     install -m 0755 ${S}/devicerpi/lib/rdk/dca_utility.sh ${D}${base_libdir}/rdk
-    install -m 0755 ${S}/devicerpi/systemd_units/dcm-log.service ${D}${systemd_unitdir}/system
     install -m 0755 ${S}/devicerpi/systemd_units/previous-log-backup.service ${D}${systemd_unitdir}/system
     install -m 0755 ${S}/devicerpi/systemd_units/swupdate.service ${D}${systemd_unitdir}/system
     install -m 0644 ${S}/devicerpi/systemd_units/hostapd_backup_check.service ${D}${systemd_unitdir}/system
+    rm ${D}${systemd_unitdir}/system/dcm-log.service
 
     #NTPD 
     install -m 0644 ${S}/devicerpi/systemd_units/ntpd.service ${D}${systemd_unitdir}/system
@@ -110,7 +110,7 @@ do_install_append_bootbroadband() {
     install -m 0755 ${S}/devicerpi/systemd_units/monitor-upload.service ${D}${systemd_unitdir}/system
 }
 
-SYSTEMD_SERVICE_${PN}_append_rpi = " dropbear.service disable_systemd_restart_param.service ntpd.service swupdate.service dcm-log.service hostapd_backup_check.service"
+SYSTEMD_SERVICE_${PN}_append_rpi = " dropbear.service disable_systemd_restart_param.service ntpd.service swupdate.service hostapd_backup_check.service"
 SYSTEMD_SERVICE_${PN}_append_morty = "  ${@bb.utils.contains("DISTRO_FEATURES", "nodejs", " npm.service", " ", d)}"
 SYSTEMD_SERVICE_${PN}_remove_broadband = "dropbear.service"
 SYSTEMD_SERVICE_${PN}_append_bootbroadband += " boot-time-upload.service monitor-upload.service"
