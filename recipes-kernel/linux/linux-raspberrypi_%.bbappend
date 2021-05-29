@@ -64,3 +64,5 @@ PACKAGES += "kernel-autoconf"
 PROVIDES += "kernel-autoconf"
 
 FILES_kernel-autoconf = "${includedir}/autoconf.h"
+
+KBUILD_DEFCONFIG_raspberrypi4-ext ?= "bcm2711_defconfig"
