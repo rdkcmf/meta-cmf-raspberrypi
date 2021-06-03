@@ -7,7 +7,7 @@
 #--------------------------------------------------------------------------------------------------
 
 
-partition_check_name=`fdisk /dev/mmcblk0 -ul | grep mmcblk0p* | tail -2 | tr -s ' ' | cut -d ' ' -f1 | tail -1`
+partition_check_name=`fdisk /dev/mmcblk0 -l | grep mmcblk0p* | tail -2 | tr -s ' ' | cut -d ' ' -f1 | tail -1`
 
 echo "Checking available partition for bank switch and image upgrade... "
 

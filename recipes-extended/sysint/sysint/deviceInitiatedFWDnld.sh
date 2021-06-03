@@ -1,14 +1,22 @@
 #!/bin/sh
-# ============================================================================
-# RDK MANAGEMENT, LLC CONFIDENTIAL AND PROPRIETARY
-# ============================================================================
-# This file (and its contents) are the intellectual property of RDK Management, LLC.
-# It may not be used, copied, distributed or otherwise  disclosed in whole or in
-# part without the express written permission of RDK Management, LLC.
-# ============================================================================
-# Copyright (c) 2016 RDK Management, LLC. All rights reserved.
-# ============================================================================
-##################################################################
+##########################################################################
+# If not stated otherwise in this file or this component's Licenses.txt
+# file the following copyright and licenses apply:
+#
+# Copyright 2019 RDK Management
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+##########################################################################
 ## Script to do Device Initiated Firmware Download
 ##    * Check for every reboot
 ##################################################################
@@ -85,6 +93,8 @@ echo "dnld5---------------------"
 DOWNLOAD_IN_PROGRESS="Download In Progress"
 UPGRADE_IN_PROGRESS="Flashing In Progress"
 dnldInProgressFlag="/tmp/.imageDnldInProgress"
+
+CAPABILITIES='&model=<model_name>&capabilities=RCDL&capabilities=supportsFullHttpUrl'
 
 if [ -z $LOG_PATH ]; then
     LOG_PATH="/rdklogs/logs/"
@@ -495,7 +505,7 @@ processJsonResponse()
     ipv6cloudFWLocation=`grep ipv6FirmwareLocation  $OUTPUT | cut -d \| -f2 | tr -d ' '`
     if [ "$DisableForcedHttps" != "true" ] ; then
         ipv6cloudFWLocation=`echo $ipv6cloudFWLocation | sed "s/http:/https:/g"`
-        cloudFWLocation=`echo $cloudFWLocation | sed "s/http:/https:/g"`
+        cloudFWLocation=`echo $cloudFWLocation | sed "http:"`
     else
         echo "`Timestamp` Ignore forcing to https URL"
     fi
@@ -554,7 +564,8 @@ createJsonString () {
  
    echo "CKP------------estbmac:"$estbMac
    #Included additionalFwVerInfo and partnerId
-   JSONSTR=$estbMac
+   #JSONSTR=$estbMaci
+   JSONSTR=''$estbMac''$CAPABILITIES''
    echo "CKP------------jsonstr:"$JSONSTR
 }
 sendXCONFTLSRequest () {
