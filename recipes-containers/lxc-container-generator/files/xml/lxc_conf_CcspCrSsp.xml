@@ -216,6 +216,11 @@
             <Entry>libprivilege</Entry>
             <Entry>librbus</Entry>
             <Entry>libjsoncpp</Entry>
+            <Entry>libHotspotApi</Entry>
+            <Entry>libjansson</Entry>
+            <Entry>libmnl</Entry>
+            <Entry>libnetfilter_queue</Entry>
+            <Entry>libnfnetlink</Entry>
         </LibsRoBindMounts>
     </Rootfs>
 </LxcConfig>
