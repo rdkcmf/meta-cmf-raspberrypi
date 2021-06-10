@@ -13,6 +13,8 @@ LDFLAGS_append = " \
     -lsecure_wrapper \
 "
 
+CFLAGS_append = " -Wno-format-extra-args -Wno-error "
+
 # we need to patch to code for RPi
 do_rpi_patches() {
     cd ${S}
