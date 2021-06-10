@@ -16,6 +16,7 @@ VIRTUAL-RUNTIME_dtcpmgr = ""
 DISTRO_FEATURES_append = " parodus"
 DISTRO_FEATURES_append = " ledmgr"
 DISTRO_FEATURES_append = " build_rne"
+
 DISTRO_FEATURES_append = " ctrlm"
 DISTRO_FEATURES_append = " ctrlm_voice_sdk"
 
