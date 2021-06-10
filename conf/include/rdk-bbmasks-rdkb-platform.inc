@@ -1,3 +1,5 @@
+BBMASK .= "|meta-rdk/recipes-support/base64"
+
 BBMASK .= "|meta-rdk/recipes-common/rdkversion/"
 BBMASK .= "|meta-cmf/recipes-common/rdkversion/"
 
@@ -22,7 +24,5 @@ BBMASK .= "|meta-cmf-raspberrypi/recipes-extended/tdkc/"
 BBMASK .= "|meta-cmf-raspberrypi/recipes-graphics/"
 BBMASK .= "|meta-cmf-raspberrypi/recipes-multimedia/"
 BBMASK .= "|meta-cmf-raspberrypi/recipes-wpe/"
-
-BBMASK .= "|meta-rdk-ext/recipes-support/base64"
 
 BBMASK_append_dunfell .= "|meta-cmf-raspberrypi/recipes-bsp/bootfiles/bcm2835-bootfiles.bbappend"
