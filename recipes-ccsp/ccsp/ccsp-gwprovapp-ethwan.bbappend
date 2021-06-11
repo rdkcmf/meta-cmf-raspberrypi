@@ -5,6 +5,8 @@ export PLATFORM_RASPBERRYPI_ENABLED="yes"
 DEPENDS_remove_dunfell = "hal-gwprovappabs"
 LDFLAGS_remove_dunfell = "-lgwprovappabs"
 
+CFLAGS_append = " -Wno-unused-variable -Wno-sizeof-pointer-memaccess -Wno-unused-parameter -Wno-unused-but-set-variable "
+
 inherit systemd
 
 do_install_append () {
