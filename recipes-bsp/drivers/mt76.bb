@@ -12,8 +12,9 @@ do_compile[noexec] = "1"
 
 do_install () {
     install -d ${D}${base_libdir}/firmware/
-    install -m 755 ${S}/firmware/mt7662*.bin  ${D}${base_libdir}/firmware/
+    install -m 755 ${S}/firmware/mt7662.bin  ${D}${base_libdir}/firmware/
+    install -m 755 ${S}/firmware/mt7662_rom_patch.bin  ${D}${base_libdir}/firmware/
 }
 
-FILES_${PN} += "${base_libdir}/firmware/mt7662*.bin"
-
+FILES_${PN} += "${base_libdir}/firmware/mt7662.bin"
+FILES_${PN} += "${base_libdir}/firmware/mt7662_rom_patch.bin"

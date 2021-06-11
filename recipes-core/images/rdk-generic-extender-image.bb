@@ -54,8 +54,7 @@ IMAGE_INSTALL += " \
    strace \
    wpa-supplicant \
    dropbear \
-   rtl8812au \
-   rtl8192eu \
+   mt76 \
 "
 
 SYSTEMD_TOOLS = "systemd-analyze systemd-bootchart"
