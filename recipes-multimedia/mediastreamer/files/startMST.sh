@@ -20,6 +20,11 @@
 
 #Set environment
 
+if [ "`ifconfig wlano0 | grep "inet addr" | cut -c11-19`" != "inet addr" ] ; then
+        systemctl restart wpa_supplicant
+        udhcpc -i wlan0
+fi
+
 #Load v4l2
 modprobe bcm2835-v4l2
 
