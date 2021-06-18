@@ -125,10 +125,39 @@ do_install_append() {
     sed -i -e "s/dropbear -E -s -b \/etc\/sshbanner.txt/dropbear -R -E /g" ${D}/etc/utopia/service.d/service_sshd.sh
     sed -i -e "/dropbear -R -E  -a -r/s/$/ -B/" ${D}${sysconfdir}/utopia/service.d/service_sshd.sh
 
-    echo "touch -f /tmp/utopia_inited" >> ${D}${sysconfdir}/utopia/utopia_init.sh
 
     #Backup and Restore feature related
     sed -i "/rm -f \/nvram\/syscfg.db.prev/a \ \trm -f \/nvram\/hostapd0.conf.prev \ \n \trm -f \/nvram\/hostapd1.conf.prev" ${D}${sysconfdir}/utopia/utopia_init.sh
+
+    #WanManager Feature
+    DISTRO_WAN_ENABLED="${@bb.utils.contains('DISTRO_FEATURES','rdkb_wan_manager','true','false',d)}"
+    if [ $DISTRO_WAN_ENABLED = 'true' ]; then
+    sed -i '/cron/a \
+\# Creating the dibbler directory for its pid files in \/tmp \ 
+mkdir -p \/tmp\/dibbler ' ${D}${sysconfdir}/utopia/utopia_init.sh
+
+    sed -i '/log_capture_path.sh/a \
+mkdir -p \/nvram \
+rm -f \/nvram\/dnsmasq.leases \
+cp \/usr\/ccsp\/ccsp_msg.cfg \/tmp \
+touch \/tmp\/cp_subsys_ert \
+ln -s \/var\/spool\/cron\/crontabs \/ \
+mkdir -p \/var\/run\/firewall \
+touch \/nvram\/ETHWAN_ENABLE ' ${D}${sysconfdir}/utopia/utopia_init.sh
+
+    sed -i '/sshd-start/a \
+\#TODO: Need to replaced once the sky version 2 code is available \
+sysevent set lan-start 0 \
+sysevent set bridge-stop 0 \
+sysevent set bridge_mode 0 \
+sysevent set dhcp_server-resync 0 \
+sysevent set ethwan-initialized 1 \
+syscfg set eth_wan_enabled true \
+syscfg commit \
+echo 1 > \/proc\/sys\/net\/ipv4\/ip_forward ' ${D}${sysconfdir}/utopia/utopia_init.sh
+    fi
+
+    echo "touch -f /tmp/utopia_inited" >> ${D}${sysconfdir}/utopia/utopia_init.sh
 }
 
 do_install_append () {
