@@ -1,5 +1,4 @@
 require recipes-core/images/rdk-generic-mediaclient-wpe-image.bb
-require recipes-core/images/sdk-common.inc
 
 IMAGE_FEATURES += "firebolt"
 
