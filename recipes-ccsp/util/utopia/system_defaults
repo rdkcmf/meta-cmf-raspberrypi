@@ -1049,3 +1049,8 @@ $T2Enable=false
 $T2Version=1
 $T2ConfigURL=
 
+#Defaults for WanManager
+$tr_dhcpv6c_enabled=1
+$tr_dhcpv6c_iana_enabled=1
+$tr_dhcpv6c_iapd_enabled=1
+
