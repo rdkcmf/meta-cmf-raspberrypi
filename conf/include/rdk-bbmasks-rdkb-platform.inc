@@ -23,6 +23,7 @@ BBMASK .= "|meta-cmf-raspberrypi/recipes-extended/rms/"
 BBMASK .= "|meta-cmf-raspberrypi/recipes-extended/tdkc/"
 BBMASK .= "|meta-cmf-raspberrypi/recipes-graphics/"
 BBMASK .= "|meta-cmf-raspberrypi/recipes-multimedia/"
+BBMASK .= "|meta-cmf-raspberrypi/recipes-oem/mfrlibs/"
 BBMASK .= "|meta-cmf-raspberrypi/recipes-wpe/"
 
 BBMASK_append_dunfell .= "|meta-cmf-raspberrypi/recipes-bsp/bootfiles/bcm2835-bootfiles.bbappend"
