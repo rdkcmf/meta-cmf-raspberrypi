@@ -2,21 +2,6 @@ SRC_URI_append = " \
     ${CMF_GIT_ROOT}/rdkb/devices/raspberrypi/hal;protocol=${CMF_GIT_PROTOCOL};branch=${CMF_GIT_BRANCH};destsuffix=git/source/wifi/devices;name=wifihal-raspberrypi \
 "
 
-FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
-SRC_URI_append = " file://wifi_variable_definitions.patch;apply=no"
-SRC_URI_append = " file://wifi_function_definitions.patch;apply=no"
-
-#This is workaround for missing do_patch when RDK uses external sources
-do_rpi_patches() {
-    cd ${WORKDIR}/git
-        if [ ! -e patch_applied ]; then
-            patch -p1 < ${WORKDIR}/wifi_variable_definitions.patch
-            patch -p1 < ${WORKDIR}/wifi_function_definitions.patch
-            touch patch_applied
-        fi
-}
-addtask rpi_patches after do_configure before do_compile
-
 SRCREV_wifihal-raspberrypi = "${AUTOREV}"
 
 DEPENDS +=" libev wpa-supplicant"
