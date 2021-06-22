@@ -1,6 +1,6 @@
 require ccsp_common_rpi.inc
 
-FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
+FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:${THISDIR}/files:"
 
 DEPENDS_append_rpi = " breakpad"
 DEPENDS_append_dunfell = " ${@bb.utils.contains('DISTRO_FEATURES', 'safec', ' safec', " ", d)}"
@@ -18,6 +18,7 @@ SRC_URI_append = " \
     file://rpiwifiinitialized.path \
     file://checkrpiwifisupport.path \
     file://wifi-initialized.target \
+    file://if_check.sh \
 "
 SRC_URI_append_lxcbrc += "\
    file://psm_container.sh \
@@ -130,6 +131,17 @@ do_install_append_class-target () {
      sed -i "/EnvironmentFile=\/etc\/dcm.properties/a ExecStartPre=\/bin\/sh -c '\/bin\/touch \/rdklogs\/logs\/dcmscript.log'" ${D}${systemd_unitdir}/system/CcspTelemetry.service
      sed -i "s/ExecStart=\/bin\/sh -c '\/lib\/rdk\/dcm.service \&'/ExecStart=\/bin\/sh -c '\/lib\/rdk\/StartDCM.sh \>\> \/rdklogs\/logs\/telemetry.log \&'/g" ${D}${systemd_unitdir}/system/CcspTelemetry.service
      sed -i "s/wan-initialized.target/multi-user.target/g" ${D}${systemd_unitdir}/system/CcspTelemetry.service
+
+     install -d ${D}${base_libdir}/rdk
+     install -m 755 ${WORKDIR}/if_check.sh ${D}${base_libdir}/rdk/
+#WanManager - RdkWanManager.service
+     DISTRO_WAN_ENABLED="${@bb.utils.contains('DISTRO_FEATURES','rdkb_wan_manager','true','false',d)}"
+     if [ $DISTRO_WAN_ENABLED = 'true' ]; then
+     install -D -m 0644 ${S}/systemd_units/RdkWanManager.service ${D}${systemd_unitdir}/system/RdkWanManager.service
+     sed -i "/WorkingDirectory/a ExecStartPre=/bin/sh /etc/utopia/utopia_init.sh" ${D}${systemd_unitdir}/system/RdkWanManager.service
+     sed -i "/utopia_init.sh/a ExecStartPre=/bin/sh /lib/rdk/run_rm_key.sh" ${D}${systemd_unitdir}/system/RdkWanManager.service
+     sed -i "/utopia_init.sh/a ExecStartPre=/bin/sh /lib/rdk/if_check.sh" ${D}${systemd_unitdir}/system/RdkWanManager.service
+     fi
 }
 do_install_append_class-target_lxcbrc () {
 
@@ -182,6 +194,7 @@ SYSTEMD_SERVICE_${PN} += "logagent.service"
 SYSTEMD_SERVICE_${PN} += "rfc.service"
 SYSTEMD_SERVICE_${PN} += "CcspTelemetry.service"
 SYSTEMD_SERVICE_${PN} += "notifyComp.service"
+SYSTEMD_SERVICE_${PN} += "${@bb.utils.contains('DISTRO_FEATURES', 'rdkb_wan_manager', 'RdkWanManager.service ', '', d)}"
 
 FILES_${PN}_append = " \
     /usr/ccsp/ccspSysConfigEarly.sh \
@@ -189,6 +202,7 @@ FILES_${PN}_append = " \
     /usr/ccsp/utopiaInitCheck.sh \
     /usr/ccsp/ccspPAMCPCheck.sh \
     /usr/ccsp/ProcessResetCheck.sh \
+    ${base_libdir}/rdk/if_check.sh \
     ${systemd_unitdir}/system/ccspwifiagent.service \
     ${systemd_unitdir}/system/CcspCrSsp.service \
     ${systemd_unitdir}/system/CcspPandMSsp.service \
@@ -212,7 +226,7 @@ FILES_${PN}_append = " \
     ${systemd_unitdir}/system/rfc.service \
     ${systemd_unitdir}/system/CcspTelemetry.service \
 "
-
+FILES_${PN}_append = "${@bb.utils.contains('DISTRO_FEATURES', 'rdkb_wan_manager', ' ${systemd_unitdir}/system/RdkWanManager.service ', '', d)}"
 FILES_${PN}_append_lxcbrc = " \
 	/lib/rdk/psm_container.sh \
    	/lib/rdk/pandm_container.sh \
