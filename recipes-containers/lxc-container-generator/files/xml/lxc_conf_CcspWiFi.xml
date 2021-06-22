@@ -435,6 +435,7 @@
             <Entry>libmnl</Entry>
             <Entry>libnetfilter_queue</Entry>
             <Entry>libnfnetlink</Entry>
+            <Entry>libev</Entry>
         </LibsRoBindMounts>
     </Rootfs>
 </LxcConfig>
