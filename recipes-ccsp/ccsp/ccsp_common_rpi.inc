@@ -13,6 +13,8 @@ CFLAGS_append_rpi += "-U_COSA_SIM_ -fno-exceptions -ffunction-sections -fdata-se
            -D_PLATFORM_RASPBERRYPI_ -DENABLE_SD_NOTIFY -DCOSA_DML_WIFI_FEATURE_LoadPsmDefaults -UPARODUS_ENABLE \
 	   -DCONFIG_VENDOR_CUSTOMER_COMCAST"
 
+CFLAGS_append += "${@bb.utils.contains('DISTRO_FEATURES', 'rdkb_wan_manager', ' -DFEATURE_RDKB_WAN_MANAGER ', '', d)}"	   
+
 EXTRA_OECONF_append_rpi  = " --with-ccsp-platform=bcm --with-ccsp-arch=arm"
 
 DEPENDS += "breakpad-wrapper"
