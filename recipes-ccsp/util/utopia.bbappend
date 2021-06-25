@@ -14,7 +14,7 @@ LDFLAGS_append = " \
 "
 
 CFLAGS_append = " -Wno-format-extra-args -Wno-error "
-
+CFLAGS_append += "${@bb.utils.contains('DISTRO_FEATURES', 'rdkb_wan_manager', ' -D_WAN_MANAGER_ENABLED_', '', d)}"
 # we need to patch to code for RPi
 do_rpi_patches() {
     cd ${S}
