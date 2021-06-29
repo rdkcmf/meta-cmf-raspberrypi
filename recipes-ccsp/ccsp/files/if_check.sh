@@ -40,7 +40,9 @@ ifconfig eth0 down
 ip link set eth1 name erouter0
 ip link set eth0 name eth1
 ifconfig eth1 up 
+if [ ! -f /tmp/OS_WANMANAGER_ENABLED ]; then
 ifconfig erouter0 up
+fi
 fi
 
 tem1=`ethtool --show-eee eth1 | wc -l`
@@ -53,7 +55,9 @@ ifconfig eth0 down
 ip link set eth0 name eth1
 ip link set eth1 name erouter0
 ifconfig eth1 up 
+if [ ! -f /tmp/OS_WANMANAGER_ENABLED ]; then
 ifconfig erouter0 up
+fi
 fi
 else
 echo "These fix is not required for this model board"
