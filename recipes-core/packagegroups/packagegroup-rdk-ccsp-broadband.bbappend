@@ -11,4 +11,4 @@ RDEPENDS_packagegroup-rdk-ccsp-broadband_append = "\
 "
 
 # Set the gwprov app for RPi
-GWPROVAPP = "ccsp-gwprovapp-ethwan"
+GWPROVAPP = ""

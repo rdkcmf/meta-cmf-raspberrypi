@@ -54,5 +54,8 @@ PREFERRED_VERSION_wayland-native_morty = "1.11%"
 ### others
 ENABLE_UART = "1"
 DISTRO_FEATURES_append = " usppa"
+DISTRO_FEATURES_append = " rdkb_power_manager"
+DISTRO_FEATURES_append = " rdkb_gpon_manager"
+DISTRO_FEATURES_append = " rdkb_wan_manager"
 
 SESSIONMGR_WS_RPC_ENABLE = "1"
