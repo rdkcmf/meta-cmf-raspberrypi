@@ -27,7 +27,6 @@ RDEPENDS_packagegroup-rdk-media-common_append_rpi = "\
     lirc \
     audiocapturemgr \
     aamp \
-    appmanager \
     tts \
     ledmgr-extended-noop \
     hdhomerun \
