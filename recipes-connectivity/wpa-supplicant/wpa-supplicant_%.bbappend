@@ -3,6 +3,7 @@ SRC_URI_append_camera = " \
         file://wpa_supplicant.service \
         file://wpa_supplicant.conf \
 "
+SRC_URI_append_extender = " file://wpa_supplicant-global.service"
 
 EXTRA_OEMAKE = "CONFIG_BUILD_WPA_CLIENT_SO=y"
 FILES_SOLIBSDEV = ""
@@ -19,6 +20,10 @@ do_install_append_camera() {
         install -D -m 0644 ${WORKDIR}/wpa_supplicant.conf ${D}/etc/wpa_supplicant.conf
 }
 
+do_install_append_extender () {
+        install -m 0755 ${WORKDIR}/wpa_supplicant-global.service ${D}${systemd_unitdir}/system/
+}
+
 FILES_${PN} += "${libdir}/libwpa_client.so"
 FILES_${PN} += "${includedir}/wpa_ctrl.h"
 
@@ -31,3 +36,7 @@ inherit systemd
 SYSTEMD_SERVICE_${PN}_camera = "wpa_supplicant.service"
 SYSTEMD_AUTO_ENABLE_camera = "enable"
 FILES_${PN}_append_camera += "${systemd_unitdir}/system/*"
+
+SYSTEMD_SERVICE_${PN}_extender = "wpa_supplicant-global.service"
+SYSTEMD_AUTO_ENABLE_${PN}_extender = "enable"
+

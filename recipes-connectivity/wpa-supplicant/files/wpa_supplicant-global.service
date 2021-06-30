@@ -1,0 +1,11 @@
+[Unit]
+Description=WPA supplicant daemon
+
+[Service]
+Type=simple
+PIDFile=/var/run/wpa_supplicant-global.pid
+ExecStart=/usr/sbin/wpa_supplicant -g/var/run/wpa_supplicant-global -P /var/run/wpa_supplicant-global.pid 
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
