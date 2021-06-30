@@ -39,6 +39,7 @@ RDEPS_EXTRA_append_dunfell = " \
 # RDK Distro excludes shared-mime-info for dunfell builds
 RDEPS_EXTRA_remove_dunfell = " \
     shared-mime-info \
+    gstreamer1.0-plugins-bad-dataurisrc \
 "
 
 RDEPS_EXTRA_remove_daisy = "gstreamer1.0-plugins-ugly-mpg123"
