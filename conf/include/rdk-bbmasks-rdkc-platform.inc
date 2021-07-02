@@ -79,6 +79,7 @@ BBMASK .= "|meta-rdk/recipes-common/rdkversion/"
 BBMASK .= "|meta-rdk/recipes-common/rfc/"
 BBMASK .= "|meta-rdk/recipes-common/sys_mon_tools/"
 BBMASK .= "|meta-rdk/recipes-common/telemetry/"
+BBMASK .= "|meta-rdk/recipes-common/webconfig-framework/"
 BBMASK .= "|meta-rdk/recipes-support/base64/"
 BBMASK .= "|meta-rdk/recipes-support/memstress/"
 
