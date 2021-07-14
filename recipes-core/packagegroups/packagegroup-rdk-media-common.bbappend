@@ -48,7 +48,6 @@ RDEPENDS_packagegroup-rdk-media-common_append_rpi = "\
 
 RDEPENDS_packagegroup-rdk-media-common_remove_client = " \
     ${@bb.utils.contains('DISTRO_FEATURES', 'ipclient', ' \
-        fog \
         sys-utils \
         tr69hostif \
         audiocapturemgr \
