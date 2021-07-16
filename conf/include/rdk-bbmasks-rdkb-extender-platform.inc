@@ -117,3 +117,5 @@ BBMASK_append_dunfell .= "|meta-cmf-raspberrypi/recipes-kernel/linux/linux-raspb
 BBMASK_append_dunfell .= "|meta-cmf-raspberrypi/recipes-support/opencv/opencv_3.1.bbappend"
 BBMASK_append_dunfell .= "|meta-cmf-raspberrypi/recipes-support/tbb/tbb_4.1.bbappend"
 BBMASK_append_dunfell .= "|meta-cmf-raspberrypi/recipes-thirdparty/tr69/tr69hostif_git.bbappend"
+
+BBMASK_append_dunfell .= "|meta-rdk/recipes-core/packagegroups/packagegroup-rdk-gstreamer1.bb"
