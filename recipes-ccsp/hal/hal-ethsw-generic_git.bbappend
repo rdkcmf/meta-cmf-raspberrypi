@@ -3,6 +3,7 @@ SRC_URI_append = " \
 "
 SRCREV_ethswhal-raspberrypi = "${AUTOREV}"
 
+CFLAGS_append  = " ${@bb.utils.contains('DISTRO_FEATURES', 'rdkb_wan_manager', '-DFEATURE_RDKB_WAN_MANAGER', '', d)}"
 do_configure_prepend(){
     ln -sf ${S}/devices/source/hal-ethsw/ccsp_hal_ethsw.c ${S}/ccsp_hal_ethsw.c
 }
