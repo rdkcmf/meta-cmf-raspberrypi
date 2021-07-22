@@ -57,5 +57,6 @@ DISTRO_FEATURES_append = " usppa"
 DISTRO_FEATURES_append = " rdkb_power_manager"
 DISTRO_FEATURES_append = " rdkb_gpon_manager"
 DISTRO_FEATURES_append = " rdkb_wan_manager"
+DISTRO_FEATURES_append = " rdkb_voice_manager_dmltr104_v2"
 
 SESSIONMGR_WS_RPC_ENABLE = "1"
