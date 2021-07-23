@@ -61,6 +61,7 @@ DISTRO_FEATURES_append = " rdkb_power_manager"
 DISTRO_FEATURES_append = " rdkb_gpon_manager"
 DISTRO_FEATURES_append = " rdkb_wan_manager"
 DISTRO_FEATURES_append = " rdkb_voice_manager_dmltr104_v2"
+DISTRO_FEATURES_append = " rdkb_xdsl_ppp_manager"
 
 # RDKBDEV-50: Adding DSLite Functionality and related TR-181 DataModel Parameters
 DISTRO_FEATURES_append = " dslite"
