@@ -5,5 +5,4 @@
 #
 INHERIT += "externalsrc"
 
-EXTERNALSRC_pn-hal-json-ethsw = "${@'${RDK_ROOT_PATH}/rdkb/devices/raspberrypi/hal/source/json-ethsw' if (os.path.isdir('${RDK_ROOT_PATH}/rdkb/devices/raspberrypi/hal')) else ''}"
 EXTERNALSRC_pn-westeros-sink = "${@'${RDK_ROOT_PATH}/components/opensource/westeros' if (os.path.isdir('${RDK_ROOT_PATH}/components/opensource/westeros')) else ''}"
