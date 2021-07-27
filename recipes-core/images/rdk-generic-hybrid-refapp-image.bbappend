@@ -1,5 +1,3 @@
-require rdk-generic-hybrid-westeros-wpe-image.bb
-
 # for bluetooth
 IMAGE_INSTALL_append = " bluez5 bluez5-bluetoothd"
 
