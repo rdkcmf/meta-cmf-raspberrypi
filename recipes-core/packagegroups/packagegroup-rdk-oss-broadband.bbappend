@@ -16,4 +16,3 @@ RDEPENDS_packagegroup-rdk-oss-broadband_append = " \
 "
 
 RDEPENDS_packagegroup-rdk-oss-broadband_remove_aarch64 = "alljoyn"
-RDEPENDS_packagegroup-rdk-oss-broadband_append_dunfell = " zilker-sdk"
