@@ -146,6 +146,18 @@ do_install_append_class-target () {
      install -D -m 0644 ${S}/systemd_units/RdkTelcoVoiceManager.service ${D}${systemd_unitdir}/system/RdkTelcoVoiceManager.service
      install -D -m 0644 ${S}/systemd_units/RdkVlanManager.service ${D}${systemd_unitdir}/system/RdkVlanManager.service
      fi
+
+     ##### erouter0 ip issue
+    sed -i '/Factory/a \
+IsErouterRunningStatus=\`ifconfig erouter0 | grep RUNNING | grep -v grep | wc -l\` \
+if [ \"\$IsErouterRunningStatus\" == 0 ]; then \
+ethtool -s erouter0 speed 1000 \
+fi \
+IsUdhcpcStatus=\`ps aux | grep udhcpc | grep -v grep | wc  -l\` \
+if [ \"\$IsUdhcpcStatus\" == 0 ]; then \
+udhcpc -i erouter0 \
+fi' ${D}/usr/ccsp/ccspPAMCPCheck.sh
+
 }
 
 do_install_append_class-target_lxcbrc () {
