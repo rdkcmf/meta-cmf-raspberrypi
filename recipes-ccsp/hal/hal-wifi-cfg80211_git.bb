@@ -1,6 +1,6 @@
 SUMMARY = "WIFI HAL for RDK CCSP components"
 LICENSE = "Apache-2.0"
-LIC_FILES_CHKSUM = "file://../../LICENSE;md5=cc44d3d0bd3fb4f1a5b6f235c8c326c0"
+LIC_FILES_CHKSUM = "file://../../LICENSE;md5=257abd766c384d13f786497b61799b04"
 
 PROVIDES = "hal-wifi"
 RPROVIDES_${PN} = "hal-wifi"
