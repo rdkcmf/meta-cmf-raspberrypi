@@ -1,5 +1,6 @@
 BBMASK .= "|meta-rdk-video/recipes-extended/ctrlm/ctrlm-testapp.bb"
 
+BBMASK .= "|meta-rdk/recipes-common/rdk-oss-ssa/"
 BBMASK .= "|meta-rdk/recipes-support/base64"
 
 BBMASK .= "|openembedded-core/meta/recipes-multimedia/gstreamer/gstreamer1.0-plugins-ugly_1.8.3.bb"
