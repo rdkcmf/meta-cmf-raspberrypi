@@ -1020,6 +1020,7 @@ $X_RDKCENTRAL-COM_CR_LogLevel=4
 $X_RDKCENTRAL-COM_Harvester_LogLevel=4
 $X_RDKCENTRAL-COM_NotifyComp_LogLevel=4
 $X_RDKCENTRAL-COM_EthAgent_LogLevel=4
+$X_RDKCENTRAL-COM_FwUpgradeManager_LogLevel=4
 
 # RDK LogEnable
 
@@ -1032,6 +1033,7 @@ $X_RDKCENTRAL-COM_CR_LoggerEnable=1
 $X_RDKCENTRAL-COM_Harvester_LoggerEnable=1
 $X_RDKCENTRAL-COM_NotifyComp_LoggerEnable=1
 $X_RDKCENTRAL-COM_EthAgent_LoggerEnable=1
+$X_RDKCENTRAL-COM_FwUpgradeManager_LoggerEnable=1
 
 #UniqueTelemetryId default values
 
@@ -1054,3 +1056,4 @@ $tr_dhcpv6c_enabled=1
 $tr_dhcpv6c_iana_enabled=1
 $tr_dhcpv6c_iapd_enabled=1
 
+$DeferFWDownloadReboot=290
