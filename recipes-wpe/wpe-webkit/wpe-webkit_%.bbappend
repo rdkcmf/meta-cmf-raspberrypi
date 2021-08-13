@@ -1,4 +1,4 @@
-PACKAGECONFIG_remove = " playready mediastream provisioning"
+PACKAGECONFIG_remove = " playready provisioning"
 
 DEPENDS += "atk libgcrypt libwebp"
 
