@@ -44,6 +44,7 @@ do_install_append_rpi() {
     install -m 0755 ${S}/devicerpi/lib/rdk/rpi_sw_install.sh ${D}${base_libdir}/rdk
     install -m 0755 ${S}/devicerpi/lib/rdk/rpi_sw_install1.sh ${D}${base_libdir}/rdk
     install -m 0755 ${S}/devicerpi/lib/rdk/snmpUtils.sh ${D}${base_libdir}/rdk
+    install -m 0755 ${S}/devicerpi/lib/rdk/rpi_image_Flasher.sh ${D}${base_libdir}/rdk
     install -m 0755 ${S}/devicerpi/lib/rdk/swupdate_utility.sh ${D}${base_libdir}/rdk
     install -m 0755 ${S}/devicerpi/lib/rdk/dcaSplunkUpload.sh ${D}${base_libdir}/rdk
     install -m 0755 ${S}/devicerpi/lib/rdk/dca_utility.sh ${D}${base_libdir}/rdk
