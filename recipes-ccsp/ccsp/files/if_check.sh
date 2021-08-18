@@ -25,6 +25,9 @@ if_count=`ifconfig -a | grep eth | wc -l`
 echo "if_count : $if_count"
 #if it count is 1, we don't need to check the below cases because that's default ethernet interface.
 if [ $if_count == 1 ]; then
+	ifconfig eth0 down
+	ip link set dev eth0 name erouter0
+	ifconfig erouter0 up
 	exit 0
 fi
 

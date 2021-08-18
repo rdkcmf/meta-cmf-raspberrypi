@@ -141,9 +141,19 @@ do_install_append_class-target () {
      install -D -m 0644 ${S}/systemd_units/RdkWanManager.service ${D}${systemd_unitdir}/system/RdkWanManager.service
      sed -i "/WorkingDirectory/a ExecStartPre=/bin/sh /lib/rdk/run_rm_key.sh" ${D}${systemd_unitdir}/system/RdkWanManager.service
      sed -i "s/After=CcspCrSsp.service/After=CcspCrSsp.service utopia.service/g" ${D}${systemd_unitdir}/system/RdkWanManager.service
-     sed -i "s/CcspPandMSsp.service/CcspCrSsp.service RdkWanManager.service/g" ${D}${systemd_unitdir}/system/CcspEthAgent.service
+     sed -i "s/CcspPandMSsp.service/CcspCrSsp.service CcspPandMSsp.service/g" ${D}${systemd_unitdir}/system/CcspEthAgent.service
      install -D -m 0644 ${WORKDIR}/utopia.service ${D}${systemd_unitdir}/system/utopia.service
+     install -D -m 0644 ${S}/systemd_units/RdkTelcoVoiceManager.service ${D}${systemd_unitdir}/system/RdkTelcoVoiceManager.service
+     install -D -m 0644 ${S}/systemd_units/RdkVlanManager.service ${D}${systemd_unitdir}/system/RdkVlanManager.service
      fi
+
+     ##### erouter0 ip issue
+    sed -i '/Factory/a \
+IsErouterRunningStatus=\`ifconfig erouter0 | grep RUNNING | grep -v grep | wc -l\` \
+if [ \"\$IsErouterRunningStatus\" == 0 ]; then \
+ethtool -s erouter0 speed 1000 \
+fi' ${D}/usr/ccsp/ccspPAMCPCheck.sh
+
 }
 
 do_install_append_class-target_lxcbrc () {
@@ -229,7 +239,7 @@ FILES_${PN}_append = " \
     ${systemd_unitdir}/system/rfc.service \
     ${systemd_unitdir}/system/CcspTelemetry.service \
 "
-FILES_${PN}_append = "${@bb.utils.contains('DISTRO_FEATURES', 'rdkb_wan_manager', ' ${systemd_unitdir}/system/RdkWanManager.service ${systemd_unitdir}/system/utopia.service ', '', d)}"
+FILES_${PN}_append = "${@bb.utils.contains('DISTRO_FEATURES', 'rdkb_wan_manager', ' ${systemd_unitdir}/system/RdkWanManager.service ${systemd_unitdir}/system/utopia.service ${systemd_unitdir}/system/RdkVlanManager.service ${systemd_unitdir}/system/RdkTelcoVoiceManager.service ', '', d)}"
 FILES_${PN}_append_lxcbrc = " \
 	/lib/rdk/psm_container.sh \
    	/lib/rdk/pandm_container.sh \
