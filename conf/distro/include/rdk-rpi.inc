@@ -54,6 +54,14 @@ PREFERRED_VERSION_wayland-native_morty = "1.11%"
 
 ### others
 ENABLE_UART = "1"
+
+# RDKBDEV-298 : Add USP Agent support using OBUSPA
 DISTRO_FEATURES_append = " usppa"
+
+# RDKBDEV-73 : Dynamic DNS : Standardization based on broadband-forum.
+DISTRO_FEATURES_append = " ddns_broadband"
+
+# RDKBDEV-83 : Device Gateway Association using Managed Device
+DISTRO_FEATURES_append = " device_gateway_association"
 
 SESSIONMGR_WS_RPC_ENABLE = "1"
