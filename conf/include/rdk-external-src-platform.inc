@@ -5,4 +5,9 @@
 #
 INHERIT += "externalsrc"
 
+EXTERNALSRC_pn-hal-dhcpv4c-generic = "${@'${RDK_ROOT_PATH}/rdkb/components/opensource/ccsp/hal/source/dhcpv4c' if (os.path.isdir('${RDK_ROOT_PATH}/rdkb/components/opensource/ccsp/hal/source/dhcpv4c/devices_rpi')) else ''}"
+EXTERNALSRC_pn-hal-ethsw-generic = "${@'${RDK_ROOT_PATH}/rdkb/components/opensource/ccsp/hal/source/ethsw' if (os.path.isdir('${RDK_ROOT_PATH}/rdkb/components/opensource/ccsp/hal/source/ethsw/devices_rpi')) else ''}"
+EXTERNALSRC_pn-hal-fwupgrade = "${@'${RDK_ROOT_PATH}/rdkb/devices/raspberrypi/hal/source/fwupgrade' if (os.path.isdir('${RDK_ROOT_PATH}/rdkb/devices/raspberrypi/hal/source/fwupgrade')) else ''}"
+EXTERNALSRC_pn-hal-platform-generic = "${@'${RDK_ROOT_PATH}/rdkb/components/opensource/ccsp/hal/source/platform' if (os.path.isdir('${RDK_ROOT_PATH}/rdkb/components/opensource/ccsp/hal/source/platform/devices_rpi')) else ''}"
+EXTERNALSRC_pn-hal-wifi-generic = "${@'${RDK_ROOT_PATH}/rdkb/components/opensource/ccsp/hal/source/wifi' if (os.path.isdir('${RDK_ROOT_PATH}/rdkb/components/opensource/ccsp/hal/source/wifi/devices_rpi')) else ''}"
 EXTERNALSRC_pn-westeros-sink = "${@'${RDK_ROOT_PATH}/components/opensource/westeros' if (os.path.isdir('${RDK_ROOT_PATH}/components/opensource/westeros')) else ''}"
