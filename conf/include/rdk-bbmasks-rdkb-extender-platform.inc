@@ -119,3 +119,6 @@ BBMASK_append_dunfell .= "|meta-cmf-raspberrypi/recipes-support/tbb/tbb_4.1.bbap
 BBMASK_append_dunfell .= "|meta-cmf-raspberrypi/recipes-thirdparty/tr69/tr69hostif_git.bbappend"
 
 BBMASK_append_dunfell .= "|meta-rdk/recipes-core/packagegroups/packagegroup-rdk-gstreamer1.bb"
+BBMASK_append_dunfell .= "|meta-cmf/recipes-graphics/libinput/libinput_git.bbappend"
+BBMASK_append_dunfell .= "|meta-cmf/recipes-multimedia/gstreamer/gstreamer1.0-plugins-ugly_git.bbappend"
+BBMASK_append_dunfell .= "|meta-cmf-raspberrypi/recipes-core/packagegroups/packagegroup-rdk-gstreamer1.bbappend"
