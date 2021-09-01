@@ -21,6 +21,11 @@ SRC_URI_append_extender = " \
     file://hostapd2.conf \
     file://hostapd3.conf \
     file://extender_hostapd_start.sh \
+    file://extender_hostapd0.conf \
+    file://extender_hostapd1.conf \
+    file://extender_hostapd2.conf \
+    file://extender_hostapd3.conf \
+    file://disable_pi_wifi.conf \
 "
 
 do_install_append() {
@@ -48,21 +53,18 @@ do_install_extender() {
     sed -i '/PIDFile=/c\PIDFile=/var/run/hostapd-global.pid' ${WORKDIR}/hostapd.service
     sed -i "$ a [Install]\nWantedBy=multi-user.target" ${WORKDIR}/hostapd.service
     install -d ${D}${sysconfdir} ${D}${systemd_unitdir}/system/ ${D}${sbindir}
-    install -d ${D}${sysconfdir}/hostapd
     install -d ${D}/usr/ccsp/wifi/
     install -d ${D}${prefix}/hostapd
+    install -d ${D}${sysconfdir}/modprobe.d/
     install -m 0755 ${B}/hostapd ${D}${sbindir}
     install -m 0755 ${B}/hostapd_cli ${D}${sbindir}
-    install -m 644 ${WORKDIR}/hostapd0.conf ${D}/usr/ccsp/wifi/
-    install -m 644 ${WORKDIR}/hostapd1.conf ${D}/usr/ccsp/wifi/
-    install -m 644 ${WORKDIR}/hostapd2.conf ${D}/usr/ccsp/wifi/
-    install -m 644 ${WORKDIR}/hostapd3.conf ${D}/usr/ccsp/wifi/
+    install -m 644 ${WORKDIR}/extender_hostapd0.conf ${D}/usr/ccsp/wifi/
+    install -m 644 ${WORKDIR}/extender_hostapd1.conf ${D}/usr/ccsp/wifi/
+    install -m 644 ${WORKDIR}/extender_hostapd2.conf ${D}/usr/ccsp/wifi/
+    install -m 644 ${WORKDIR}/extender_hostapd3.conf ${D}/usr/ccsp/wifi/
+    install -m 644 ${WORKDIR}/disable_pi_wifi.conf ${D}${sysconfdir}/modprobe.d/
     install -m 644 ${WORKDIR}/hostapd.service ${D}${systemd_unitdir}/system/
     install -m 755 ${WORKDIR}/extender_hostapd_start.sh ${D}${prefix}/hostapd/hostapd_start.sh
-    touch ${D}${sysconfdir}/hostapd/hostapd0.psk
-    touch ${D}${sysconfdir}/hostapd/hostapd1.psk
-    touch ${D}${sysconfdir}/hostapd/hostapd2.psk
-    touch ${D}${sysconfdir}/hostapd/hostapd3.psk
     exit 0
 }
 
@@ -77,10 +79,10 @@ FILES_${PN} += " \
 
 FILES_${PN}_extender += " \
 	${prefix}/hostapd/* \
-	${sysconfdir}/hostapd/* \
 	${sbindir}/hostapd* \
-	${prefix}/ccsp/wifi/hostapd0.conf \
-	${prefix}/ccsp/wifi/hostapd1.conf \
-	${prefix}/ccsp/wifi/hostapd2.conf \
-	${prefix}/ccsp/wifi/hostapd3.conf \
+	${prefix}/ccsp/wifi/extender_hostapd0.conf \
+	${prefix}/ccsp/wifi/extender_hostapd1.conf \
+	${prefix}/ccsp/wifi/extender_hostapd2.conf \
+	${prefix}/ccsp/wifi/extender_hostapd3.conf \
+	${sysconfdir}/modprobe.d/disable_pi_wifi.conf \
 "
