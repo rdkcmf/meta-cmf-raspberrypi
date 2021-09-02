@@ -57,6 +57,9 @@ ENABLE_UART = "1"
 
 # RDKBDEV-298 : Add USP Agent support using OBUSPA
 DISTRO_FEATURES_append = " usppa"
+DISTRO_FEATURES_append = " rdkb_power_manager"
+DISTRO_FEATURES_append = " rdkb_gpon_manager"
+DISTRO_FEATURES_append = " rdkb_wan_manager"
 
 # RDKBDEV-50: Adding DSLite Functionality and related TR-181 DataModel Parameters
 DISTRO_FEATURES_append = " dslite"
