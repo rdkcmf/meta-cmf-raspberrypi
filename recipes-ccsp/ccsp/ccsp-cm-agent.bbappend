@@ -1,5 +1,7 @@
 require ccsp_common_rpi.inc
 
+EXTRA_OECONF_remove = " ${@bb.utils.contains('DISTRO_FEATURES', 'rdkb_wan_manager', '--enable-wanmgr', '', d)}"
+
 do_install_append() {
     # Config files and scripts
     install -m 644 ${S}/config-arm/CcspCMDM.cfg ${D}${prefix}/ccsp/cm/CcspCMDM.cfg
