@@ -1,0 +1,25 @@
+Source: Mateusz Bajorski <mbajorski@plume.com>
+Subject: Adding extra Wi-Fi interface
+
+diff --git a/mt76x02_util.c b/mt76x02_util.c
+index 7e82ec6..2c47f3b 100644
+--- a/mt76x02_util.c
++++ b/mt76x02_util.c
+@@ -55,7 +55,7 @@ static const struct ieee80211_iface_limit mt76x02u_if_limits[] = {
+ 		.max = 1,
+ 		.types = BIT(NL80211_IFTYPE_ADHOC)
+ 	}, {
+-		.max = 2,
++		.max = 3,
+ 		.types = BIT(NL80211_IFTYPE_STATION) |
+ #ifdef CONFIG_MAC80211_MESH
+ 			 BIT(NL80211_IFTYPE_MESH_POINT) |
+@@ -82,7 +82,7 @@ static const struct ieee80211_iface_combination mt76x02u_if_comb[] = {
+ 	{
+ 		.limits = mt76x02u_if_limits,
+ 		.n_limits = ARRAY_SIZE(mt76x02u_if_limits),
+-		.max_interfaces = 2,
++		.max_interfaces = 3,
+ 		.num_different_channels = 1,
+ 		.beacon_int_infra_match = true,
+ 	}

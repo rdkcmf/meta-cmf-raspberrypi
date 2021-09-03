@@ -1,8 +1,11 @@
+Source: Manigandan Gopalakrishnan <manigandan.gopalakrishnan@ltts.com>
+Subject: Makefile change for building some source code files
+
 diff --git a/Makefile b/Makefile
-index 0bc65a5..6c05506 100644
+index 0bc65a5..0f94ac0 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -1,13 +1,18 @@
+@@ -1,13 +1,19 @@
 -EXTRA_CFLAGS += -Werror -DCONFIG_MT76_LEDS
 +#EXTRA_CFLAGS += -Werror -DCONFIG_MT76_LEDS
 +EXTRA_CFLAGS += -Werror
@@ -10,6 +13,7 @@ index 0bc65a5..6c05506 100644
 +CONFIG_MT76x2_COMMON := m
 +CONFIG_MT76x02_LIB := m
 +CONFIG_MT76x02_USB := m
++CONFIG_MT76x0_COMMON := m
  
  obj-m := mt76.o
 -obj-$(CONFIG_MT7603E) += mt7603/
@@ -24,7 +28,7 @@ index 0bc65a5..6c05506 100644
  
  mt76-y := \
  	mmio.o util.o trace.o dma.o mac80211.o debugfs.o eeprom.o \
-@@ -23,3 +28,25 @@ mt76x02-lib-y := mt76x02_util.o mt76x02_mac.o mt76x02_mcu.o \
+@@ -23,3 +29,25 @@ mt76x02-lib-y := mt76x02_util.o mt76x02_mac.o mt76x02_mcu.o \
  		 mt76x02_dfs.o mt76x02_beacon.o
  
  mt76x02-usb-y := mt76x02_usb_mcu.o mt76x02_usb_core.o
@@ -50,6 +54,18 @@ index 0bc65a5..6c05506 100644
 +
 +clean:
 +	rm -rf `find -name *.o`
+diff --git a/mt76x0/Makefile b/mt76x0/Makefile
+index aa22ba9..228cb3c 100644
+--- a/mt76x0/Makefile
++++ b/mt76x0/Makefile
+@@ -1,3 +1,7 @@
++CONFIG_MT76x0U := m
++CONFIG_MT76x0E := m
++CONFIG_MT76x0_COMMON :=m
++
+ obj-$(CONFIG_MT76x0U) += mt76x0u.o
+ obj-$(CONFIG_MT76x0E) += mt76x0e.o
+ obj-$(CONFIG_MT76x0_COMMON) += mt76x0-common.o
 diff --git a/mt76x2/Makefile b/mt76x2/Makefile
 index 9297b85..5b7ac0f 100644
 --- a/mt76x2/Makefile
