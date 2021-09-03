@@ -46,8 +46,6 @@ ROOTFS_CHOWN_SETCAP += " -o ccspcr:ccspcr -m o-rwx /usr/ccsp/cr-deviceprofile.xm
 
 ROOTFS_CHOWN_SETCAP += " -o psm:psm -m o-rwx /usr/bin/PsmSsp   \n"
 
-ROOTFS_CHOWN_SETCAP += " -o pandm:pandm -m o-rwx /usr/bin/gw_prov_ethwan     \n"
-
 ROOTFS_CHOWN_SETCAP += " -o ccsplmlite:ccsplmlite -m o-rwx /usr/bin/CcspLMLite     \n"
 
 ROOTFS_CHOWN_SETCAP += " -o ccspwifi:ccspwifi -m o-rwx /usr/bin/CcspWifiSsp     \n"

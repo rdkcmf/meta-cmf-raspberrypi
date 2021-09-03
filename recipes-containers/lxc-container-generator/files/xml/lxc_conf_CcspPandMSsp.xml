@@ -24,7 +24,6 @@
 <CONTAINER  SandboxName="CCSPPANDM">
     <LxcParams>
         <LauncherName>CcspPandMSsp</LauncherName>
-        <ExecName>/usr/bin/gw_prov_ethwan</ExecName>
         <StopFunction enable="true"></StopFunction>
     </LxcParams>
         <LxcConfig>
@@ -80,11 +79,6 @@
             <Entry type="file">
                 <Source>/usr/bin/psmcli</Source>
                 <Destination>usr/bin/psmcli</Destination>
-                <Options>ro,bind,nosuid,nodev</Options>
-            </Entry>
-            <Entry type="file">
-                <Source>/usr/bin/gw_prov_ethwan</Source>
-                <Destination>usr/bin/gw_prov_ethwan</Destination>
                 <Options>ro,bind,nosuid,nodev</Options>
             </Entry>
             <Entry type="file">
