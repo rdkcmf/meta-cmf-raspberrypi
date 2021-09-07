@@ -5,19 +5,7 @@ DEPENDS_append = " utopia curl "
 #This is workaround for missing do_patch when RDK uses external sources
 SRC_URI_remove_dunfell = "file://0001-openssl-1.1.x-compatibility-in-HMAC-functions.patch"
 
-SRC_URI_append_dunfell = " file://0001-openssl-1.1.x-compatibility-in-HMAC-functions.patch;apply=no"
 
-do_rpi_patches() {
-    cd ${S}
-        if [ ! -e dunfell_patch_applied ]; then
-                  if [ "${@bb.utils.contains('DISTRO_CODENAME', 'dunfell', 'dunfell', '', d)}" = "dunfell" ] ; then
-                         patch -p1 < ${WORKDIR}//0001-openssl-1.1.x-compatibility-in-HMAC-functions.patch
-                  fi
-            touch dunfell_patch_applied
-        fi
-}
-
-addtask rpi_patches after do_unpack before do_configure
 
 CFLAGS_append = " \
     -I=${includedir}/utctx \
