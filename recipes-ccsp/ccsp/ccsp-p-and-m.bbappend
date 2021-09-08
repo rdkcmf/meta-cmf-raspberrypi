@@ -29,6 +29,9 @@ LDFLAGS_remove = " \
 "
 
 CFLAGS_remove = "-Werror"
+#Disabling the ppp manager conditional flag until the pppmanager functionality support in RPI
+CFLAGS_remove = " ${@bb.utils.contains('DISTRO_FEATURES', 'rdkb_xdsl_ppp_manager', '-DFEATURE_RDKB_XDSL_PPP_MANAGER', '', d)}"
+
 do_configure_prepend () {
    #for WanManager support
    #Below lines of code needs to be removed , once (Device.DHCPv4.Client.{i} and Device.DhCPv6,CLient.{i}) the mentioned parameters are permanently removed from TR181-USGv2.XML
@@ -47,6 +50,9 @@ if [ ! -f ${WORKDIR}/WanManager_XML_UPDATED ]; then
         sed -i '10836s/<\/parameter>/<\/parameter>-->/g' ${S}/config-arm/TR181-USGv2.XML
         sed -i '10839s/<object>/<!-- <object>/g' ${S}/config-arm/TR181-USGv2.XML
         sed -i '11138s/<\/object>/<\/object>-->/g' ${S}/config-arm/TR181-USGv2.XML
+   fi
+   if ${@bb.utils.contains('DISTRO_FEATURES', 'rdkb_xdsl_ppp_manager', 'true', 'false', d)}; then
+  	 sed -i "s/<?ifndef FEATURE_RDKB_XDSL_PPP_MANAGER?>/<?ifdef FEATURE_RDKB_XDSL_PPP_MANAGER?>/g" ${S}/config-arm/TR181-USGv2.XML
    fi
    touch ${WORKDIR}/WanManager_XML_UPDATED
 fi
