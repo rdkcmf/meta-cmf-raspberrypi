@@ -1,5 +1,3 @@
-BBMASK .= "|meta-rdk-video/recipes-extended/ctrlm/ctrlm-testapp.bb"
-
 BBMASK .= "|meta-rdk/recipes-common/rdk-oss-ssa/"
 BBMASK .= "|meta-rdk/recipes-support/base64"
 
