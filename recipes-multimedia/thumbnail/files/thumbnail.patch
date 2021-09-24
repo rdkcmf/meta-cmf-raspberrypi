@@ -1,0 +1,19 @@
+--- git_origin/smart_thumbnail/smart_thumbnail.cpp	2021-09-24 12:44:19.567538161 +0000
++++ git/smart_thumbnail/smart_thumbnail.cpp	2021-09-24 12:45:11.731730988 +0000
+@@ -390,6 +390,8 @@
+ 	    unionBox.y = ofData.boundingBoxYOrd;
+ 	    unionBox.width = ofData.boundingBoxWidth;
+ 	    unionBox.height = ofData.boundingBoxHeight;
++
++#if !defined ( THUMBNAIL_PLATFORM_RPI )
+             CvFileStorage* fs = cvOpenFileStorage("/tmp/BlobTracking.xml", 0, CV_STORAGE_READ);
+             if(fs) {
+                debugBlob = cvReadIntByName(fs, 0, "debugBlob", false);
+@@ -398,6 +400,7 @@
+             } else {
+                   RDK_LOG( RDK_LOG_ERROR,"LOG.RDK.SMARTTHUMBNAIL","%s(%d): Failed to read BlobTracking.xml\n", __FILE__, __LINE__);
+             }
++#endif
+         
+ 	    // extracted the below logic from server scala code
+             RDK_LOG( RDK_LOG_INFO,"LOG.RDK.SMARTTHUMBNAIL","%s(%d):unionBox.x %d unionBox.y %d unionBox.height %d unionBox.width %d hres_y_width=%d ,hres_y_height=%d\n", __FILE__, __LINE__, unionBox.x, unionBox.y, unionBox.height, unionBox.width,hres_y_width,hres_y_height);
