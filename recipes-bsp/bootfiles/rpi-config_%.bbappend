@@ -37,27 +37,36 @@ do_deploy_append() {
 
 do_deploy_append_hybrid() {
     do_deploy_rdk_config
-    if [ "${@bb.utils.contains("DISTRO_FEATURES", "refapp", "yes", "no", d)}" = "no" ]; then
-        sed -i '/gpu_mem_1024=/ c\gpu_mem_1024=64' ${DEPLOYDIR}/${BOOTFILES_DIR_NAME}/config.txt
-    fi
+}
+
+do_deploy_append_hybrid_dunfell() {
+    do_deploy_dunfell_config
 }
 
 do_deploy_append_client() {
     do_deploy_rdk_config
-    if [ "${@bb.utils.contains("DISTRO_FEATURES", "refapp", "yes", "no", d)}" = "no" ]; then
-        sed -i '/gpu_mem_1024=/ c\gpu_mem_1024=64' ${DEPLOYDIR}/${BOOTFILES_DIR_NAME}/config.txt
-    fi
+}
+
+do_deploy_append_client_dunfell() {
+    do_deploy_dunfell_config
 }
 
 do_deploy_append_ipclient() {
     do_deploy_rdk_config
-    if [ "${@bb.utils.contains("DISTRO_FEATURES", "refapp", "yes", "no", d)}" = "no" ]; then
-        sed -i '/gpu_mem_1024=/ c\gpu_mem_1024=64' ${DEPLOYDIR}/${BOOTFILES_DIR_NAME}/config.txt
-    fi
+}
+
+do_deploy_append_ipclient_dunfell() {
+    do_deploy_dunfell_config
 }
 
 do_deploy_rdk_config() {
     sed -i '/#gpu_freq=/ c\gpu_freq=500' ${DEPLOYDIR}/${BOOTFILES_DIR_NAME}/config.txt
+}
+
+do_deploy_dunfell_config() {
+   if [ "${@bb.utils.contains("DISTRO_FEATURES", "refapp", "yes", "no", d)}" = "no" ]; then
+       sed -i '/gpu_mem_1024=/ c\gpu_mem_1024=64' ${DEPLOYDIR}/${BOOTFILES_DIR_NAME}/config.txt
+   fi
 }
 
 do_deploy_append_camera() {

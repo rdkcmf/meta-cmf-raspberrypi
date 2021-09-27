@@ -60,48 +60,25 @@ do_deploy_append_refApp () {
     sed -i '1 s|$|vt.global_cursor_default=0|' ${DEPLOYDIR}/bcm2835-bootfiles/cmdline.txt
 }
 
-do_deploy_append_hybrid () {
-   if [ "${@bb.utils.contains("DISTRO_FEATURES", "refapp", "yes", "no", d)}" = "no" ]; then
-        if [ -f "${DEPLOYDIR}/bcm2835-bootfiles/cmdline.txt" ]; then
-            sed -i 's/[[:space:]]*$//g' ${DEPLOYDIR}/bcm2835-bootfiles/cmdline.txt
-            sed -i 's/$/ cma=256M@256M/' ${DEPLOYDIR}/bcm2835-bootfiles/cmdline.txt
-        fi
-
-        if [ -f "${DEPLOYDIR}/bootfiles/cmdline.txt" ]; then
-            sed -i 's/[[:space:]]*$//g' ${DEPLOYDIR}/bootfiles/cmdline.txt
-            sed -i 's/$/ cma=256M@256M/' ${DEPLOYDIR}/bootfiles/cmdline.txt
-        fi
-    fi
-
+do_deploy_append_hybrid_dunfell () {
+    do_deploy_dunfell_config 
 }
 
-do_deploy_append_client () {
-   if [ "${@bb.utils.contains("DISTRO_FEATURES", "refapp", "yes", "no", d)}" = "no" ]; then
-        if [ -f "${DEPLOYDIR}/bcm2835-bootfiles/cmdline.txt" ]; then
-            sed -i 's/[[:space:]]*$//g' ${DEPLOYDIR}/bcm2835-bootfiles/cmdline.txt
-            sed -i 's/$/ cma=256M@256M/' ${DEPLOYDIR}/bcm2835-bootfiles/cmdline.txt
-        fi
-
-        if [ -f "${DEPLOYDIR}/bootfiles/cmdline.txt" ]; then
-            sed -i 's/[[:space:]]*$//g' ${DEPLOYDIR}/bootfiles/cmdline.txt
-            sed -i 's/$/ cma=256M@256M/' ${DEPLOYDIR}/bootfiles/cmdline.txt
-        fi
-    fi
-
+do_deploy_append_client_dunfell () {
+    do_deploy_dunfell_config 
 }
 
-do_deploy_append_ipclient () {
-   if [ "${@bb.utils.contains("DISTRO_FEATURES", "refapp", "yes", "no", d)}" = "no" ]; then
-        if [ -f "${DEPLOYDIR}/bcm2835-bootfiles/cmdline.txt" ]; then
-            sed -i 's/[[:space:]]*$//g' ${DEPLOYDIR}/bcm2835-bootfiles/cmdline.txt
-            sed -i 's/$/ cma=256M@256M/' ${DEPLOYDIR}/bcm2835-bootfiles/cmdline.txt
-        fi
+do_deploy_append_ipclient_dunfell () {
+    do_deploy_dunfell_config 
+}
 
+do_deploy_dunfell_config () {
+    if [ "${@bb.utils.contains("DISTRO_FEATURES", "refapp", "yes", "no", d)}" = "no" ]; then
         if [ -f "${DEPLOYDIR}/bootfiles/cmdline.txt" ]; then
             sed -i 's/[[:space:]]*$//g' ${DEPLOYDIR}/bootfiles/cmdline.txt
             sed -i 's/$/ cma=256M@256M/' ${DEPLOYDIR}/bootfiles/cmdline.txt
         fi
-    fi
+   fi
 }
 
 PACKAGES += "kernel-autoconf"
