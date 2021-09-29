@@ -160,6 +160,15 @@ echo 1 > \/proc\/sys\/net\/ipv4\/ip_forward ' ${D}${sysconfdir}/utopia/utopia_in
     echo "touch -f /tmp/utopia_inited" >> ${D}${sysconfdir}/utopia/utopia_init.sh
 }
 
+do_install_append_aarch64 () {
+	#Enabling rbus support on 64bit arch
+	DISTRO_WAN_ENABLED="${@bb.utils.contains('DISTRO_FEATURES','rdkb_wan_manager','true','false',d)}"
+        if [ $DISTRO_WAN_ENABLED = 'true' ]; then
+		sed -i '/mkdir -p \/nvram/a \
+touch \/nvram\/rbus_support ' ${D}${sysconfdir}/utopia/utopia_init.sh
+	fi
+}
+
 do_install_append () {
     sed -i "s/\$user_password_3=/\$user_password_3=password/g"  ${D}${sysconfdir}/utopia/system_defaults
 }
