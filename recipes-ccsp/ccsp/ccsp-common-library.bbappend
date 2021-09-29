@@ -5,6 +5,7 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:${THISDIR}/files:"
 DEPENDS_append_rpi = " breakpad"
 DEPENDS_append_dunfell = " ${@bb.utils.contains('DISTRO_FEATURES', 'safec', ' safec', " ", d)}"
 
+CFLAGS_remove_aarch64= " -Werror"
 CXXFLAGS_append_rpi = " \
                                 -I${STAGING_INCDIR}/breakpad \
                                 -std=c++11 \

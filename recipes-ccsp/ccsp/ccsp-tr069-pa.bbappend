@@ -1,4 +1,5 @@
 require ccsp_common_rpi.inc
+CFLAGS_remove_aarch64= " -Werror"
 LDFLAGS += "-Wl,--no-as-needed -lulog"
 
 #This is workaround for missing do_patch when RDK uses external sources
