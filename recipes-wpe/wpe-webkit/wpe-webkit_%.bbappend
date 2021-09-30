@@ -2,9 +2,6 @@ PACKAGECONFIG_remove = " playready provisioning"
 
 DEPENDS += "atk libgcrypt libwebp"
 
-WPE_BACKEND = "${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'westeros', 'gstreamergl', d)}"
-WPE_BACKEND_wpewesteros = "${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'westeros', '', d)}"
-
 PACKAGECONFIG_append_rpi = " rpi"
 
 PACKAGECONFIG[rpi] = "-DUSE_WPEWEBKIT_BACKEND_BCM_RPI=ON,,"
