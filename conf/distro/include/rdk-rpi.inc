@@ -20,6 +20,8 @@ DISTRO_FEATURES_append = " rdk-oss-ssa"
 
 DISTRO_FEATURES_append = " ctrlm"
 DISTRO_FEATURES_append = " ctrlm_voice_sdk"
+DISTRO_FEATURES_append = " build_for_sky"
+DISTRO_FEATURES_append = " comcast_qt5"
 
 # Disable Thunder Security
 DISTRO_FEATURES_append = " thunder_security_disable"
