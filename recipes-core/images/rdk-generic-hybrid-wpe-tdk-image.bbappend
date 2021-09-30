@@ -15,15 +15,10 @@ IMAGE_INSTALL_remove = " \
 
 PACKAGE_EXCLUDE_pn-rdk-generic-hybrid-westeros-wpe-tdk-image = "${@bb.utils.contains('DISTRO_FEATURES','ENABLE_IPK','packagegroup-tdk','',d)}"
 
-#REFPLTV-976 removing the Control Manager service, as feature not fully functional.
-ROOTFS_POSTPROCESS_COMMAND += "remove_systemd_ctrlm_services; "
+ROOTFS_POSTPROCESS_COMMAND += "append_version; "
 
-remove_systemd_ctrlm_services() {
-                if [ ! -f ${IMAGE_ROOTFS}${sysconfdir}/systemd/system/multi-user.target.wants/ctrlm-main.service ]; then
-                        rm -rf ${IMAGE_ROOTFS}${systemd_unitdir}/system/ctrlm-main.service
-                fi
-
-		if [ ! -f ${IMAGE_ROOTFS}${sysconfdir}/systemd/system/multi-user.target.wants/ctrlm-main.service ]; then
-			rm -rf ${IMAGE_ROOTFS}${sysconfdir}/systemd/system/multi-user.target.wants/ctrlm-main.service
-		fi
+append_version() {
+        echo "JENKINS_JOB=0" >> ${IMAGE_ROOTFS}/version.txt
+        echo "JENKINS_BUILD_NUMBER=0" >> ${IMAGE_ROOTFS}/version.txt
 }
+
