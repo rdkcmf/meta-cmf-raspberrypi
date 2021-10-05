@@ -19,12 +19,12 @@
 
 [Unit]
 Description=CcspWebUI service
-After=gwprovethwan.service
-wants=gwprovethwan.service
+After=CcspPandMSsp.service
 
 [Service]
 Type=forking
 WorkingDirectory=/usr/www
+ExecStartPre=/bin/sh -c '/lib/rdk/brlan0_check.sh &'
 ExecStart=/bin/sh /lib/rdk/CcspWebUI.sh
 Restart=always
 StandardOutput=syslog+console

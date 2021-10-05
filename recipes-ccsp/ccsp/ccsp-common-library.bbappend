@@ -21,6 +21,7 @@ SRC_URI_append = " \
     file://wifi-initialized.target \
     file://utopia.service \
     file://if_check.sh \
+    file://brlan0_check.sh \ 
 "
 SRC_URI_append_lxcbrc += "\
    file://psm_container.sh \
@@ -136,6 +137,7 @@ do_install_append_class-target () {
 
      install -d ${D}${base_libdir}/rdk
      install -m 755 ${WORKDIR}/if_check.sh ${D}${base_libdir}/rdk/
+     install -m 755 ${WORKDIR}/brlan0_check.sh ${D}${base_libdir}/rdk/
 #WanManager - RdkWanManager.service
      DISTRO_WAN_ENABLED="${@bb.utils.contains('DISTRO_FEATURES','rdkb_wan_manager','true','false',d)}"
      if [ $DISTRO_WAN_ENABLED = 'true' ]; then
@@ -219,6 +221,7 @@ FILES_${PN}_append = " \
     /usr/ccsp/ccspPAMCPCheck.sh \
     /usr/ccsp/ProcessResetCheck.sh \
     ${base_libdir}/rdk/if_check.sh \
+    ${base_libdir}/rdk/brlan0_check.sh \
     ${systemd_unitdir}/system/ccspwifiagent.service \
     ${systemd_unitdir}/system/CcspCrSsp.service \
     ${systemd_unitdir}/system/CcspPandMSsp.service \
