@@ -1059,3 +1059,6 @@ $tr_dhcpv6c_iapd_enabled=1
 $DeferFWDownloadReboot=290
 
 $Atm_NumOfIfcs=1
+
+#Maximum authentication attempts
+$maxauthreq=5
