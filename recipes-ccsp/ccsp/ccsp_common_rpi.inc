@@ -14,6 +14,7 @@ CFLAGS_append_rpi += "-U_COSA_SIM_ -fno-exceptions -ffunction-sections -fdata-se
 	   -DCONFIG_VENDOR_CUSTOMER_COMCAST"
 
 CFLAGS_append += "${@bb.utils.contains('DISTRO_FEATURES', 'rdkb_wan_manager', ' -DFEATURE_RDKB_WAN_MANAGER ', '', d)}"	   
+CFLAGS_append_rpi_aarch64 = " -D_64BIT_ARCH_SUPPORT_ "
 
 EXTRA_OECONF_append_rpi  = " --with-ccsp-platform=bcm --with-ccsp-arch=arm"
 
