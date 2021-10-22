@@ -20,3 +20,7 @@ do_install_append_lxcbrc () {
 	sed -i "/ExecReload=/c\ExecReload=/container/DBUS/launcher/dbus.sh reload"  ${D}${systemd_system_unitdir}/dbus.service
 }
 
+do_install_append_aarch64_broadband () {
+          # Removing dbus service in 64bit arch alone
+          rm  ${D}${systemd_system_unitdir}/dbus.service   
+}
