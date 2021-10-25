@@ -160,6 +160,13 @@ fi' ${D}/usr/ccsp/ccspPAMCPCheck.sh
 
 }
 
+do_install_append_aarch64 () {
+     DISTRO_WAN_ENABLED="${@bb.utils.contains('DISTRO_FEATURES','rdkb_wan_manager','true','false',d)}"
+     if [ $DISTRO_WAN_ENABLED = 'true' ]; then
+         sed -i "s/After=CcspCrSsp.service/After=CcspCrSsp.service utopia.service PsmSsp.service CcspEthAgent.service/g" ${D}${systemd_unitdir}/system/RdkWanManager.service
+     fi  
+}
+
 do_install_append_class-target_lxcbrc () {
 
 	install -d ${D}/lib/rdk/
