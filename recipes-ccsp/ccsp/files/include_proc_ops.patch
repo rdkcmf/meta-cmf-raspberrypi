@@ -1,0 +1,34 @@
+Subject: Use proc_ops instead of file_operations on Linux >= 5.6
+The proc_create API is changing in Linux 5.6, update code accordingly
+
+Signed-off-by: kaviya.kumaresan <kaviya.kumaresan@ltts.com>
+
+--- git_org/mtu_mod_proc.c	2021-10-21 12:07:20.109452783 +0000
++++ git/mtu_mod_proc.c	2021-10-21 12:11:11.692809286 +0000
+@@ -32,6 +32,7 @@
+ #include <linux/if_ether.h>
+ #include <linux/inet.h>
+ #include <asm/uaccess.h>
++#include <linux/version.h>
+ 
+ #ifndef MTU_MODIFIER_FILE_NAME
+ #define MTU_MODIFIER_FILE_NAME	"mtu_mod"
+@@ -121,11 +122,18 @@
+ 	return(count);
+ }
+ 
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 6, 0)
++static const struct proc_ops mtu_mod_proc_file_fops = {
++ .proc_write = mtu_mod_write_proc,
++ .proc_read  = mtu_mod_read_proc,
++};
++#else
+ static const struct file_operations mtu_mod_proc_file_fops = {
+  .owner = THIS_MODULE,
+  .write = mtu_mod_write_proc,
+  .read  = mtu_mod_read_proc,
+ };
++#endif
+ 
+ int init_mtu_mod_proc(void)
+ {
