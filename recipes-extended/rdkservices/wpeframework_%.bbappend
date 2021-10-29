@@ -14,5 +14,12 @@ do_install_append_raspberrypi4() {
     echo "Environment=\"WESTEROS_DRM_CARD=/dev/dri/card1\"" >> ${D}${systemd_unitdir}/system/wpeframework.service.d/wpeframework.conf
 }
 
+do_install_append_dunfell() {
+    if ${@bb.utils.contains('MACHINE_FEATURES', 'vc4graphics', 'true', 'false', d)}; then
+        echo "Environment=\"WESTEROS_SINK_USE_FREERUN=1\"" >> ${D}${systemd_unitdir}/system/wpeframework.service.d/wpeframework.conf
+        echo "Environment=\"WESTEROS_GL_USE_GENERIC_AVSYNC=1\"" >> ${D}${systemd_unitdir}/system/wpeframework.service.d/wpeframework.conf
+    fi
+}
+
 FILES_${PN} += "${systemd_unitdir}/system/wpeframework.service.d/wpeframework.conf"
 FILES_${PN} += "${sysconfdir}/rdkshell_keymapping.json"

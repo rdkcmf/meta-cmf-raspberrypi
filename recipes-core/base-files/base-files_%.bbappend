@@ -23,6 +23,7 @@ set_playback_environment() {
     if ${@bb.utils.contains('MACHINE_FEATURES', 'vc4graphics', 'true', 'false', d)}; then
         cat >> ${D}${sysconfdir}/profile <<EOF
 export LD_PRELOAD=/usr/lib/libwesteros_gl.so.0
+export WESTEROS_SINK_USE_FREERUN=1
 EOF
     else
         cat >> ${D}${sysconfdir}/profile <<EOF
