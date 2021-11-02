@@ -5,7 +5,7 @@ LIC_FILES_CHKSUM = "file://firmware/LICENSE;md5=1bff2e28f0929e483370a43d4d8b6f8e
 
 FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
-SRC_URI = "git://github.com/openwrt/mt76;branch=openwrt-19.07"
+SRC_URI = "git://github.com/openwrt/mt76;branch=openwrt-19.07;protocol=https"
 SRC_URI += " file://mt76_makefile_change.patch"
 SRC_URI += " file://add_support_for_extra_interface.patch"
 SRCREV = "${AUTOREV}"
