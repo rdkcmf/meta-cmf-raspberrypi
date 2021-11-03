@@ -2,11 +2,6 @@ require ccsp_common_rpi.inc
 
 DEPENDS_append = " utopia curl "
 
-#This is workaround for missing do_patch when RDK uses external sources
-SRC_URI_remove_dunfell = "file://0001-openssl-1.1.x-compatibility-in-HMAC-functions.patch"
-
-
-
 CFLAGS_append = " \
     -I=${includedir}/utctx \
     -I=${includedir}/utapi \

@@ -2,12 +2,6 @@ require ccsp_common_rpi.inc
 CFLAGS_remove_aarch64= " -Werror"
 LDFLAGS += "-Wl,--no-as-needed -lulog"
 
-#This is workaround for missing do_patch when RDK uses external sources
-SRC_URI_remove_dunfell = "file://0001-openssl-1.1.x-compatibility.patch"
-
-
-
-
 do_install_append () {
     # Config files and scripts
     install -m 644 ${S}/config/ccsp_tr069_pa_certificate_cfg_arm.xml ${D}/usr/ccsp/tr069pa/ccsp_tr069_pa_certificate_cfg.xml
