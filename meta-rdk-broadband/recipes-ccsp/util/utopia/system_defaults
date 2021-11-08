@@ -1087,3 +1087,5 @@ $Adv_WSDisAnaRFCEnable=1
 $Adv_AdvSecOTMRFCEnable=1
 
 
+#Router MTU
+$router_mtu=1500
