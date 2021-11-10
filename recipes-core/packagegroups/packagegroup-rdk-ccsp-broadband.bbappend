@@ -1,4 +1,3 @@
-RDEPENDS_packagegroup-rdk-ccsp-broadband_remove = "ccsp-moca"
 RDEPENDS_packagegroup-rdk-ccsp-broadband_remove = "ccsp-moca-ccsp"
 RDEPENDS_packagegroup-rdk-ccsp-broadband_remove = "sys-resource"
 
