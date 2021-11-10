@@ -1,19 +1,33 @@
---- git_origin/smart_thumbnail/smart_thumbnail.cpp	2021-09-24 12:44:19.567538161 +0000
-+++ git/smart_thumbnail/smart_thumbnail.cpp	2021-09-24 12:45:11.731730988 +0000
-@@ -390,6 +390,8 @@
- 	    unionBox.y = ofData.boundingBoxYOrd;
- 	    unionBox.width = ofData.boundingBoxWidth;
- 	    unionBox.height = ofData.boundingBoxHeight;
-+
+From b7c54188ecfd9ee50f63de1126393e0e14d009ef Mon Sep 17 00:00:00 2001
+From: Simon Chung <simon.c.chung@accenture.com>
+Date: Tue, 2 Nov 2021 16:55:53 +0000
+Subject: [PATCH] thumbnail
+
+Change-Id: If1ce7496a83160edf1902e6390b49686b72bedc8
+---
+ smart_thumbnail/smart_thumbnail.cpp | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/smart_thumbnail/smart_thumbnail.cpp b/smart_thumbnail/smart_thumbnail.cpp
+index ce44485..a7d082a 100644
+--- a/smart_thumbnail/smart_thumbnail.cpp
++++ b/smart_thumbnail/smart_thumbnail.cpp
+@@ -409,6 +409,7 @@ STH_STATUS SmartThumbnail::init(char* mac,bool isCvrEnabled,int stnondelayType,i
+     std::thread uploadPayloadThread(uploadSTN);
+     uploadPayloadThread.detach();
+ 
 +#if !defined ( THUMBNAIL_PLATFORM_RPI )
-             CvFileStorage* fs = cvOpenFileStorage("/tmp/BlobTracking.xml", 0, CV_STORAGE_READ);
-             if(fs) {
-                debugBlob = cvReadIntByName(fs, 0, "debugBlob", false);
-@@ -398,6 +400,7 @@
-             } else {
-                   RDK_LOG( RDK_LOG_ERROR,"LOG.RDK.SMARTTHUMBNAIL","%s(%d): Failed to read BlobTracking.xml\n", __FILE__, __LINE__);
-             }
+     CvFileStorage* fs = cvOpenFileStorage("/tmp/BlobTracking.xml", 0, CV_STORAGE_READ);
+     if(fs) {
+         smartThInst->debugBlob = cvReadIntByName(fs, 0, "debugBlob", false);
+@@ -417,6 +418,7 @@ STH_STATUS SmartThumbnail::init(char* mac,bool isCvrEnabled,int stnondelayType,i
+     } else {
+         RDK_LOG( RDK_LOG_WARN,"LOG.RDK.SMARTTHUMBNAIL","%s(%d): Failed to read BlobTracking.xml\n", __FILE__, __LINE__);
+     }
 +#endif
-         
- 	    // extracted the below logic from server scala code
-             RDK_LOG( RDK_LOG_INFO,"LOG.RDK.SMARTTHUMBNAIL","%s(%d):unionBox.x %d unionBox.y %d unionBox.height %d unionBox.width %d hres_y_width=%d ,hres_y_height=%d\n", __FILE__, __LINE__, unionBox.x, unionBox.y, unionBox.height, unionBox.width,hres_y_width,hres_y_height);
+ 
+     return STH_SUCCESS;
+ }
+-- 
+2.28.0
+
