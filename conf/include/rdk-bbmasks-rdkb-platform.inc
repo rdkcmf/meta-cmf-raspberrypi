@@ -6,9 +6,6 @@ BBMASK .= "|meta-cmf/recipes-common/rdkversion/"
 BBMASK .= "|meta-rdk/recipes-common/sys_mon_tools/cpuprocanalyzer_git.bb"
 BBMASK .= "|meta-cmf/recipes-common/sys_mon_tools/cpuprocanalyzer_git.bbappend"
 
-BBMASK .= "|meta-rdk-broadband/recipes-ccsp/ccsp/ccsp-moca.bb"
-BBMASK .= "|meta-cmf-broadband/recipes-ccsp/ccsp/ccsp-moca.bbappend"
-
 BBMASK .= "|meta-cmf-raspberrypi/recipes-connectivity/bluetooth/"
 BBMASK .= "|meta-cmf-raspberrypi/recipes-extended/aamp/"
 BBMASK .= "|meta-cmf-raspberrypi/recipes-extended/appmanager/"
