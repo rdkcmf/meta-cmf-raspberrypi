@@ -20,6 +20,7 @@ DISTRO_FEATURES_append = " rdk-oss-ssa"
 
 DISTRO_FEATURES_append = " ctrlm"
 DISTRO_FEATURES_append = " ctrlm_voice_sdk"
+DISTRO_FEATURES_append = " blercudaemon"
 
 # Disable Thunder Security
 DISTRO_FEATURES_append = " thunder_security_disable"
