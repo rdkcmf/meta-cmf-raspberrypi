@@ -122,3 +122,6 @@ BBMASK_append_dunfell .= "|meta-rdk/recipes-core/packagegroups/packagegroup-rdk-
 BBMASK_append_dunfell .= "|meta-cmf/recipes-graphics/libinput/libinput_git.bbappend"
 BBMASK_append_dunfell .= "|meta-cmf/recipes-multimedia/gstreamer/gstreamer1.0-plugins-ugly_git.bbappend"
 BBMASK_append_dunfell .= "|meta-cmf-raspberrypi/recipes-core/packagegroups/packagegroup-rdk-gstreamer1.bbappend"
+BBMASK_append_dunfell .= "|meta-cmf/recipes-connectivity/bluetooth/bluetooth-mgr_git.bbappend"
+BBMASK_append_dunfell .= "|meta-cmf/recipes-extended/asbluetoothrcu/asbluetoothrcu.bbappend"
+BBMASK_append_dunfell .= "|meta-cmf/recipes-support/ca-certificates/ca-certificates_20160104.bbappend"
