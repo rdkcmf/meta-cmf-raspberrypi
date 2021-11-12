@@ -1,12 +1,10 @@
 RDEPENDS_packagegroup-rdk-oss-camera_append = "	\
 			                        v4l-utils \
-                        			packagegroup-rdk-gstreamer1 \
 						rms \
 						kvs \
                         			cvr \
                         			thumbnail \
 						mongoose \
-						mediastreamer \
 						sysint \
 						netkit-telnet \
 						parodus \
@@ -29,6 +27,5 @@ RDEPENDS_packagegroup-rdk-oss-camera_remove_dunfell = " \
 
 RDEPENDS_packagegroup-rdk-oss-camera_append_dunfell = " \
                                                         libcamera \
-							libcamera-gst \
 							pipewire \
                                                       "

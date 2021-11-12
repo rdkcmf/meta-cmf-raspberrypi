@@ -23,10 +23,7 @@ TARGET_CFLAGS_append_rpi += "-DENABLE_LIBCAMERA_RPI_CONFIG"
 
 DEPENDS += "python3-jinja2-native python3-ply-native libevent gnutls boost chrpath-native"
 
-PACKAGES =+ "${PN}-gst"
-
 #PACKAGECONFIG ??= "gst, -DENABLE_LIBCAMERA_RPI_CONFIG"
-PACKAGECONFIG ??= "gst"
 PACKAGECONFIG[gst] = "-Dgstreamer=enabled,-Dgstreamer=disabled,gstreamer1.0 gstreamer1.0-plugins-base"
 
 do_install_append() {
