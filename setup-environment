@@ -25,6 +25,7 @@ export RDK_BSP_LAYER=none
 # default BSP layer is meta-cmf-raspberrypi for R-PI builds
 export RDK_BSP_LAYER=meta-cmf-raspberrypi
 
+MACHINE_NAME=$MACHINE
 if [ -d $TOP_DIR/meta-cmf ] && [ -z "$(echo $MACHINE | grep -- -rdk-broadband)" ]; then
     # add RDK WPE targets to conf file
     # this step has to be added before calling meta-cmf/setup-environment
@@ -131,9 +132,12 @@ fi
 
 # replace RDK FLAVOR to set BBMASKS
 sed -e "s|##RDK_FLAVOR##|${_RDK_FLAVOR}|g" -i $TOP_DIR/meta-cmf-raspberrypi/conf/layer.conf
-
 if [ "$BUILD_FOR_UBOOT" = "1" ]; then
-     echo "KERNEL_IMAGETYPE = \"uImage\"" >> conf/local.conf
+     if [ "$(grep -w \@NAME $TOP_DIR/meta-cmf-raspberrypi/conf/machine/$MACHINE_NAME.conf | cut -d '-' -f2)" = "64" ] || [ "$(grep -w \@arch $TOP_DIR/meta-cmf-raspberrypi/conf/machine/$MACHINE_NAME.conf | cut -d ':' -f2 | cut -d ' ' -f2)" = "64" ]; then
+        echo "KERNEL_IMAGETYPE = \"Image\"" >> conf/local.conf
+     else
+        echo "KERNEL_IMAGETYPE = \"uImage\"" >> conf/local.conf
+     fi
      echo "RPI_USE_U_BOOT = \"1\"" >> conf/local.conf
      unset BUILD_FOR_UBOOT
 fi
