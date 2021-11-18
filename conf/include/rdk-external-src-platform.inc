@@ -10,4 +10,5 @@ EXTERNALSRC_pn-hal-ethsw-generic = "${@'${RDK_ROOT_PATH}/rdkb/components/opensou
 EXTERNALSRC_pn-hal-fwupgrade = "${@'${RDK_ROOT_PATH}/rdkb/devices/raspberrypi/hal/source/fwupgrade' if (os.path.isdir('${RDK_ROOT_PATH}/rdkb/devices/raspberrypi/hal/source/fwupgrade')) else ''}"
 EXTERNALSRC_pn-hal-platform-generic = "${@'${RDK_ROOT_PATH}/rdkb/components/opensource/ccsp/hal/source/platform' if (os.path.isdir('${RDK_ROOT_PATH}/rdkb/components/opensource/ccsp/hal/source/platform/devices_rpi')) else ''}"
 EXTERNALSRC_pn-hal-wifi-generic = "${@'${RDK_ROOT_PATH}/rdkb/components/opensource/ccsp/hal/source/wifi' if (os.path.isdir('${RDK_ROOT_PATH}/rdkb/components/opensource/ccsp/hal/source/wifi/devices_rpi')) else ''}"
+EXTERNALSRC_pn-sysint = "${@'${RDK_ROOT_PATH}/rdk/components/opensource/sysint/devicerpi' if (("rpi" in d.getVar('MACHINEOVERRIDES', True)) and (os.path.isdir('${RDK_ROOT_PATH}/rdk/components/opensource/sysint'))) else ''}"
 EXTERNALSRC_pn-westeros-sink = "${@'${RDK_ROOT_PATH}/components/opensource/westeros' if (os.path.isdir('${RDK_ROOT_PATH}/components/opensource/westeros')) else ''}"
