@@ -32,7 +32,6 @@ do_install_append() {
    <Record name="dmsb.wanmanager.wanenable" type="astr">1</Record> \
    <Record name="dmsb.wanmanager.wanifcount" type="astr">1</Record> \
    <Record name="dmsb.wanmanager.wanpolicy" type="astr">2</Record> \ 
-   <Record name="dmsb.wanmanager.wanidletimeout" type="astr">0</Record> \
    <Record name="dmsb.selfheal.rebootstatus"  type="astr">0</Record> \
    <Record name="dmsb.wanmanager.if.1.Name" type="astr">eth0</Record> \
    <Record name="dmsb.wanmanager.if.1.DisplayName" type="astr">WanOE</Record> \
@@ -40,8 +39,6 @@ do_install_append() {
    <Record name="dmsb.wanmanager.if.1.Type" type="astr">2</Record> \
    <Record name="dmsb.wanmanager.if.1.Priority" type="astr">0</Record> \
    <Record name="dmsb.wanmanager.if.1.SelectionTimeout" type="astr">0</Record> \
-   <Record name="dmsb.wanmanager.if.1.DynTriggerEnable" type="astr">FALSE</Record> \
-   <Record name="dmsb.wanmanager.if.1.DynTriggerDelay" type="astr">0</Record> \
    <Record name="dmsb.wanmanager.if.1.Marking.List" type="astr">DATA</Record> \
    <Record name="dmsb.wanmanager.if.1.Marking.DATA.Alias" type="astr">DATA</Record> \
    <Record name="dmsb.wanmanager.if.1.Marking.DATA.SKBPort" type="astr">1</Record> \
