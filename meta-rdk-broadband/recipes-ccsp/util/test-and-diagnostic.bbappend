@@ -1,4 +1,4 @@
-require recipes-ccsp/ccsp/ccsp_common_rpi.inc
+require meta-rdk-broadband/recipes-ccsp/ccsp/ccsp_common_rpi.inc
 
 do_install_append () {
     # Test and Diagonastics XML 
