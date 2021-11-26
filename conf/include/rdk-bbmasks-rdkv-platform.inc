@@ -13,3 +13,4 @@ BBMASK .= "|meta-cmf-raspberrypi/recipes-multimedia/mediastreamer/"
 # this bbappend holds old revision and checksum values which is not applicable for dunfell builds
 # as meta-raspberrypi has the latest revision and it's checksum values
 BBMASK_append_dunfell = "|meta-cmf-raspberrypi/recipes-bsp/bootfiles/bcm2835-bootfiles.bbappend"
+BBMASK_append_morty .= "|meta-cmf-raspberrypi/recipes-bsp/u-boot/"

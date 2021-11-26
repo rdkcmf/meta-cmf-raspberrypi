@@ -89,3 +89,4 @@ BBMASK .= "|meta-rdk/recipes-support/memstress/"
 BBMASK .= "|meta-rdk-ext/recipes-multimedia/gst-external-plugin/"
 
 BBMASK .= "|meta-rdk-camera/recipes-common/webpacamera/"
+BBMASK_append_morty .= "|meta-cmf-raspberrypi/recipes-bsp/u-boot/"
