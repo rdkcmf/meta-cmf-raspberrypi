@@ -143,6 +143,7 @@ cp \/usr\/ccsp\/ccsp_msg.cfg \/tmp \
 touch \/tmp\/cp_subsys_ert \
 ln -s \/var\/spool\/cron\/crontabs \/ \
 mkdir -p \/var\/run\/firewall \
+mkdir -p \/opt\/secure \
 touch \/nvram\/ETHWAN_ENABLE ' ${D}${sysconfdir}/utopia/utopia_init.sh
 
     sed -i '/sshd-start/a \
