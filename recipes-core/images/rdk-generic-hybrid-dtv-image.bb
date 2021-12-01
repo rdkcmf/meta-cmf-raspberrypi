@@ -1,4 +1,5 @@
 require recipes-core/images/rdk-generic-hybrid-wpe-image.bb
+require recipes-core/images/add-non-root-user-group.inc
 
 # Use DTV Reference Application
 IMAGE_INSTALL_append = " dtvapp"

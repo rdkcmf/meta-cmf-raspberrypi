@@ -1,4 +1,5 @@
 require recipes-core/images/rdk-generic-hybrid-wpe-lxc-image.bb
+require recipes-core/images/add-non-root-user-group.inc
 
 IMAGE_FEATURES += "tdk"
 

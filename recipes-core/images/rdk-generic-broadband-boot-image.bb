@@ -1,5 +1,6 @@
 SUMMARY = "A console-only image for the RDK-B yocto build which supports uploading boot time data of broadband image on wiki central"
 
+require recipes-core/images/add-non-root-user-group.inc
 require recipes-core/images/rdk-generic-broadband-image.bb
 
 IMAGE_INSTALL_append = " \

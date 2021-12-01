@@ -1,6 +1,7 @@
 SUMMARY = "A image for the RDK extender yocto build"
 
 inherit rdk-image
+require recipes-core/images/add-non-root-user-group.inc
 
 IMAGE_FEATURES_remove = "read-only-rootfs"
 

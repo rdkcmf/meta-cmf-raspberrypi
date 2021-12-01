@@ -5,6 +5,7 @@ inherit file-owners-and-permissions
 inherit image_container_generator
 
 require add-users-groups-file-owners-and-permissions.inc
+require recipes-core/images/add-non-root-user-group.inc
 
 IMAGE_INSTALL += " \
         packagegroup-lxc-secure-containers \
