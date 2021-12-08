@@ -97,7 +97,6 @@ do_install_append_class-target () {
 
     install -D -m 0644 ${S}/systemd_units/ProcessResetDetect.service ${D}${systemd_unitdir}/system/ProcessResetDetect.service
     install -D -m 0644 ${S}/systemd_units/ProcessResetDetect.path ${D}${systemd_unitdir}/system/ProcessResetDetect.path
-    install -D -m 0644 ${S}/systemd_units/logagent.service ${D}${systemd_unitdir}/system/logagent.service
 
     # Install wrapper for breakpad (disabled to support External Source build)
     #install -d ${D}${includedir}/ccsp
@@ -214,7 +213,6 @@ SYSTEMD_SERVICE_${PN} += "checkrpiwifisupport.path"
 SYSTEMD_SERVICE_${PN} += "wifi-initialized.target"
 SYSTEMD_SERVICE_${PN} += "ProcessResetDetect.path"
 SYSTEMD_SERVICE_${PN} += "ProcessResetDetect.service"
-SYSTEMD_SERVICE_${PN} += "logagent.service"
 SYSTEMD_SERVICE_${PN} += "rfc.service"
 SYSTEMD_SERVICE_${PN} += "CcspTelemetry.service"
 SYSTEMD_SERVICE_${PN} += "notifyComp.service"
@@ -248,7 +246,6 @@ FILES_${PN}_append = " \
     ${systemd_unitdir}/system/wifi-initialized.target \
     ${systemd_unitdir}/system/ProcessResetDetect.path \
     ${systemd_unitdir}/system/ProcessResetDetect.service \
-    ${systemd_unitdir}/system/logagent.service \
     ${systemd_unitdir}/system/rfc.service \
     ${systemd_unitdir}/system/CcspTelemetry.service \
 "
