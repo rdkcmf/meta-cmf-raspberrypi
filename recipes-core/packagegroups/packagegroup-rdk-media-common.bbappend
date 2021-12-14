@@ -44,6 +44,7 @@ RDEPENDS_packagegroup-rdk-media-common_append_rpi = "\
     power-state-monitor \
     sys-utils \
     rdk-gstreamer-utils \
+    waymetric \
 "
 
 RDEPENDS_packagegroup-rdk-media-common_remove_client = " \
