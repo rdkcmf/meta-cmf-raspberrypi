@@ -64,4 +64,6 @@ usr/ccsp/tr069pa/ccsp_msg.cfg \
 etc/xdevice.conf \
 etc/xdiscovery.conf \
 etc/xupnp \
+etc/systemd/system/multi-user.target.wants/OvsAgent* \
+lib/systemd/system/OvsAgent* \
 "
