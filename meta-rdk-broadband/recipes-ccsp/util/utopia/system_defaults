@@ -1062,3 +1062,10 @@ $Atm_NumOfIfcs=1
 
 #Maximum authentication attempts
 $maxauthreq=5
+
+#ocsp staple support
+$EnableOCSPStapling=false
+$EnableOCSPCA=false
+
+#Enable PresenceDetect
+$PresenceDetectEnabled=false
