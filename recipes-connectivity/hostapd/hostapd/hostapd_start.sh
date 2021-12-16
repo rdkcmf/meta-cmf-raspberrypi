@@ -43,6 +43,10 @@ fi
 
 echo "HOTSPOT_ENABLE is $HOTSPOT_ENABLE"
 
+LastRebootReason=`syscfg get X_RDKCENTRAL-COM_LastRebootReason`
+if [ "$LastRebootReason" = "factory-reset" ]; then
+        rm -rf /var/Get*.txt
+fi
 ########## Get the old Interface and update the new interface and start the hostapd process with corresponding bands ########
 
 update_wirelessinterface_private_wifi_2G () {
