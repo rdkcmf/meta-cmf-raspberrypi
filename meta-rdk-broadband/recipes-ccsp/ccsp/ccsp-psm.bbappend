@@ -4,10 +4,6 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
 
 SRC_URI_lxcbrc += "file://bbhm_def_cfg_lxc.xml"
 
-do_configure_append() {
-    install -m 644 ${S}/source-arm/psm_hal_apis.c -t ${S}/source/Ssp
-}
-
 
 do_install_append() {
     # Config files and scripts
