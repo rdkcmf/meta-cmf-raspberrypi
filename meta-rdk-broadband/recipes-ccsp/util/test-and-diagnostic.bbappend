@@ -1,5 +1,6 @@
 require meta-rdk-broadband/recipes-ccsp/ccsp/ccsp_common_rpi.inc
 
+CFLAGS_remove_aarch64 = " -Werror"
 do_install_append () {
     # Test and Diagonastics XML 
        install -m 644 ${S}/config/TestAndDiagnostic_arm.XML ${D}/usr/ccsp/tad/TestAndDiagnostic.XML
