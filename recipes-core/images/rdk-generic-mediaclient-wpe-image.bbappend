@@ -1,3 +1,6 @@
+require recipes-core/images/rdk-generic-mediaclient-wpe-image.bb
+require recipes-core/images/add-non-root-user-group.inc
+
 IMAGE_INSTALL_append = " \
    hdhomerun \
    rdkapps \
@@ -20,3 +23,5 @@ append_version() {
         echo "JENKINS_BUILD_NUMBER=0" >> ${IMAGE_ROOTFS}/version.txt
 }
 
+#bluealsa
+IMAGE_INSTALL_append = " ${@bb.utils.contains('DISTRO_FEATURES', 'bluealsa', ' bluealsa alsa-utils alsa-lib', '', d)}"
