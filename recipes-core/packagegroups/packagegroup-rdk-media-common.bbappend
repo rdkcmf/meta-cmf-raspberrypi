@@ -21,7 +21,8 @@ RPI_WIFI_DEPENDENCY_MORTY = "\
 RDEPENDS_packagegroup-rdk-media-common_append_rpi = "\
     ${@bb.utils.contains("DISTRO_FEATURES", "gstreamer1", "gstreamer1.0-libav", "gst-libav", d)} \
     ${@bb.utils.contains("DISTRO_FEATURES", "gstreamer1", "gstreamer1.0-plugins-ugly", "gst-plugins-ugly", d)} \
-    ${@bb.utils.contains("DISTRO_FEATURES", "rdkshell", " rdkshell wpeframework-ui thunder-services", "", d)} \
+    ${@bb.utils.contains("DISTRO_FEATURES", "rdkshell", " rdkshell wpeframework-ui ", "", d)} \
+    ${@bb.utils.contains("DISTRO_FEATURES", "alexa_smart_screen", "", "thunder-services", d)} \
     westeros-sink \
     liba52 \
     lirc \
