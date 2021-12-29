@@ -1,5 +1,5 @@
 require ccsp_common_rpi.inc
-CFLAGS_remove_aarch64= " -Werror"
+
 LDFLAGS += "-Wl,--no-as-needed -lulog"
 
 do_install_append () {
