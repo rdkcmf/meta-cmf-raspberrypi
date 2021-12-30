@@ -4,8 +4,6 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
 
 SRC_URI_lxcbrc += "file://bbhm_def_cfg_lxc.xml"
 
-CFLAGS_remove_aarch64 = " -Werror"
-
 do_install_append() {
     # Config files and scripts
     install -d ${D}/usr/ccsp/config
