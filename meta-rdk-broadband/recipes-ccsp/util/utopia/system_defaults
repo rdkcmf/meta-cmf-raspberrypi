@@ -1089,3 +1089,15 @@ $Adv_AdvSecOTMRFCEnable=1
 
 #Router MTU
 $router_mtu=1500
+
+#VPN_L2TP
+$blockl2tp::result=ACCEPT
+
+#VPN_SSL
+$blockssl::result=ACCEPT
+
+#VPN_IPSec
+$blockipsec::result=ACCEPT
+
+#VPN_PPTP
+$blockpptp::result=ACCEPT
