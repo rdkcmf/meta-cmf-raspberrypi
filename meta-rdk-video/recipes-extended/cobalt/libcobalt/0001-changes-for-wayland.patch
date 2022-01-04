@@ -1,0 +1,43 @@
+diff -Naur cobalt.orig/src/cobalt/renderer/backend/egl/graphics_context.cc cobalt/src/cobalt/renderer/backend/egl/graphics_context.cc
+--- cobalt.orig/src/cobalt/renderer/backend/egl/graphics_context.cc	2021-11-29 22:54:13.197646530 +0530
++++ cobalt/src/cobalt/renderer/backend/egl/graphics_context.cc	2021-11-30 01:32:19.702689365 +0530
+@@ -76,7 +76,7 @@
+   // when we need to make OpenGL calls that do not depend on a surface (e.g.
+   // creating a texture).
+   null_surface_ = new PBufferRenderTargetEGL(display, config, math::Size(0, 0));
+-  CHECK(!null_surface_->CreationError());
++  // CHECK(!null_surface_->CreationError());
+ 
+   ScopedMakeCurrent scoped_current_context(this);
+ 
+diff -Naur cobalt.orig/src/cobalt/renderer/backend/egl/graphics_system.cc cobalt/src/cobalt/renderer/backend/egl/graphics_system.cc
+--- cobalt.orig/src/cobalt/renderer/backend/egl/graphics_system.cc	2021-11-29 22:54:13.197646530 +0530
++++ cobalt/src/cobalt/renderer/backend/egl/graphics_system.cc	2021-11-30 01:32:19.702689365 +0530
+@@ -105,7 +105,10 @@
+   // Return the first config that succeeds the above test.
+   EGLint num_configs = 0;
+   EGL_CALL(eglChooseConfig(display, attribute_list, NULL, 0, &num_configs));
+-  CHECK_LT(0, num_configs);
++  // CHECK_LT(0, num_configs);
++  if (!num_configs) {
++      return base::nullopt;
++  }
+ 
+   std::unique_ptr<EGLConfig[]> configs(new EGLConfig[num_configs]);
+   EGL_CALL_SIMPLE(eglChooseConfig(display, attribute_list, configs.get(),
+@@ -201,6 +204,15 @@
+     }
+   }
+ 
++  if (!choose_config_results) {
++    DCHECK_EQ(EGL_SURFACE_TYPE, attribute_list[0]);
++    EGLint& surface_type_value = attribute_list[1];
++
++    surface_type_value &= ~EGL_PBUFFER_BIT;
++    choose_config_results =
++        ChooseConfig(display_, attribute_list, system_window);
++  }
++
+   DCHECK(choose_config_results);
+ 
+   config_ = choose_config_results->config;
