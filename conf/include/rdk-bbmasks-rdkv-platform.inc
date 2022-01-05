@@ -1,6 +1,8 @@
 BBMASK .= "|meta-rdk/recipes-common/rdk-oss-ssa/"
 BBMASK .= "|meta-rdk/recipes-support/base64"
 
+BBMASK .= "|meta-rdk-voice/recipes-wpe/wpeframework/thunder-services_git.bbappend"
+
 BBMASK .= "|openembedded-core/meta/recipes-multimedia/gstreamer/gstreamer1.0-plugins-ugly_1.8.3.bb"
 BBMASK_append_morty .= "|meta-raspberrypi/recipes-multimedia/gstreamer/gstreamer1.0-omx*"
 
