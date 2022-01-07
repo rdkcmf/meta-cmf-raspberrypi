@@ -43,7 +43,9 @@ do_install_append() {
    <Record name="dmsb.wanmanager.if.1.PPPLinkType" type="astr">PPPoE</Record> \
    <Record name="dmsb.wanmanager.if.1.PPPIPCPEnable" type="astr">TRUE</Record> \
    <Record name="dmsb.wanmanager.if.1.PPPIPV6CPEnable" type="astr">TRUE</Record> \
-   <Record name="dmsb.wanmanager.if.1.PPPIPCPEnable" type="astr">TRUE</Record>' ${D}/usr/ccsp/config/bbhm_def_cfg.xml
+   <Record name="dmsb.wanmanager.if.1.PPPIPCPEnable" type="astr">TRUE</Record> \
+   <Record name="eRT.com.cisco.spvtg.ccsp.webpa.Device.X_RDK_WebConfig.RfcEnable" type="astr">false</Record> \
+   <Record name="eRT.com.cisco.spvtg.ccsp.webpa.WebConfigRfcEnable" type="astr">false</Record>' ${D}/usr/ccsp/config/bbhm_def_cfg.xml
     fi
 }
 
