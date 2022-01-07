@@ -1069,3 +1069,21 @@ $EnableOCSPCA=false
 
 #Enable PresenceDetect
 $PresenceDetectEnabled=false
+
+# Device Fingerprint Enable
+
+$Advsecurity_DeviceFingerPrint=1
+$Advsecurity_SafeBrowsing=0
+$Advsecurity_Softflowd=0
+$Adv_PCActivate=0
+$Adv_PPActivate=0
+$Advsecurity_LoggingPeriod=1440
+$Advsecurity_LogLevel=2
+$Advsecurity_LookupTimeout=350
+$Adv_PrivProtRFCEnable=1
+$Adv_PCRFCEnable=1
+$Adv_DFICMPv6RFCEnable=1
+$Adv_WSDisAnaRFCEnable=1
+$Adv_AdvSecOTMRFCEnable=1
+
+
