@@ -1,3 +1,6 @@
+SRC_URI_remove = "git://github.com/${SRCFORK}/userland.git;protocol=git;branch=${SRCBRANCH}"
+SRC_URI += "git://github.com/${SRCFORK}/userland.git;protocol=https;branch=${SRCBRANCH}"
+
 DEPENDS += "freetype"
 
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
