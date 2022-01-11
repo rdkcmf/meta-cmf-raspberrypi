@@ -1,3 +1,6 @@
+SRC_URI_remove = "git://github.com/Evilpaul/RPi-config.git;protocol=git;branch=master"
+SRC_URI += "git://github.com/Evilpaul/RPi-config.git;protocol=https;branch=master"
+
 # RDK specific changes
 
 DISABLE_OVERSCAN = "1"
