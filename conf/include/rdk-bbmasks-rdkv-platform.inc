@@ -16,3 +16,6 @@ BBMASK .= "|meta-cmf-raspberrypi/recipes-multimedia/mediastreamer/"
 # as meta-raspberrypi has the latest revision and it's checksum values
 BBMASK_append_dunfell = "|meta-cmf-raspberrypi/recipes-bsp/bootfiles/bcm2835-bootfiles.bbappend"
 BBMASK_append_morty .= "|meta-cmf-raspberrypi/recipes-bsp/u-boot/"
+
+# Upgrade libbsd in dunfel to the default version
+BBMASK_append_dunfell = "|meta-rdk-ext/recipes-support/libbsd/"
