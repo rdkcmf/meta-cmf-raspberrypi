@@ -47,6 +47,9 @@ do_rpi_patches_dunfell () {
 }
 addtask rpi_patches_dunfell after do_unpack before do_configure
 
+do_configure_prepend_aarch64() {
+	sed -e '/len/ s/^\/*/\/\//' -i ${S}/source/ccsp/components/common/DataModel/dml/components/DslhObjRecord/dslh_objro_access.c
+}
 do_install_append_class-target () {
     # Config files and scripts
     install -m 777 ${S}/scripts/cli_start_arm.sh ${D}/usr/ccsp/cli_start.sh
