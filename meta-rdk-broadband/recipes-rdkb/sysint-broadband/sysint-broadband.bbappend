@@ -20,10 +20,10 @@ do_install_append_rpi() {
     echo "ATOM_PROXY_SERVER=192.168.101.3" >> ${D}${sysconfdir}/device.properties
     echo "PARODUS_URL=tcp://127.0.0.1:6666" >> ${D}${sysconfdir}/device.properties
     echo "WEBPA_CLIENT_URL=tcp://192.168.101.3:6667" >> ${D}${sysconfdir}/device.properties
-    echo "CLOUDURL="http://35.155.171.121:9092/xconf/swu/stb?eStbMac="" >> ${D}${sysconfdir}/include.properties
-    echo "DCM_LOG_SERVER_URL="http://35.155.171.121:9092/loguploader/getSettings"" >> ${D}${sysconfdir}/dcm.properties
-    echo "DCM_HTTP_SERVER_URL="http://35.155.171.121/xconf/telemetry_upload.php"" >> ${D}${sysconfdir}/dcm.properties
-    echo "DCM_LA_SERVER_URL="http://35.155.171.121/xconf/logupload.php"" >> ${D}${sysconfdir}/dcm.properties
+    echo "CLOUDURL="https://xconf.rdkcentral.com:9092/xconf/swu/stb?eStbMac="" >> ${D}${sysconfdir}/include.properties
+    echo "DCM_LOG_SERVER_URL="https://xconf.rdkcentral.com:9092/loguploader/getSettings"" >> ${D}${sysconfdir}/dcm.properties
+    echo "DCM_HTTP_SERVER_URL="http://35.161.239.220/xconf/telemetry_upload.php"" >> ${D}${sysconfdir}/dcm.properties
+    echo "DCM_LA_SERVER_URL="http://35.161.239.220/xconf/logupload.php"" >> ${D}${sysconfdir}/dcm.properties
     #For rfc Support
     sed -i '/DEVICE_TYPE/c\DEVICE_TYPE=broadband' ${D}${sysconfdir}/device.properties
     sed -i '/LOG_PATH/c\LOG_PATH=/rdklogs/logs/' ${D}${sysconfdir}/device.properties
@@ -73,7 +73,7 @@ do_install_append_rpi() {
     sed -i "/uploadRDKBLogs.sh/a \ \t \t  \t  uploading_rdklogs" ${D}/rdklogger/rdkbLogMonitor.sh
     sed -i "/uploadRDKBLogs.sh/d " ${D}/rdklogger/rdkbLogMonitor.sh
     sed -i "/upload_nvram2_logs()/i uploading_rdklogs() \n { \n \ \t \t TFTP_RULE_COUNT=\`iptables -t raw -L -n | grep tftp | wc -l\` \n \ \t \t if [ \"\$TFTP_RULE_COUNT\" == 0 ] \n \t \t then \n \ \t \t \t iptables -t raw -I OUTPUT -j CT -p udp -m udp --dport 69 --helper tftp \n \ \t \t \t sleep 2 \n \ \t \t fi \n \ \t \t cd /nvram2/logs \n \ \t \t FILENAME=\`ls *.tgz\` \n \ \t \t tftp -p -r \$FILENAME \$TFTP_SERVER_IP \n } " ${D}/rdklogger/rdkbLogMonitor.sh
-    echo "TFTP_SERVER_IP=35.155.171.121" >> ${D}${sysconfdir}/device.properties
+    echo "TFTP_SERVER_IP=35.161.239.220" >> ${D}${sysconfdir}/device.properties
 
     #self heal support
     install -d ${D}/usr/ccsp/tad
