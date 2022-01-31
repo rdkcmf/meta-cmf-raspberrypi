@@ -22,6 +22,10 @@ do_configure_prepend() {
     sed -i '/History/, +4d' ${S}/config-atom/TR181-WiFi-USGv2.XML
 }
 
+do_configure_prepend_aarch64() {
+    sed -i "s/upload_client_debug_stats();/\/\/upload_client_debug_stats();/g" ${S}/source/TR-181/sbapi/wifi_monitor.c
+}
+
 do_install_append(){
     install -m 777 ${D}/usr/bin/CcspWifiSsp -t ${D}/usr/ccsp/wifi/
     install -m 755 ${S}/scripts/cosa_start_wifiagent.sh ${D}/usr/ccsp/wifi
