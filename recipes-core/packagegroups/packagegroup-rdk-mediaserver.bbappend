@@ -7,6 +7,7 @@ RDEPENDS_packagegroup-rdk-generic-mediaserver_remove = " \
 "
 
 RDEPENDS_packagegroup-rdk-generic-mediaserver_append = " \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'alexa_ffv', 'skillmapper', ' ', d)} \
     sysint \
     hdhomerun \
 "
