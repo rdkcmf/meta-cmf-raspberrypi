@@ -19,6 +19,7 @@ do_install_append_dunfell() {
         echo "Environment=\"WESTEROS_SINK_USE_FREERUN=1\"" >> ${D}${systemd_unitdir}/system/wpeframework.service.d/wpeframework.conf
         echo "Environment=\"WESTEROS_GL_USE_GENERIC_AVSYNC=1\"" >> ${D}${systemd_unitdir}/system/wpeframework.service.d/wpeframework.conf
     fi
+    echo "RDKSHELL_COMPOSITOR_TYPE=surface" >> ${D}${sysconfdir}/wpeframework/WPEFramework.env
 }
 
 FILES_${PN} += "${systemd_unitdir}/system/wpeframework.service.d/wpeframework.conf"
