@@ -1,7 +1,7 @@
 [Unit]
 Description=RMS
-After=multi-user.target mst-launcher.service
-Requires=mst-launcher.service
+After=multi-user.target mst-launcher.service pipewire-launcher.service cvr-launcher.service
+Requires=mst-launcher.service pipewire-launcher.service
 
 [Service]
 ExecStart=/bin/sh -c '(/lib/rdk/startRMS.sh)' &

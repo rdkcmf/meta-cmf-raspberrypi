@@ -1,0 +1,13 @@
+[Unit]
+Description=CVR
+After=multi-user.target pipewire-launcher.service
+Before=rms-launcher.service
+Requires=pipewire-launcher.service
+
+[Service]
+ExecStart=/bin/sh -c '(/lib/rdk/startCVR.sh)' &
+Type=forking
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

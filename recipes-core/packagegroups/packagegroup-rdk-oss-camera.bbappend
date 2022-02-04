@@ -6,12 +6,13 @@ RDEPENDS_packagegroup-rdk-oss-camera_append = "	\
                         			cvr \
                         			thumbnail \
 						mongoose \
-						mediastreamer \
 						sysint \
 						netkit-telnet \
 						parodus \
 						wpa-supplicant \
                 	                      "
+
+RDEPENDS_packagegroup-rdk-oss-camera_append = "${@oe.utils.conditional("SUPPORT_PIPEWIRE", "1", "", "mediastreamer", d)}"
 
 RDEPENDS_packagegroup-rdk-oss-camera_remove = " \
 						cryptsetup \

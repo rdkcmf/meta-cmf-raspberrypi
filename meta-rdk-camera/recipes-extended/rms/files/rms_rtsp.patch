@@ -31,3 +31,42 @@ Signed-off-by: e.savidha <e.savidha@ltts.com>
  				-- LiveFLV ingest
  				{
  					ip="127.0.0.1",
+--- git_origin/builders/make2/CCdist/rms/config/pushPullSetup.xml	2022-02-01 03:39:58.292512448 +0000
++++ git/builders/make2/CCdist/rms/config/pushPullSetup.xml	2022-02-04 01:11:26.574873671 +0000
+@@ -57,7 +57,28 @@
+             <STR name="videoSourceIndex">high</STR>
+         </MAP>
+     </MAP>
+-    <MAP isArray="true" name="push" />
++    <MAP isArray="true" name="push"> 
++        <MAP isArray="false" name="0x00000002">
++            <UINT32 name="configId">2</UINT32>
++            <STR name="emulateUserAgent">RDKC Media Server (www.comcast.com)</STR>
++            <BOOL name="forceTcp">false</BOOL>
++            <STR name="httpProxy"></STR>
++            <BOOL name="keepAlive">true</BOOL> 
++            <STR name="localStreamName">stream2</STR>
++            <UINT8 name="operationType">2</UINT8>
++            <STR name="pageUrl"></STR>                                                   
++            <BOOL name="rtmpAbsoluteTimestamps">false</BOOL>
++            <BOOL name="sendChunkSizeRequest">true</BOOL>    
++            <STR name="swfUrl"></STR>       
++            <STR name="targetStreamName">stream2</STR>
++            <STR name="targetStreamType">live</STR>  
++            <STR name="targetUri">rtsp://0.0.0.0:5544</STR>
++            <STR name="tcUrl"></STR>  
++            <UINT64 name="tos">256</UINT64>
++            <UINT64 name="ttl">256</UINT64>  
++            <BOOL name="useSourcePts">false</BOOL>
++        </MAP>                             
++    </MAP>
+     <MAP isArray="true" name="record" />
+     <MAP isArray="false" name="serverVersion">
+         <STR name="banner">RDKC Media Server version 1.7.1 build 5082 with hash: 9c3a1f0c57155f56d180f541854639a9ebb2866b on branch: release/1.7.1_comcast - Pacman - (built for Linaro-gcc4.9-armv7ahf on 2018-01-19T22:00:48.000)</STR>
+@@ -70,4 +91,4 @@
+     </MAP>
+     <UINT32 name="version">27</UINT32>
+     <MAP isArray="true" name="webrtc" />
+-</MAP>
+\ No newline at end of file
++</MAP>
