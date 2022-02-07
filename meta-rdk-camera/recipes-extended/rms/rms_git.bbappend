@@ -3,7 +3,7 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 SRC_URI += "file://startRMS.sh \
      file://rms-launcher.service \
      file://rms.conf \
-     file://rms_rtsp.patch;apply=no \
+     file://rms_rtsp.patch \
 "
 
 S = "${WORKDIR}/git"
@@ -31,12 +31,3 @@ FILES_${PN}_append = " \
 
 inherit systemd
 
-do_rdkcms_patches() {
-    cd ${S}
-    if [ ! -e patch_applied ]; then
-        patch -p1 < ${WORKDIR}/rms_rtsp.patch
-        touch patch_applied
-    fi
-}
-
-addtask rdkcms_patches after do_unpack before do_compile
