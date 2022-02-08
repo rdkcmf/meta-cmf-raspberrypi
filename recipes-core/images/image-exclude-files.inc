@@ -66,4 +66,14 @@ etc/xdiscovery.conf \
 etc/xupnp \
 etc/systemd/system/multi-user.target.wants/OvsAgent* \
 lib/systemd/system/OvsAgent* \
+usr/bin/GponManager \
+usr/rdk/gponmanager \
+usr/bin/xdslmanager \
+usr/bin/pppmanager \
+usr/rdk/pppmanager \
+usr/rdk/xdslmanager \
+etc/rdk/conf/xdsl_manager_conf.json \
+etc/rdk/conf/gpon_manager_conf.json \
+etc/rdk/schemas/xdsl_hal_schema.json \
+etc/rdk/schemas/gpon_hal_schema.json \
 "
