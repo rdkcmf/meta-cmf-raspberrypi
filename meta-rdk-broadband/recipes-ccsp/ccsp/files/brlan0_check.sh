@@ -22,6 +22,8 @@ sleep 30
 
 while [ 1 ]
 do
+LanMode=`dmcli eRT getv Device.X_CISCO_COM_DeviceControl.LanManagementEntry.1.LanMode | grep value | cut -d ':' -f3 | cut -d ' ' -f2 | tr -d '\n'`
+if [ "$LanMode" = "router" ]; then	
 brlan0_status=`ifconfig | grep brlan0 | wc -l`
 brlan0_ip=`ifconfig brlan0 | grep "inet addr" | cut -d ':' -f2 | cut -d ' ' -f1  | wc -l`
 Interface_2g=`cat /nvram/hostapd0.conf  | grep interface= | cut -d '=' -f2 | head -n1`
@@ -34,6 +36,7 @@ if [ $brlan0_status = 0 ] || [ $brlan0_ip = 0 ] || [ $brlan0_2g = 0 ] || [ $brla
       ifconfig brlan0 $gateway_ip.1 up
       brctl addif brlan0 $Interface_2g
       brctl addif brlan0 $Interface_5g
+fi
 fi
 sleep 10
 done

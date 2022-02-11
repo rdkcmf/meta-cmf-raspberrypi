@@ -1,0 +1,1 @@
+CFLAGS_append = " -D_PLATFORM_RASPBERRYPI_"
