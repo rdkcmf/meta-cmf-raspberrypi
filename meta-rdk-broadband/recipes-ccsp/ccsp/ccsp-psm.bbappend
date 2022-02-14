@@ -19,6 +19,8 @@ do_install_append() {
       <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.X_RDKCENTRAL-COM_BandSteering.Enable" type="astr">false</Record> \
       <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.X_RDKCENTRAL-COM_BandSteering.BandSetting.1.RSSIThreshold" type="astr">-100</Record> \
       <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.X_RDKCENTRAL-COM_BandSteering.BandSetting.2.RSSIThreshold" type="astr">-100</Record>'  ${D}/usr/ccsp/config/bbhm_def_cfg.xml
+    sed -i '/<Record name=\"eRT.com.cisco.spvtg.ccsp.tr181pa.Device.WiFi.AccessPoint.2.BssMaxNumSta\" type=\"astr\">30<\/Record>/d' ${D}/usr/ccsp/config/bbhm_def_cfg.xml
+    sed -i '/<Record name=\"eRT.com.cisco.spvtg.ccsp.tr181pa.Device.WiFi.AccessPoint.1.BssMaxNumSta\" type=\"astr\">30<\/Record>/d' ${D}/usr/ccsp/config/bbhm_def_cfg.xml
     #WanManager Feature
     DISTRO_WAN_ENABLED="${@bb.utils.contains('DISTRO_FEATURES','rdkb_wan_manager','true','false',d)}"
     if [ $DISTRO_WAN_ENABLED = 'true' ]; then
