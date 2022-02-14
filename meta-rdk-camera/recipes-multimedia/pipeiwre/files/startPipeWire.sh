@@ -18,6 +18,9 @@
 # limitations under the License.
 #########################################################################
 
+#temporarly creating this folder for scp issue
+mkdir -p /opt/secure
+
 v4l2-ctl --set-ctrl=repeat_sequence_header=1
 
 /lib/systemd/systemd-timesyncd &
