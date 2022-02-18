@@ -146,6 +146,8 @@ mkdir -p \/var\/run\/firewall \
 mkdir -p \/opt\/secure \
 touch \/nvram\/ETHWAN_ENABLE ' ${D}${sysconfdir}/utopia/utopia_init.sh
 
+sed -i "s/if \[ \"\$MODEL_NUM\" = \"DPC3939B\" \] || \[ \"\$MODEL_NUM\" = \"DPC3941B\" \]; then/if \[ \"\$MODEL_NUM\" = \"DPC3939B\" \] || \[ \"\$MODEL_NUM\" = \"DPC3941B\" \] || \[ \"\$BOX_TYPE\" = \"rpi\" \]; then/g" ${D}${sysconfdir}/utopia/utopia_init.sh
+
     sed -i '/sshd-start/a \
 \#TODO: Need to replaced once the sky version 2 code is available \
 sysevent set lan-start 0 \
