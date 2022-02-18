@@ -12,7 +12,7 @@ RDEPENDS_packagegroup-rdk-oss-camera_append = "	\
                         wpa-supplicant \
 "
 
-RDEPENDS_packagegroup-rdk-oss-camera_append = "${@oe.utils.conditional("SUPPORT_PIPEWIRE", "1", "", "mediastreamer", d)}"
+RDEPENDS_packagegroup-rdk-oss-camera_append = "${@oe.utils.conditional("ENABLE_PIPEWIRE", "1", "", "mediastreamer", d)}"
 
 RDEPENDS_packagegroup-rdk-oss-camera_remove = "cryptsetup"
 RDEPENDS_packagegroup-rdk-oss-camera_remove = "iksemel"

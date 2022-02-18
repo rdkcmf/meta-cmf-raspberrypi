@@ -1,7 +1,6 @@
 [Unit]
 Description=CVR
 After=multi-user.target pipewire-launcher.service
-Before=rms-launcher.service
 Requires=pipewire-launcher.service
 
 [Service]
