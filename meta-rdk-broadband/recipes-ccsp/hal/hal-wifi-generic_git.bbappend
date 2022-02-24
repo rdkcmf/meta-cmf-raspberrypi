@@ -13,8 +13,10 @@ do_configure_prepend(){
     ln -sf ${S}/devices_rpi/source/wifi/client_wifi_hal.c ${S}/client_wifi_hal.c
     ln -sf ${S}/devices_rpi/source/wifi/wifi_hostapd_interface.c ${S}/wifi_hostapd_interface.c
     ln -sf ${S}/devices_rpi/source/wifi/rpi_wifi_hal_assoc_devices_details.c ${S}/rpi_wifi_hal_assoc_devices_details.c
-    ln -sf ${S}/devices_rpi/include/wifi_hal.h ${S}/wifi_hal.h
+    ln -sf ${S}/devices_rpi/source/wifi/rpi_wifi_hal_version_3.c ${S}/rpi_wifi_hal_version_3.c
+    ln -sf ${S}/devices_rpi/source/wifi/wifi_hal_rpi.h ${S}/wifi_hal_rpi.h
     ln -sf ${S}/devices_rpi/source/wifi/Makefile.am ${S}/Makefile.am
 }
 
 CFLAGS_append = " ${@bb.utils.contains('DISTRO_FEATURES', 'extender', '-D_RPI_EXTENDER_', '', d)}"
+CFLAGS_append = " ${@bb.utils.contains('DISTRO_FEATURES', 'halVersion3', ' -DWIFI_HAL_VERSION_3 ', '', d)}"
