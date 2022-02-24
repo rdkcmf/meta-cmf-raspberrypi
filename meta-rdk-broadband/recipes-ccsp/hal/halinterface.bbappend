@@ -12,3 +12,5 @@ do_rpi_patches() {
         fi
 }
 addtask rpi_patches after do_unpack before do_compile
+
+CFLAGS_append = " ${@bb.utils.contains('DISTRO_FEATURES', 'halVersion3', ' -DWIFI_HAL_VERSION_3 ', '', d)}"
