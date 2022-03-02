@@ -36,7 +36,7 @@ do_install_append() {
    <Record name="dmsb.wanmanager.if.1.Enable" type="astr">TRUE</Record> \
    <Record name="dmsb.wanmanager.if.1.Type" type="astr">2</Record> \
    <Record name="dmsb.wanmanager.if.1.Priority" type="astr">0</Record> \
-   <Record name="dmsb.wanmanager.if.1.SelectionTimeout" type="astr">0</Record> \
+   <Record name="dmsb.wanmanager.if.1.SelectionTimeout" type="astr">60</Record> \
    <Record name="dmsb.wanmanager.if.1.Marking.List" type="astr">DATA</Record> \
    <Record name="dmsb.wanmanager.if.1.Marking.DATA.Alias" type="astr">DATA</Record> \
    <Record name="dmsb.wanmanager.if.1.Marking.DATA.SKBPort" type="astr">1</Record> \
