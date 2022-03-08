@@ -10,4 +10,4 @@ RDEPENDS_packagegroup-rdk-ccsp-broadband_append = "\
 "
 
 # Set the gwprov app for RPi
-GWPROVAPP = ""
+GWPROVAPP = "${@bb.utils.contains('DISTRO_FEATURES','rdkb_wan_manager','','ccsp-gwprovapp-ethwan',d)}"
