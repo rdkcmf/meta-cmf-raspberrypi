@@ -78,4 +78,7 @@ DISTRO_FEATURES_append = " ddns_broadband"
 # RDKBDEV-83 : Device Gateway Association using Managed Device
 DISTRO_FEATURES_append = " device_gateway_association"
 
+# REFPLTB-1546 : WiFi HAL 3.0 support for RPI
+DISTRO_FEATURES_append = " halVersion3"
+
 SESSIONMGR_WS_RPC_ENABLE = "1"
