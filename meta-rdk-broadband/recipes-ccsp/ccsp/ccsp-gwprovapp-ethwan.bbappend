@@ -24,6 +24,7 @@ do_install_append () {
         sed -i "s/StandardOutput=syslog/StandardOutput=syslog+console/g"  ${D}${systemd_unitdir}/system/gwprovethwan.service
 	sed -i "/rdklogs/a ExecStartPre=/bin/sh -c 'mkdir -p /nvram/'" ${D}${systemd_unitdir}/system/gwprovethwan.service
 	sed -i "/nvram/a ExecStartPre=/bin/touch /nvram/ETHWAN_ENABLE" ${D}${systemd_unitdir}/system/gwprovethwan.service
+	sed -i "s/#ExecStartPre=\/bin\/sh \/usr\/ccsp\/utopia_init.sh/ExecStartPre=\/bin\/sh \/etc\/utopia\/utopia_init.sh/g" ${D}${systemd_unitdir}/system/gwprovethwan.service
 }
 
 SYSTEMD_SERVICE_${PN} = "gwprovethwan.service"
