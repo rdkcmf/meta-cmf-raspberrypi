@@ -1,0 +1,13 @@
+diff --git a/gstplayersinkbin.c b/gstplayersinkbin.c
+index 43d4bb4..1cb4b7c 100644
+--- a/gstplayersinkbin.c
++++ b/gstplayersinkbin.c
+@@ -709,7 +709,7 @@ plug_pad (GstPlayerSinkBin * playersinkbin, GstPad * demux_src_pad)
+                         playersinkbin->m_audio_parser = gst_element_factory_make("aacparse", NULL);
+ 
+                         if(OMX_Enable){
+-                                playersinkbin->m_adec = gst_element_factory_make("faad", "adec");
++                                playersinkbin->m_adec = gst_element_factory_make("avdec_aac", "adec");
+                         }
+                         else{
+ 
