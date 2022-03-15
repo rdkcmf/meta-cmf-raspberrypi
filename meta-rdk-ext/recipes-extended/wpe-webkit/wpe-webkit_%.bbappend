@@ -22,7 +22,7 @@ RDEPS_EXTRA_append_rpi = " \
 "
 
 RDEPS_EXTRA_append_morty = " \
-    gstreamer1.0-plugins-bad-faad \
+    ${@bb.utils.contains('LICENSE_FLAGS_WHITELIST', 'commercial', 'gstreamer1.0-plugins-bad-faad', '', d)} \
     gstreamer1.0-plugins-bad-opengl \
     gstreamer1.0-plugins-ugly-mpg123 \
 "
