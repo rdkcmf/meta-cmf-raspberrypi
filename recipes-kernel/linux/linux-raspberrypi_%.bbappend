@@ -1,8 +1,13 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
 SRC_URI += "file://proc-event.cfg"
+
 SRC_URI_append_broadband = " file://remove_unused_modules.cfg"
 SRC_URI_append_broadband = " file://rdkb.cfg"
+
+SRC_URI_append_extender = " file://remove_unused_modules.cfg"
+SRC_URI_append_extender = " file://rdkb.cfg"
+
 SRC_URI_remove_dunfell = " file://0001-add-support-for-http-host-headers-cookie-url-netfilt.patch "
 
 do_configure_append_morty() {
