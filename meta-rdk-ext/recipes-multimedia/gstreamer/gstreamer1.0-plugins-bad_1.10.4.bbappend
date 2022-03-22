@@ -12,3 +12,5 @@ EXTRA_OEMAKE += "WAYLAND_PROTOCOLS_DATADIR=${STAGING_DATADIR}/wayland-protocols"
 SRC_URI_remove = "file://0004-Fix-to-set-current_fragment-for-live-streaming.patch "
 
 FILES_${PN} += "/usr/lib/gstreamer-1.0/include /usr/lib/gstreamer-1.0/include/gst /usr/lib/gstreamer-1.0/include/gst/gl /usr/lib/gstreamer-1.0/include/gst/gl/gstglconfig.h"
+
+PACKAGECONFIG_remove = "faad"
