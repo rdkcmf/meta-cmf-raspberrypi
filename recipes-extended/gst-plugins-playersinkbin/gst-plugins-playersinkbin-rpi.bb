@@ -17,6 +17,19 @@ SRC_URI = "${CMF_GIT_ROOT}/rdk/devices/raspberrypi/gst-plugins-rdk/playersinkbin
 
 S = "${WORKDIR}/git"
 
+FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
+SRC_URI += "file://0001-Gst-audio-decoder.patch;apply=no"
+# using avdec_aac decoder
+do_audio_decoder_patch() {
+    cd ${S}
+    if [ ! -e patch_applied ]; then
+        bbnote "0001-Gst-audio-decoder.patch"
+        patch -p1 < ${WORKDIR}/0001-Gst-audio-decoder.patch
+        touch patch_applied
+    fi
+}
+addtask audio_decoder_patch after do_unpack before do_configure
+
 FILES_${PN} += "${libdir}/gstreamer-*/*.so"
 FILES_${PN}-dev += "${libdir}/gstreamer-*/*.la"
 FILES_${PN}-dbg += "${libdir}/gstreamer-*/.debug/*"
