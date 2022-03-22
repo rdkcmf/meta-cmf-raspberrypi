@@ -1,0 +1,21 @@
+Subject: Added temp fix for getting the Online and Offline Clients information in ConnectedDevice > Device
+page in WebUI
+This issue is observed after this changes merged 68474
+
+Signed-off-by: kpandu549 <keerthana_pandurangan@comcast.com>
+
+diff --git a/source/lm/lm_main.c b/source/lm/lm_main.c
+index 3861c33..9f4d89a 100644
+--- a/source/lm/lm_main.c
++++ b/source/lm/lm_main.c
+@@ -2587,6 +2587,10 @@ static void *Hosts_StatSyncThreadFunc(void *args)
+             }
+ #else
+              UNREFERENCED_PARAMETER(bridgemode);
++#if defined(_PLATFORM_RASPBERRYPI_)
++	     Send_Eth_Host_Sync_Req();
++	     SyncWiFi();
++#endif
+ #endif
+             sleep(30);
+             Sendmsg_dnsmasq(lmHosts.enablePresence);
