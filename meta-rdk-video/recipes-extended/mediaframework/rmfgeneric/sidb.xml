@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<SIDB>
+    <program sourceid="162" carrier_frequency="279" modulation_mode="8" program_number="4164" virtual_channel_number="4"></program> 
+    <program sourceid="163" carrier_frequency="279" modulation_mode="8" program_number="4228" virtual_channel_number="5"></program>
+    <program sourceid="164" carrier_frequency="279" modulation_mode="8" program_number="4415" virtual_channel_number="5"></program>
+    <program sourceid="165" carrier_frequency="279" modulation_mode="8" program_number="4671" virtual_channel_number="3"></program>
+    <program sourceid="4701" carrier_frequency="250" modulation_mode="8" program_number="0" virtual_channel_number="3"></program>
+</SIDB>
+
