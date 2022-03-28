@@ -63,3 +63,10 @@ SYSTEMD_TOOLS = "systemd-analyze systemd-bootchart"
 SYSTEMD_TOOLS_remove_libc-musl = "systemd-bootchart"
 
 do_rootfs[nostamp] = "1"
+
+#Workaround to add device.properties
+add_device_properties_file() {
+    touch ${IMAGE_ROOTFS}/etc/device.properties
+}
+
+ROOTFS_POSTPROCESS_COMMAND_append = "add_device_properties_file; "
