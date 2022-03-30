@@ -52,7 +52,7 @@ ROOTFS_CHOWN_SETCAP += " -o rmfstreamer:rmfstreamer -m o-rwx /etc/rmfconfig.ini 
 # RDKBROWSER2
 #-------------------------------------------------------------------------------
 ROOTFS_CHOWN_SETCAP += " -o rdkbrowser2:rdkbrowser2    -m o-rwx /usr/bin/rdkbrowser2            \n"
-ROOTFS_CHOWN_SETCAP += " -o rdkbrowser2:rdkbrowser2    -m o-rwx /usr/bin/rdkbrowser2-control    \n"
+ROOTFS_CHOWN_SETCAP_morty += " -o rdkbrowser2:rdkbrowser2    -m o-rwx /usr/bin/rdkbrowser2-control    \n"
 ROOTFS_CHOWN_SETCAP += " -o rdkbrowser2:rdkbrowser2    -m o-rwx /usr/bin/rdkbrowser2.sh         \n"
 
 
