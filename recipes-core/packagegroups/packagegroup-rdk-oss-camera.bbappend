@@ -29,4 +29,5 @@ RDEPENDS_packagegroup-rdk-oss-camera_append_dunfell = " \
                         libcamera-gst \
                         pipewire \
                         pwstream \
+                        webrtc \
 "
