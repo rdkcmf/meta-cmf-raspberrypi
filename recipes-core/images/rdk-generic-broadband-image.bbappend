@@ -19,6 +19,9 @@ IMAGE_INSTALL_append_morty = " \
 	${@bb.utils.contains("DISTRO_FEATURES", "nodejs", " nodejs nodejs-npm ", " ", d)} \
 "
 
+#Beegol agent Support
+IMAGE_INSTALL_append =" ${@bb.utils.contains('DISTRO_FEATURES', 'beegol_agent', ' ba', '', d)}"
+
 require image-exclude-files.inc
 
 remove_unused_file() {

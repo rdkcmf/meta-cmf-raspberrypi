@@ -93,6 +93,14 @@ BBLAYERS =+ "\${RDKROOT}/meta-rdk-opensync"
 EOF
 fi
 
+# Add meta-beegol-agent only if not already present.
+if [[ $(grep '^BBLAYERS' conf/bblayers.conf | grep -c 'meta-beegol-agent') -eq 0 ]] && [[ -d  ../meta-beegol-agent ]]
+then
+    cat >> conf/bblayers.conf <<EOF
+BBLAYERS =+ "\${RDKROOT}/meta-beegol-agent"
+EOF
+fi
+
 # ${_RDK_FLAVOR} value should be available from meta-rdk/setup-environment
 # Hack: sometimes _RDK_FLAVOR doesn't seem to persist in the environment.
 if [ -z "$_RDK_FLAVOR" ]; then
