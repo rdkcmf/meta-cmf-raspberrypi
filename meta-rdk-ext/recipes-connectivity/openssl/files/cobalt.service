@@ -1,0 +1,9 @@
+[Unit]
+Description=C_rehash 
+After= wpeframework.service
+
+[Service]
+ExecStart=/bin/sh -c '/lib/rdk/c_rehash.sh'
+
+[Install]
+WantedBy=multi-user.target
