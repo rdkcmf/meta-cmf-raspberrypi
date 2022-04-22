@@ -1,7 +1,8 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
 SRC_URI += "file://rdkshell_keymapping.json \
-	    file://wpeframework.conf \
+            file://wpeframework.conf \
+            file://cardselect_rpi4.sh \
            "
 
 do_install_append(){
@@ -12,6 +13,8 @@ do_install_append(){
 
 do_install_append_raspberrypi4() {
     echo "Environment=\"WESTEROS_DRM_CARD=/dev/dri/card1\"" >> ${D}${systemd_unitdir}/system/wpeframework.service.d/wpeframework.conf
+    sed -i '/^ExecStart=.*/i ExecStartPre=-/lib/rdk/cardselect_rpi4.sh' ${D}${systemd_unitdir}/system/wpeframework.service
+    install -Dm755 ${WORKDIR}/cardselect_rpi4.sh ${D}${base_libdir}/rdk/cardselect_rpi4.sh
 }
 
 do_install_append_dunfell() {
@@ -24,3 +27,4 @@ do_install_append_dunfell() {
 
 FILES_${PN} += "${systemd_unitdir}/system/wpeframework.service.d/wpeframework.conf"
 FILES_${PN} += "${sysconfdir}/rdkshell_keymapping.json"
+FILES_${PN}_append_raspberrypi4 += "${base_libdir}/rdk/cardselect_rpi4.sh"
