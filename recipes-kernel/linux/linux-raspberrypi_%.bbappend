@@ -9,6 +9,7 @@ SRC_URI_append_extender = " file://remove_unused_modules.cfg"
 SRC_URI_append_extender = " \
                             file://rdkb.cfg \
                             file://rdkb-ext.cfg \
+                            file://regdb.patch \
 "
 
 SRC_URI_remove_dunfell = " file://0001-add-support-for-http-host-headers-cookie-url-netfilt.patch "
