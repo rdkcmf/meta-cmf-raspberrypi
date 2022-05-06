@@ -30,4 +30,5 @@ RDEPENDS_packagegroup-rdk-oss-camera_append_dunfell = " \
                         pipewire \
                         pwstream \
                         webrtc \
+			media-session \
 "
