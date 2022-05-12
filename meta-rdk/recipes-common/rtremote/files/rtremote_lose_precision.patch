@@ -1,0 +1,12 @@
+diff -Naurd a/src/rtRemoteValueWriter.cpp b/src/rtRemoteValueWriter.cpp
+--- a/src/rtRemoteValueWriter.cpp	2021-07-01 15:32:17.334797156 -0400
++++ b/src/rtRemoteValueWriter.cpp	2021-07-01 15:32:39.414917309 -0400
+@@ -141,7 +141,7 @@
+ #if __x86_64
+       to.AddMember("value", (uint64_t)(from.toVoidPtr()), doc.GetAllocator());
+ #else
+-      to.AddMember("value", (uint32_t)(from.toVoidPtr()), doc.GetAllocator());
++      to.AddMember("value", (uint64_t)(from.toVoidPtr()), doc.GetAllocator());
+ #endif
+       break;
+ 
