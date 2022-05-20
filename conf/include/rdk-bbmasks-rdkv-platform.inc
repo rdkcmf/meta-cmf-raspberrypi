@@ -17,5 +17,8 @@ BBMASK .= "|meta-cmf-raspberrypi/recipes-multimedia/mediastreamer/"
 BBMASK_append_dunfell = "|meta-cmf-raspberrypi/recipes-bsp/bootfiles/bcm2835-bootfiles.bbappend"
 BBMASK_append_morty .= "|meta-cmf-raspberrypi/recipes-bsp/u-boot/"
 
+# mediaframework device components have not been opensourced yet.
+BBMASK_append_ipclient .= "|meta-cmf-raspberrypi/meta-rdk-video/recipes-extended/mediaframework/rmfgeneric_%.bbappend"
+
 # Upgrade libbsd in dunfel to the default version
 BBMASK_append_dunfell = "|meta-rdk-ext/recipes-support/libbsd/"
