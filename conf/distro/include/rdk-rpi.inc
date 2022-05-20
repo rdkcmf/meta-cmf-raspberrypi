@@ -13,6 +13,8 @@ PREFERRED_PROVIDER_virtual/mfrfwlib ?= "fwupgrade-lib"
 VIRTUAL-RUNTIME_mfrlib = "mfrlibs-rpi"
 VIRTUAL-RUNTIME_dtcpmgr = ""
 
+DISTRO_FEATURES_append = " streamfs"
+
 DISTRO_FEATURES_append = " parodus"
 DISTRO_FEATURES_append = " ledmgr"
 DISTRO_FEATURES_append = " build_rne"
