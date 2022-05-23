@@ -13,6 +13,7 @@ do_install_append(){
 
 do_install_append_raspberrypi4() {
     echo "Environment=\"WESTEROS_DRM_CARD=/dev/dri/card1\"" >> ${D}${systemd_unitdir}/system/wpeframework.service.d/wpeframework.conf
+    echo "WESTEROS_DRM_CARD=/dev/dri/card1" >> ${D}${sysconfdir}/wpeframework/WPEFramework.env
     sed -i '/^ExecStart=.*/i ExecStartPre=-/lib/rdk/cardselect_rpi4.sh' ${D}${systemd_unitdir}/system/wpeframework.service
     install -Dm755 ${WORKDIR}/cardselect_rpi4.sh ${D}${base_libdir}/rdk/cardselect_rpi4.sh
 }
