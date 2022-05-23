@@ -31,7 +31,7 @@ DISTRO_FEATURES_append = " enable_icrypto_openssl"
 DISTRO_FEATURES_remove = "netflix_cryptanium"
 
 # OCDM CAS support
-DISTRO_FEATURES_append_morty = " external-cas"
+DISTRO_FEATURES_append = " external-cas"
 
 # globally disables this feature (for all images supported)
 IMAGE_FEATURES_remove = "read-only-rootfs"
