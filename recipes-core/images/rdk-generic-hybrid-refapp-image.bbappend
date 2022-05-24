@@ -1,5 +1,6 @@
 # for bluetooth
-IMAGE_INSTALL_append = " bluez5 bluez5-bluetoothd"
+IMAGE_INSTALL_append = " bluez5"
+IMAGE_INSTALL_append_morty = " bluez5-bluetoothd"
 
 # LG sessionmgr and camgr test Application
 IMAGE_INSTALL_append = " sessionmgr-test"
