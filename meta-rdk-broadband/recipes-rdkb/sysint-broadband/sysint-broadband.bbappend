@@ -20,7 +20,7 @@ do_install_append_rpi() {
     echo "ATOM_PROXY_SERVER=192.168.101.3" >> ${D}${sysconfdir}/device.properties
     echo "PARODUS_URL=tcp://127.0.0.1:6666" >> ${D}${sysconfdir}/device.properties
     echo "WEBPA_CLIENT_URL=tcp://192.168.101.3:6667" >> ${D}${sysconfdir}/device.properties
-    echo "CLOUDURL="https://xconf.rdkcentral.com:9092/xconf/swu/stb?eStbMac="" >> ${D}${sysconfdir}/include.properties
+    echo "CLOUDURL="https://xconf.rdkcentral.com:19092/xconf/swu/stb?eStbMac="" >> ${D}${sysconfdir}/include.properties
     echo "DCM_LOG_SERVER_URL="https://xconf.rdkcentral.com:9092/loguploader/getSettings"" >> ${D}${sysconfdir}/dcm.properties
     echo "DCM_HTTP_SERVER_URL="http://35.161.239.220/xconf/telemetry_upload.php"" >> ${D}${sysconfdir}/dcm.properties
     echo "DCM_LA_SERVER_URL="http://35.161.239.220/xconf/logupload.php"" >> ${D}${sysconfdir}/dcm.properties
