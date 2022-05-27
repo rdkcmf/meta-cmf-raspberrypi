@@ -47,18 +47,16 @@ RDEPENDS_packagegroup-rdk-media-common_append_rpi = "\
     waymetric \
 "
 
-RDEPENDS_packagegroup-rdk-media-common_remove_client = " \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'ipclient', ' \
-        fog \
-        rmfgeneric \
-        rmfapp \
-        rmfstreamer \
-        rdkmediaplayer \
-        sys-utils \
-        tr69hostif \
-        audiocapturemgr \
-        thunder-services \
-    ', '', d)} \
+RDEPENDS_packagegroup-rdk-media-common_remove_ipclient = " \
+    fog \
+    rmfgeneric \
+    rmfapp \
+    rmfstreamer \
+    rdkmediaplayer \
+    sys-utils \
+    tr69hostif \
+    audiocapturemgr \
+    thunder-services \
 "
 
 RDEPENDS_packagegroup-rdk-media-common_append_rpi_hybrid = "\
