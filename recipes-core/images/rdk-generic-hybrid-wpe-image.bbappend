@@ -8,6 +8,7 @@ IMAGE_INSTALL_append = " \
    parodus \
    tr69hostif \
    tr69agent \
+   tzdata \
 "
 
 IMAGE_INSTALL_remove = " \

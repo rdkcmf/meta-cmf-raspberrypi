@@ -8,7 +8,8 @@ IMAGE_INSTALL_append = " \
    tr69hostif \
    tr69agent \
    alsa-utils \
-   alsa-lib   \
+   alsa-lib \
+   tzdata \
 "
 
 IMAGE_INSTALL_append_dunfell = " \
