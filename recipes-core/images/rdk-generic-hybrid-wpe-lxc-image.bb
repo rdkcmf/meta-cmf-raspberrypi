@@ -12,6 +12,7 @@ IMAGE_INSTALL += " \
         strace \
 	gstqamtunersrc \
 	rdkapps \
+        tzdata \
 "
 
 IMAGE_INSTALL_remove = " \

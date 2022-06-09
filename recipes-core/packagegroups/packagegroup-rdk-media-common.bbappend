@@ -45,6 +45,7 @@ RDEPENDS_packagegroup-rdk-media-common_append_rpi = "\
     sys-utils \
     rdk-gstreamer-utils \
     waymetric \
+    tzcode \
 "
 
 RDEPENDS_packagegroup-rdk-media-common_remove_ipclient = " \
