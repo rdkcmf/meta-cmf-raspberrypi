@@ -20,6 +20,19 @@ OVER_VOLTAGE = "6"
 
 BOOTFILES_DIR_NAME_morty = "bcm2835-bootfiles"
 
+do_deploy_append_raspberrypi4() {
+# Fix to enable both the HDMI ports in case of raspberry pi 4
+# Force both hdmi mode to 720p@60Hz
+    sed -i '/#hdmi_group=/ c\[HDMI:0]\
+ hdmi_group=1\
+[HDMI:1]\
+ hdmi_group=1' ${DEPLOYDIR}/${BOOTFILES_DIR_NAME}/config.txt
+    sed -i '/#hdmi_mode=/ c\[HDMI:0]\
+ hdmi_mode=4\
+[HDMI:1]\
+ hdmi_mode=4' ${DEPLOYDIR}/${BOOTFILES_DIR_NAME}/config.txt
+}
+
 do_deploy_append() {
     echo "dtoverlay=lirc-rpi" >> ${DEPLOYDIR}/${BOOTFILES_DIR_NAME}/config.txt
     # fix to enable audio from 4.4 kernel
