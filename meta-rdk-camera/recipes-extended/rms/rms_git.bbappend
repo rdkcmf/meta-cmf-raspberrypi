@@ -3,10 +3,21 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 SRC_URI += "file://startRMS.sh \
      file://rms-launcher.service \
      file://rms.conf \
-     file://rms_rtsp.patch \
+     file://rms_rtsp.patch;apply=no \
 "
 
 S = "${WORKDIR}/git"
+
+# we need to patch to code for rms
+do_rpi_rms_patches() {
+    cd ${S}
+    if [ ! -e rpi_patch_applied ]; then
+        bbnote "Patching rms_rtsp.patch"
+        patch -p1 < ${WORKDIR}/rms_rtsp.patch
+        touch rpi_patch_applied
+    fi
+}
+addtask rpi_rms_patches after do_unpack before do_configure
 
 do_configure_prepend() {
 cp ${WORKDIR}/startRMS.sh ${S}/
