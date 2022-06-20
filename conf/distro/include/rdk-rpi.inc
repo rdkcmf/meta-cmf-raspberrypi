@@ -89,4 +89,7 @@ DISTRO_FEATURES_append = " halVersion3"
 # RDKBDEV-866: EasyMesh Controller support
 DISTRO_FEATURES_append = " easymesh-controller"
 
+# RDKB-40900: RDKB support extender/nonrouter profile
+DISTRO_FEATURES_append = " rdkb_extender"
+
 SESSIONMGR_WS_RPC_ENABLE = "1"
