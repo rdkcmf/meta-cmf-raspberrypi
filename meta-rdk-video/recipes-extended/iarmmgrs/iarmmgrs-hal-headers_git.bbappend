@@ -2,6 +2,7 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
 SRC_URI_append = " \
                 file://0001-xfinity-and-exit-keymap.patch;apply=no \
+                file://0001-mfrTypes-sky-tvsettings.patch;apply=no \
                "
 # this is a temporary fix until http://code.rdkcentral.com/r/49395
 # got merged into rdk-next branch
@@ -13,7 +14,12 @@ do_install_append () {
 do_rpi_patches() {
     cd ${S}
     if [ ! -e patch_applied ]; then
+        bbnote "Patching 0001-xfinity-and-exit-keymap.patch"
         patch -p1 < ${WORKDIR}/0001-xfinity-and-exit-keymap.patch
+
+        bbnote "Patching 0001-mfrTypes-sky-tvsettings.patch"
+        patch -p1 < ${WORKDIR}/0001-mfrTypes-sky-tvsettings.patch
+
         touch patch_applied
     fi
 }

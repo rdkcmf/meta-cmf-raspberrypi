@@ -9,6 +9,7 @@ IMAGE_INSTALL_append = " \
    tr69agent \
    alsa-utils \
    alsa-lib \
+   tvsettings \
    tzdata \
 "
 
