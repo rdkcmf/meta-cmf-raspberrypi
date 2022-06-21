@@ -14,6 +14,7 @@ LDFLAGS_append = " \
 "
 
 CFLAGS_append = " -Wno-error=unused-function "
+CFLAGS_append = " -DWAN_FAILOVER_SUPPORTED "
 
 # we need to patch to code for RPi
 do_rpi_patches() {
