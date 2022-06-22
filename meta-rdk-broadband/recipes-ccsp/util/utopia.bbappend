@@ -14,7 +14,7 @@ LDFLAGS_append = " \
 "
 
 CFLAGS_append = " -Wno-error=unused-function "
-CFLAGS_append = " -DWAN_FAILOVER_SUPPORTED "
+CFLAGS_append = " ${@bb.utils.contains('DISTRO_FEATURES', 'bci', '', '-DWAN_FAILOVER_SUPPORTED', d)}"
 
 # we need to patch to code for RPi
 do_rpi_patches() {
