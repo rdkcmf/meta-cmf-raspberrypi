@@ -197,7 +197,7 @@ do_install_append_rpi() {
              install -m 0755 ${WORKDIR}/rpi_sw_install1.sh ${D}${base_libdir}/rdk 
              install -m 0755 ${WORKDIR}/rpi_sw_install.sh ${D}${base_libdir}/rdk 
              install -m 0755 ${WORKDIR}/swupdate_utility.sh  ${D}${base_libdir}/rdk 
-	     echo "CLOUDURL="https://xconf.rdkcentral.com:9092/xconf/swu/stb?eStbMac="" >> ${D}${sysconfdir}/include.properties
+	     echo "CLOUDURL="https://xconf.rdkcentral.com:19092/xconf/swu/stb?eStbMac="" >> ${D}${sysconfdir}/include.properties
              #setting the path for rtl_json.txt in rdk-v to upload the markers into the server are added newly to include.properties
              echo ""TELEMETRY_JSON_RESPONSE=/opt/rtl_json.txt"" >> ${D}${sysconfdir}/include.properties
              # URL is hard coded for rdk-v to communicate with xconfig server of telemetry markers are added newly to include.properties
