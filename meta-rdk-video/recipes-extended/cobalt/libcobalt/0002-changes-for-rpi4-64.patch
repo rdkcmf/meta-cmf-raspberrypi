@@ -1,0 +1,57 @@
+Index: git/src/starboard/shared/linux/cpu_features_get.cc
+===================================================================
+--- git.orig/src/starboard/shared/linux/cpu_features_get.cc
++++ git/src/starboard/shared/linux/cpu_features_get.cc
+@@ -367,6 +367,7 @@ bool HasItemInList(const char* list, con
+   return false;
+ }
+ 
++#if SB_IS(32_BIT)
+ // Construct hwcap bitmask by the feature flags in /proc/cpuinfo
+ uint32_t ConstructHwcapFromCPUInfo(ProcCpuInfo* cpu_info,
+                                    int16_t architecture_generation,
+@@ -411,6 +412,7 @@ uint32_t ConstructHwcapFromCPUInfo(ProcC
+   }
+   return hwcap_value;
+ }
++#endif //SB_IS(32_BIT)
+ 
+ bool SbCPUFeaturesGet_ARM(SbCPUFeatures* features) {
+   memset(features, 0, sizeof(*features));
+Index: git/src/third_party/starboard/rdk/rpi/gyp_configuration.py
+===================================================================
+--- git.orig/src/third_party/starboard/rdk/rpi/gyp_configuration.py
++++ git/src/third_party/starboard/rdk/rpi/gyp_configuration.py
+@@ -47,7 +47,7 @@ class RDKPlatformConfig(platform_configu
+     super(RDKPlatformConfig, self).__init__(platform)
+ 
+     self.has_ocdm = os.environ.get('COBALT_HAS_OCDM', '0')
+-    self.sabi_json_path = 'starboard/sabi/arm/%s/sabi-v13.json' % (os.environ.get('COBALT_ARM_CALLCONVENTION', 'hardfp'))
++    self.sabi_json_path = 'starboard/sabi/arm64/sabi-v13.json'
+     self.sysroot = os.path.realpath(os.environ.get('PKG_CONFIG_SYSROOT_DIR', '/'))
+     self.AppendApplicationConfigurationPath(os.path.dirname(__file__))
+     self.AppendApplicationConfigurationPath(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "shared")))
+@@ -78,8 +78,8 @@ class RDKPlatformConfig(platform_configu
+         'CC': os.environ['CC'],
+         'CXX': os.environ['CXX'],
+         'LD': os.environ['CXX'],
+-        'CC_host': 'gcc -m32',
+-        'CXX_host': 'g++ -m32',
++        'CC_host': 'gcc',
++        'CXX_host': 'g++',
+     })
+     return env_variables
+ 
+Index: git/src/third_party/starboard/rdk/shared/rdkservices.cc
+===================================================================
+--- git.orig/src/third_party/starboard/rdk/shared/rdkservices.cc
++++ git/src/third_party/starboard/rdk/shared/rdkservices.cc
+@@ -81,7 +81,7 @@ class ServiceLink {
+     buffer.resize(kMaxBufferSize);
+ 
+     for(int i = 0; i < 5; ++i) {
+-      uint32_t inputLen = std::min(kMaxBufferSize, payload.length());
++      uint32_t inputLen = std::min(kMaxBufferSize, (uint32_t)payload.length());
+       ::memcpy (buffer.data(), payload.c_str(), inputLen);
+ 
+       int outputLen = GetToken(kMaxBufferSize, inputLen, buffer.data());
