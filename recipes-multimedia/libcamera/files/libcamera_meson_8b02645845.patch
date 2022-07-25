@@ -1,0 +1,101 @@
+Source: RDK Management
+License: GPL-2.0 & LGPL-2.1
+Upstream-Status: Pending
+
+From: SAVIDHA E <e.savidha@ltts.com>
+Date: Tue, 25 Jul 2022
+Subject: [PATCH] common
+---
+
+diff --git a/include/libcamera/ipa/meson.build b/include/libcamera/ipa/meson.build
+index 442ca3dd..6ea94fb5 100644
+--- a/include/libcamera/ipa/meson.build
++++ b/include/libcamera/ipa/meson.build
+@@ -25,8 +25,8 @@ ipa_mojom_core = custom_target(core_mojom_file.split('.')[0] + '_mojom_module',
+                                output : core_mojom_file + '-module',
+                                command : [
+                                    mojom_parser,
+-                                   '--output-root', meson.project_build_root(),
+-                                   '--input-root', meson.project_source_root(),
++                                   '--output-root', meson.build_root(),
++                                   '--input-root', meson.source_root(),
+                                    '--mojoms', '@INPUT@'
+                                ])
+ 
+@@ -89,8 +89,8 @@ foreach file : ipa_mojom_files
+                           depends : ipa_mojom_core,
+                           command : [
+                               mojom_parser,
+-                              '--output-root', meson.project_build_root(),
+-                              '--input-root', meson.project_source_root(),
++                              '--output-root', meson.build_root(),
++                              '--input-root', meson.source_root(),
+                               '--mojoms', '@INPUT@'
+                           ])
+ 
+diff --git a/meson.build b/meson.build
+index 3f7a3f56..885ba454 100644
+--- a/meson.build
++++ b/meson.build
+@@ -1,7 +1,7 @@
+ # SPDX-License-Identifier: CC0-1.0
+ 
+ project('libcamera', 'c', 'cpp',
+-    meson_version : '>= 0.56',
++    meson_version : '>= 0.53',
+     version : '0.0.0',
+     default_options : [
+         'werror=true',
+@@ -17,8 +17,8 @@ project('libcamera', 'c', 'cpp',
+ # git version tag, the build metadata (e.g. +211-c94a24f4) is omitted from
+ # libcamera_git_version.
+ libcamera_git_version = run_command('utils/gen-version.sh',
+-                                    meson.project_build_root(),
+-                                    meson.project_source_root(),
++                                    meson.build_root(),
++                                    meson.source_root(),
+                                     check: false).stdout().strip()
+ if libcamera_git_version == ''
+     libcamera_git_version = meson.project_version()
+@@ -161,7 +161,7 @@ endif
+ # Create a symlink from the build root to the source root. This is used when
+ # running libcamera from the build directory to locate resources in the source
+ # directory (such as IPA configuration files).
+-run_command('ln', '-fsT', meson.project_source_root(), meson.project_build_root() / 'source',
++run_command('ln', '-fsT', meson.source_root(), meson.build_root() / 'source',
+             check: true)
+ 
+ configure_file(output : 'config.h', configuration : config_h)
+diff --git a/src/libcamera/meson.build b/src/libcamera/meson.build
+index b57bee7e..d1a6c5c8 100644
+--- a/src/libcamera/meson.build
++++ b/src/libcamera/meson.build
+@@ -111,11 +111,11 @@ endforeach
+ 
+ libcamera_sources += control_sources
+ 
+-gen_version = meson.project_source_root() / 'utils' / 'gen-version.sh'
++gen_version = meson.source_root() / 'utils' / 'gen-version.sh'
+ 
+ # Use vcs_tag() and not configure_file() or run_command(), to ensure that the
+ # version gets updated with every ninja build and not just at meson setup time.
+-version_cpp = vcs_tag(command : [gen_version, meson.project_build_root(), meson.project_source_root()],
++version_cpp = vcs_tag(command : [gen_version, meson.build_root(), meson.source_root()],
+                       input : 'version.cpp.in',
+                       output : 'version.cpp',
+                       fallback : meson.project_version())
+diff --git a/test/serialization/generated_serializer/include/libcamera/ipa/meson.build b/test/serialization/generated_serializer/include/libcamera/ipa/meson.build
+index 6f8794c1..ba198f7a 100644
+--- a/test/serialization/generated_serializer/include/libcamera/ipa/meson.build
++++ b/test/serialization/generated_serializer/include/libcamera/ipa/meson.build
+@@ -6,8 +6,8 @@ mojom = custom_target('test_mojom_module',
+                       output : 'test.mojom-module',
+                       command : [
+                           mojom_parser,
+-                          '--output-root', meson.project_build_root(),
+-                          '--input-root', meson.project_source_root(),
++                          '--output-root', meson.build_root(),
++                          '--input-root', meson.source_root(),
+                           '--mojoms', '@INPUT@'
+                       ])
+ 
