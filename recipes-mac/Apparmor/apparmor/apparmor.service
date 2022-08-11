@@ -1,0 +1,22 @@
+[Unit]
+Description=AppArmor initialization
+Before=lighttpd.service
+After=securemount.service
+AssertPathIsReadWrite=/sys/kernel/security/apparmor/.load
+ConditionSecurity=apparmor
+DefaultDependencies=no
+Documentation=man:apparmor(7)
+Documentation=http://wiki.apparmor.net/
+
+ConditionPathExists=!/etc/apparomor.d
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/etc/apparmor/apparmor_parse.sh
+ExecStop=/etc/init.d/apparmor stop
+ExecReload=/etc/init.d/apparmor reload
+
+[Install]
+WantedBy=local-fs.target
+

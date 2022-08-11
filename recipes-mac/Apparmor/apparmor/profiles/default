@@ -1,0 +1,22 @@
+profile default /** flags=(attach_disconnected){
+  capability,
+  mount,
+  ptrace,
+  signal,
+  /{,**} mrwlk,    # Allows all file access apart from execute permissions
+  /{,**} pix,
+  change_profile -> **,
+  # Deny some sensitive files of /sys
+  deny /sys/f[^s]*/** wklx,
+  deny /sys/fs/[^c]*/** wklx,
+  deny /sys/fs/c[^g]*/** wklx,
+  deny /sys/fs/cg[^r]*/** wklx,
+  deny /sys/firmware/** wklx,
+  # Deny some sensitive files from /proc fs.
+  deny /proc/* w,   # deny write for all files directly in /proc (not in a subdir)
+  # deny write to files not in /proc/<number>/** or /proc/sys/**
+  deny /proc/{[^1-9],[^1-9][^0-9],[^1-9s][^0-9y][^0-9s],[^1-9][^0-9][^0-9][^0-9/]*}/** w,
+  deny /proc/sys/kernel/{?,??,[^s][^h][^m]**} w,  # deny everything except shm* in /proc/sys/kernel/
+  deny /proc/sysrq-trigger rwklx,
+  deny /proc/kcore rwklx,   
+}
