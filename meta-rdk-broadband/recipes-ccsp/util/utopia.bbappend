@@ -20,7 +20,7 @@ CFLAGS_append = " ${@bb.utils.contains('DISTRO_FEATURES', 'bci', '', '-DWAN_FAIL
 # we need to patch to code for RPi
 do_rpi_patches() {
     cd ${S}
-    if [ ! -e patch_applied ]; then
+    if [ ! -e rpi_patch_applied ]; then
         bbnote "Patching 0001-fix-lan-handler-for-rpi.patch"
         patch -p1 < ${WORKDIR}/0001-fix-lan-handler-for-rpi.patch
 
@@ -30,7 +30,7 @@ do_rpi_patches() {
         bbnote "Patching 0003-remove-autoconf.patch"
         patch -p1 < ${WORKDIR}/0003-remove-autoconf.patch
 
-        touch patch_applied
+        touch rpi_patch_applied
     fi
 }
 addtask rpi_patches after do_unpack before do_compile
