@@ -82,6 +82,13 @@ do_deploy_append_ipclient_dunfell () {
 }
 
 do_deploy_dunfell_config () {
+    if [ "${@bb.utils.contains("DISTRO_FEATURES", "apparmor", "yes", "no", d)}" = "yes" ]; then
+        if [ -f "${DEPLOYDIR}/bootfiles/cmdline.txt" ]; then
+            sed -i 's/[[:space:]]*$//g' ${DEPLOYDIR}/bootfiles/cmdline.txt
+            sed -i 's/$/ lsm=apparmor/' ${DEPLOYDIR}/bootfiles/cmdline.txt
+        fi
+    fi
+
     if [ "${@bb.utils.contains("DISTRO_FEATURES", "refapp", "yes", "no", d)}" = "no" ]; then
         if [ -f "${DEPLOYDIR}/bootfiles/cmdline.txt" ]; then
             sed -i 's/[[:space:]]*$//g' ${DEPLOYDIR}/bootfiles/cmdline.txt

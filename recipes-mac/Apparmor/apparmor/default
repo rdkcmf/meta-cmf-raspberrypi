@@ -1,0 +1,2 @@
+capability chown dac_override dac_read_search fowner fsetid kill ipc_lock sys_nice setpcap ipc_owner sys_ptrace sys_chroot net_bind_service net_admin sys_resource,
+

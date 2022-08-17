@@ -33,6 +33,9 @@ DISTRO_FEATURES_remove = "netflix_cryptanium"
 # OCDM CAS support
 DISTRO_FEATURES_append = " external-cas"
 
+# APPARMOR support
+DISTRO_FEATURES_append = " apparmor"
+
 # globally disables this feature (for all images supported)
 IMAGE_FEATURES_remove = "read-only-rootfs"
 
