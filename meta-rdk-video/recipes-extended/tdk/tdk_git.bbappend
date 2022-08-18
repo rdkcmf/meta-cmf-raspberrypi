@@ -33,7 +33,10 @@ do_install_append () {
 do_install_append_dunfell() {
     sed -i "/export XDG_RUNTIME_DIR=/ c\export XDG_RUNTIME_DIR=/tmp" ${D}${TDK_TARGETDIR}/StartTDK.sh
     sed -i "/export LD_PRELOAD=/ c\export LD_PRELOAD=/usr/lib/libwesteros_gl.so.0" ${D}${TDK_TARGETDIR}/StartTDK.sh
-
+    sed -i '/^export LD_PRELOAD.*/a export WESTEROS_SINK_USE_FREERUN="1"' ${D}${TDK_TARGETDIR}/StartTDK.sh
+    sed -i '/^export LD_PRELOAD.*/a export AAMP_ENABLE_WESTEROS_SINK="1"' ${D}${TDK_TARGETDIR}/StartTDK.sh
+    sed -i '/^export LD_PRELOAD.*/a export PLAYERSINKBIN_USE_WESTEROSSINK="1"' ${D}${TDK_TARGETDIR}/StartTDK.sh
+    sed -i '/^export LD_PRELOAD.*/a export RMF_USE_SOUPHTTPSRC="TRUE"' ${D}${TDK_TARGETDIR}/StartTDK.sh
     #Added to remove extra westerossink logs from Agentconsole log file. Otherwise log upload is taking more time.
     #Checking with platform team for permanent solution
     sed -i -e "22a sed -i \'/westerossink-ioctl/d\' \$1" ${D}${TDK_TARGETDIR}/uploadLogs.sh
