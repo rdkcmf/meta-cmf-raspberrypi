@@ -11,16 +11,16 @@ do_install_append () {
 }
 
 # we need to patch to code for RPi
-do_rpi_patches() {
+do_rpi_header_patches() {
     cd ${S}
-    if [ ! -e patch_applied ]; then
+    if [ ! -e headers_patch_applied ]; then
         bbnote "Patching 0001-xfinity-and-exit-keymap.patch"
         patch -p1 < ${WORKDIR}/0001-xfinity-and-exit-keymap.patch
 
         bbnote "Patching 0001-mfrTypes-sky-tvsettings.patch"
         patch -p1 < ${WORKDIR}/0001-mfrTypes-sky-tvsettings.patch
 
-        touch patch_applied
+        touch headers_patch_applied
     fi
 }
-addtask rpi_patches after do_unpack before do_compile
+addtask rpi_header_patches after do_unpack before do_compile
