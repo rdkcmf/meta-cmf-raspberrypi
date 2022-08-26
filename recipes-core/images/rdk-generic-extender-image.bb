@@ -56,6 +56,7 @@ IMAGE_INSTALL += " \
    wpa-supplicant \
    dropbear \
    mt76 \
+   crda \
 "
 
 SYSTEMD_TOOLS = "systemd-analyze systemd-bootchart"
