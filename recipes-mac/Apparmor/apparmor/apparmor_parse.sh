@@ -1,6 +1,7 @@
 #!/bin/sh
 Apparmor_blocklist="/opt/secure/Apparmor_blocklist"
 PROFILES_DIR="/etc/apparmor.d/"
+BINARY_PROFILES_DIR="/etc/apparmor.d/binaryprofiles/"
 PARSER="/sbin/apparmor_parser"
 SYSFS_AA_PATH="/sys/kernel/security/apparmor/profiles"
 RDKLOGS="/opt/logs/startup_stdout_log.txt"
@@ -14,16 +15,24 @@ audiocapturemgr:disable
 lighttpd:disable
 irMgrMain:disable
 default:disable
+bluetoothd:disable
+tr69hostif:disable
 EOL`
 fi
 while read line; do
         mode=`echo $line | cut -d ":" -f 2`
         process=`echo $line | cut -d ":" -f 1`
         profile=`ls -ltr $PROFILES_DIR | grep $process | awk '{print $9}'`
+        binary_profile=`ls -ltr $BINARY_PROFILES_DIR | grep $process | awk '{print $9}'`
+        if [ "$binary_profile" == "" ]; then
+              parseArgs="-rW $PROFILES_DIR/$profile"
+        else
+              parseArgs="-rB $BINARY_PROFILES_DIR/$binary_profile"
+        fi
         if [ "$mode" == "enforce" ]; then
-              $PARSER -rW $PROFILES_DIR/$profile
+              $PARSER $parseArgs
         elif [ "$mode" == "complain" ]; then
-              $PARSER -rWC $PROFILES_DIR/$profile
+              $PARSER -C $parseArgs
         elif [ "$mode" == "disable" ]; then
               echo "Apparmor profile:$profile is disabled"
         else
