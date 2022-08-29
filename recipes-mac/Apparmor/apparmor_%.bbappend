@@ -2,6 +2,7 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
 SRC_URI_append = " \
          file://apparmor_parse.sh \
          file://profiles/ \
+         file://binaryprofiles/ \
          file://default \
          "
 #PACKAGE_BEFORE_PN += "${PN}-optimized"
@@ -9,12 +10,14 @@ SRC_URI_append = " \
 do_install_append () {
     # Our startup/init script
     install -d ${D}${sysconfdir}/apparmor/caps
+    install -d ${D}${sysconfdir}/apparmor.d/binaryprofiles
     install -m 0555 ${WORKDIR}/apparmor_parse.sh ${D}${sysconfdir}/apparmor/
     if [ ! -d ${D}/etc/apparmor.d/ ]; then
            mkdir ${D}/etc/apparmor.d/
     fi
     #installing apparmor profiles
     install -m 0555 ${WORKDIR}/profiles/* ${D}${sysconfdir}/apparmor.d/
+    install -m 0555 ${WORKDIR}/binaryprofiles/* ${D}${sysconfdir}/apparmor.d/binaryprofiles/
     install -m 0555 ${WORKDIR}/default ${D}${sysconfdir}/apparmor/caps/
 }
 FILES_${PN}-optimized = "${sysconfdir}/apparmor/parser.conf \
