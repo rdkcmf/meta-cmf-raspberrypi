@@ -70,6 +70,7 @@ DISTRO_FEATURES_append = " usppa"
 # REFPLTV-1137: DLNA support for xupnp
 DISTRO_FEATURES_append = " dlna"
 
+DISTRO_FEATURES_append = " rdkb_cellular_manager"
 DISTRO_FEATURES_append = " rdkb_power_manager"
 DISTRO_FEATURES_append = " rdkb_gpon_manager"
 DISTRO_FEATURES_append = " rdkb_wan_manager"
