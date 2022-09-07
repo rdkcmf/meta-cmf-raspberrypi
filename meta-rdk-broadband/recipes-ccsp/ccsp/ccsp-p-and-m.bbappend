@@ -11,6 +11,19 @@ LDFLAGS_remove = " \
     -lmoca_mgnt \
 "
 
+FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
+
+SRC_URI += "file://Get_Device_Mode_impl_for_rpi.patch"
+do_rpi_patches() {
+    cd ${S}
+    if [ ! -e rpi_patch_applied ]; then
+        bbnote "Patching Get_Device_Mode_impl_for_rpi.patch"
+        patch -p1 < ${WORKDIR}/Get_Device_Mode_impl_for_rpi.patch || echo "ERROR or Patch already applied"
+        touch rpi_patch_applied
+    fi
+}
+addtask rpi_patches after do_unpack before do_compile
+
 CFLAGS_remove = "-Werror"
 #Disabling the ppp manager conditional flag until the pppmanager functionality support in RPI
 CFLAGS_remove = " ${@bb.utils.contains('DISTRO_FEATURES', 'rdkb_xdsl_ppp_manager', '-DFEATURE_RDKB_XDSL_PPP_MANAGER', '', d)}"
