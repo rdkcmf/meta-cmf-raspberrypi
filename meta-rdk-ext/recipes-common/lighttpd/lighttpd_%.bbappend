@@ -34,8 +34,6 @@ do_install_append_broadband() {
 	install -m 0644 ${WORKDIR}/lighttpd_php.conf.broadband ${D}${sysconfdir}/lighttpd.conf
     fi
 
-    sed -i '/mod_redirect/a \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \"mod_openssl\",' ${D}/${sysconfdir}/lighttpd.conf
-    echo "include_shell \"sh /etc/webgui_config.sh\"" >> ${D}/${sysconfdir}/lighttpd.conf
 }
 
 RDEPENDS_${PN}_append_dunfell = " \
