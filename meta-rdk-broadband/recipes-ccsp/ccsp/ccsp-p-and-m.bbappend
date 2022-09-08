@@ -13,7 +13,7 @@ LDFLAGS_remove = " \
 
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
 
-SRC_URI += "file://Get_Device_Mode_impl_for_rpi.patch"
+SRC_URI += "file://Get_Device_Mode_impl_for_rpi.patch;apply=no"
 do_rpi_patches() {
     cd ${S}
     if [ ! -e rpi_patch_applied ]; then
