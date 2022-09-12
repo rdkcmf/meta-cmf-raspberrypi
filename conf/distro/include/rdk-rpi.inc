@@ -39,13 +39,6 @@ DISTRO_FEATURES_append = " apparmor"
 # globally disables this feature (for all images supported)
 IMAGE_FEATURES_remove = "read-only-rootfs"
 
-### preferred versions
-GCCVERSION_daisy = "6.4%"
-
-# gstreamer preferred versions
-GST_VERSION_krogoth = "1.6.3"
-PREFERRED_VERSION_gstreamer1.0-plugins-ugly_krogoth = "1.6.3"
-PREFERRED_VERSION_gstreamer1.0-omx_krogoth = "1.2.0"
 
 GST_VERSION_morty = "1.10.4"
 
