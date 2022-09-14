@@ -18,6 +18,15 @@ SRC_URI_append = " \
     file://radio_param_def.cfg \
     file://bridge_mode.sh \
 "
+SRC_URI += "file://Ccspwifiagent_crash.patch;apply=no"
+do_rpi_patches () {
+    cd ${S}
+    if [ ! -e rpi_patch_applied ]; then
+       patch -p1 < ${WORKDIR}/Ccspwifiagent_crash.patch || echo "ERROR or Patch already applied"
+       touch rpi_patch_applied
+    fi
+}
+addtask rpi_patches after do_unpack before do_configure
 do_configure_prepend() {
     sed -ni '/History/{x;d;};1h;1!{x;p;};${x;p;}' ${S}/config-atom/TR181-WiFi-USGv2.XML
     sed -i '/History/, +4d' ${S}/config-atom/TR181-WiFi-USGv2.XML
