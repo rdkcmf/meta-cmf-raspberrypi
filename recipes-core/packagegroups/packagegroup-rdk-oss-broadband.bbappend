@@ -13,6 +13,7 @@ RDEPENDS_packagegroup-rdk-oss-broadband_append = " \
     rtl8192eu \
     rtl88x2bu \
     ethtool \
+    ntpstat \
 "
 
 RDEPENDS_packagegroup-rdk-oss-broadband_remove_aarch64 = "alljoyn"
