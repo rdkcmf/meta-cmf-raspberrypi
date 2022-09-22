@@ -1,0 +1,13 @@
+diff --git a/src/main/src/netSrvMgrMain.cpp b/src/main/src/netSrvMgrMain.cpp
+index 5f13d60..728a681 100644
+--- a/src/main/src/netSrvMgrMain.cpp
++++ b/src/main/src/netSrvMgrMain.cpp
+@@ -1198,7 +1198,7 @@ bool setDefaultInterface (const char* interface, bool persist)
+         const char* RFC_PNI_ENABLE = "Device.DeviceInfo.X_RDKCENTRAL-COM_RFC.Feature.PreferredNetworkInterface.Enable";
+         if (isFeatureEnabled(RFC_PNI_ENABLE) == false)
+         {
+-            LOG_ERR("[%s] failed. RFC %s is not set.", RFC_PNI_ENABLE);
++	    RDK_LOG(RDK_LOG_ERROR, LOG_NMGR, "[%s] failed. RFC %s is not set.\n", __FUNCTION__, RFC_PNI_ENABLE);
+             return false;
+         }
+         bool enabled;
