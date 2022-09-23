@@ -3,7 +3,7 @@ License: GPL-2.0 & LGPL-2.1
 Upstream-Status: Pending
 
 From: SAVIDHA E <e.savidha@ltts.com>
-Date: Tue, 25 Jul 2022
+Date: Fri, 23 Sep 2022
 Subject: [PATCH] common
 ---
 
@@ -34,7 +34,7 @@ index 442ca3dd..6ea94fb5 100644
                            ])
  
 diff --git a/meson.build b/meson.build
-index 3f7a3f56..885ba454 100644
+index 72919102..e0611f99 100644
 --- a/meson.build
 +++ b/meson.build
 @@ -1,7 +1,7 @@
@@ -67,10 +67,10 @@ index 3f7a3f56..885ba454 100644
  
  configure_file(output : 'config.h', configuration : config_h)
 diff --git a/src/libcamera/meson.build b/src/libcamera/meson.build
-index b57bee7e..d1a6c5c8 100644
+index 63b47b17..91d7365b 100644
 --- a/src/libcamera/meson.build
 +++ b/src/libcamera/meson.build
-@@ -111,11 +111,11 @@ endforeach
+@@ -121,11 +121,11 @@ endforeach
  
  libcamera_sources += control_sources
  
@@ -84,6 +84,14 @@ index b57bee7e..d1a6c5c8 100644
                        input : 'version.cpp.in',
                        output : 'version.cpp',
                        fallback : meson.project_version())
+@@ -189,6 +189,6 @@ pkg_mod.generate(libcamera,
+                  description : 'Complex Camera Support Library',
+                  subdirs : 'libcamera')
+ 
+-meson.override_dependency('libcamera', libcamera_public)
++#meson.override_dependency('libcamera', libcamera_public)
+ 
+ subdir('proxy/worker')
 diff --git a/test/serialization/generated_serializer/include/libcamera/ipa/meson.build b/test/serialization/generated_serializer/include/libcamera/ipa/meson.build
 index 6f8794c1..ba198f7a 100644
 --- a/test/serialization/generated_serializer/include/libcamera/ipa/meson.build

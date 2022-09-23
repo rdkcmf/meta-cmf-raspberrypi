@@ -10,14 +10,14 @@ LIC_FILES_CHKSUM = "\
     file://LICENSES/LGPL-2.1-or-later.txt;md5=2a4f4fd2128ea2f65047ee63fbca9f68 \
 "
 
-SRC_URI += "file://libcamera_meson_8b02645845.patch \
+SRC_URI += "file://libcamera_meson_685da13d02.patch \
 "
 
 SRCREV_remove = "a8be6e94e79f602d543a15afd44ef60e378b138f"
-SRCREV = "8b02645845bf404fba83910818b285b652f14f89"
+SRCREV = "685da13d02c01ed0a2bb7080f95b7ac56e80f221"
 
 PV_remove = "202002+git${SRCPV}"
-PV = "202207+git${SRCPV}"
+PV = "202209+git${SRCPV}"
 
 DEPENDS += "python3-jinja2-native python3-ply-native libevent gnutls boost chrpath-native libyaml"
 
