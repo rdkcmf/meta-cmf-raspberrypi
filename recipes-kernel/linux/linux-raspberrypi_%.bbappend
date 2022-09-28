@@ -95,6 +95,13 @@ do_deploy_dunfell_config () {
             sed -i 's/$/ cma=256M@256M/' ${DEPLOYDIR}/bootfiles/cmdline.txt
         fi
    fi
+
+   if [ "${@bb.utils.contains("DISTRO_FEATURES", "DOBBY_CONTAINERS", "yes", "no", d)}" = "yes" ]; then
+        if [ -f "${DEPLOYDIR}/bootfiles/cmdline.txt" ]; then
+            sed -i 's/[[:space:]]*$//g' ${DEPLOYDIR}/bootfiles/cmdline.txt
+            sed -i 's/$/ cgroup_enable=memory cgroup_memory=1/' ${DEPLOYDIR}/bootfiles/cmdline.txt
+        fi
+   fi
 }
 
 PACKAGES += "kernel-autoconf"
