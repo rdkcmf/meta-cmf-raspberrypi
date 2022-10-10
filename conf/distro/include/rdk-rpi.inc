@@ -36,6 +36,9 @@ DISTRO_FEATURES_append = " external-cas"
 # APPARMOR support
 DISTRO_FEATURES_append = " apparmor"
 
+# Containerization support
+DISTRO_FEATURES_append = " DOBBY_CONTAINERS"
+
 # globally disables this feature (for all images supported)
 IMAGE_FEATURES_remove = "read-only-rootfs"
 
