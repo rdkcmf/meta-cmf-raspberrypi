@@ -152,3 +152,4 @@ BBMASK_append_dunfell .= "|meta-cmf/recipes-connectivity/bluetooth/bluetooth-mgr
 BBMASK_append_dunfell .= "|meta-cmf/recipes-extended/asbluetoothrcu/asbluetoothrcu.bbappend"
 BBMASK_append_dunfell .= "|meta-cmf/recipes-support/ca-certificates/ca-certificates_20160104.bbappend"
 BBMASK_append_morty .= "|meta-cmf-raspberrypi/recipes-bsp/u-boot/"
+BBMASK_append_dunfell .= "|meta-cmf-raspberrypi/recipes-bsp/u-boot/"

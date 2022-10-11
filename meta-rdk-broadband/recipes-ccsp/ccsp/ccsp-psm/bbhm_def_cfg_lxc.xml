@@ -335,7 +335,7 @@
   <Record name="dmsb.l2net.6.Port.2.Alias" type="astr">Port2</Record>
   <Record name="dmsb.l3net.6.MaxMTU" type="astr" contentType="uint">1500</Record>
   <Record name="dmsb.l2net.5.PriorityTag" type="astr">FALSE</Record>
-  <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.1.SSID" type="astr">RPI3_RDKB-AP0</Record>
+  <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.1.SSID" type="astr">NanoPi_R1_RDKB-AP0</Record>
   <Record name="dmsb.hotspot.tunnel.1.interface.4.AssociatedBridgesWiFiPort" type="astr">Device.Bridging.Bridge.8.Port.2.</Record>
   <Record name="dmsb.l2net.8.Port.3.Alias" type="astr">Port3</Record>
   <Record name="dmsb.l3net.4.UPnPIGDEnabled" type="astr" contentType="bool">1</Record>
@@ -493,7 +493,7 @@
   <Record name="dmsb.l2net.8.Port.3.Mode" type="astr">PassThrough</Record>
   <Record name="dmsb.l2net.1.Port.3.LinkName" type="astr">sw_2</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.tr181pa.Device.WiFi.AccessPoint.12.WpsPushButton" type="astr">0</Record>
-  <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.2.SSID" type="astr">RPI3_RDKB-AP1</Record>
+  <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.2.SSID" type="astr">NanoPi_R1_RDKB-AP1</Record>
   <Record name="dmsb.l2net.3.Port.3.LinkName" type="astr">gretap0</Record>
   <Record name="dmsb.l2net.2.Port.1.AllowDelete" type="astr">FALSE</Record>
   <Record name="dmsb.l2net.2.Port.3.Upstream" type="astr">FALSE</Record>

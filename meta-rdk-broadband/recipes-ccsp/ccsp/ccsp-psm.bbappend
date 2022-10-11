@@ -11,8 +11,8 @@ do_install_append() {
     install -m 755 ${S}/scripts/bbhm_patch.sh ${D}/usr/ccsp/psm/bbhm_patch.sh
     sed -i '/NotifyWiFiChanges/a \
       <Record name="eRT.com.cisco.spvtg.ccsp.tr181pa.Device.WiFi.PreferPrivate" type="astr">1</Record> \
-      <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.1.SSID" type="astr">RPI3_RDKB-AP0</Record> \
-      <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.2.SSID" type="astr">RPI3_RDKB-AP1</Record> \
+      <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.1.SSID" type="astr">NanoPi_R1_RDKB-AP0</Record> \
+      <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.2.SSID" type="astr">NanoPi_R1_RDKB-AP1</Record> \
       <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.1.Passphrase" type="astr">rdk@1234</Record> \
       <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.2.Passphrase" type="astr">rdk@1234</Record>' ${D}/usr/ccsp/config/bbhm_def_cfg.xml
     sed -i '/2.SetChanUtilThreshold/a \
