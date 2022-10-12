@@ -1,3 +1,4 @@
+require add-container-user-group.inc
 IMAGE_INSTALL_append = " \
    tzdata \
 "

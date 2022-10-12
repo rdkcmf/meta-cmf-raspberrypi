@@ -37,7 +37,9 @@ DISTRO_FEATURES_append = " external-cas"
 DISTRO_FEATURES_append = " apparmor"
 
 # Containerization support
-DISTRO_FEATURES_append = " DOBBY_CONTAINERS"
+DISTRO_FEATURES_append = " DOBBY_CONTAINERS build_rfc_enabled"
+
+HOSTTOOLS += " python python2.7"
 
 # globally disables this feature (for all images supported)
 IMAGE_FEATURES_remove = "read-only-rootfs"

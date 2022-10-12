@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<CONTAINER SandboxName="lightningapp" Type="dobby">
+    <LxcParams>
+        <!-- This will be overridden by Thunder -->
+        <ExecName>true</ExecName>
+    </LxcParams>
+    <LxcConfig>
+        <UserName>lightningapp</UserName>
+        <GroupName>dobbyapp</GroupName>
+        <AdditionalGroups>
+            <GroupName>video</GroupName>
+            <GroupName>audio</GroupName>
+        </AdditionalGroups>
+        <CapKeep>audit_write kill net_bind_service</CapKeep>
+        <ResourceLimits>
+            <Limit type="RLIMIT_NOFILE" hard="1024" soft="1024" />
+            <Limit type="RLIMIT_NPROC" hard="300" soft="300" />
+            <Limit type="RLIMIT_RTPRIO" hard="0" soft="0" />
+        </ResourceLimits>
+        <Minidump enable="true" path="/opt/secure/minidumps" />
+        <Network type="nat">
+            <IPv6 enable="true"/>
+            <IPv4 enable="true"/>
+            <DNSMasq enable="true"/>
+            <PortForwarding enable="true">
+                <!-- Inspector -->
+		<Rule direction="HostToContainer" port="10002" protocol="tcp"/>
+		<Rule direction="ContainerToHost" port="9998" protocol="tcp"/>
+            </PortForwarding>
+        </Network>
+        <Dbus enable="true"></Dbus>
+        <Logging type="journald">
+            <Priority>LOG_INFO</Priority>
+        </Logging>
+	<Environment>
+		<Variable>XDG_RUNTIME_DIR=/tmp</Variable>
+		<Variable>LD_PRELOAD=libwayland-client.so.0:libwayland-egl.so.1:libWPEFrameworkTracing.so.1</Variable>
+		<Variable>GST_VIRTUAL_DISP_WIDTH=1920</Variable>
+		<Variable>GST_VIRTUAL_DISP_HEIGHT=1080</Variable>
+		<Variable>GST_VIRTUAL_SD_DISP_WIDTH=1920</Variable>
+		<Variable>GST_VIRTUAL_SD_DISP_HEIGHT=1080</Variable>
+		<Variable>AAMP_ENABLE_AUDIO_DESC=true</Variable>
+		<Variable>do_not_change_display=true</Variable>
+		<Variable>SAGEBIN_PATH=/usr/bin/</Variable>
+		<Variable>LD_LIBRARY_PATH=/usr/lib:/usr/lib/wpeframework/plugins</Variable>
+		<Variable>PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin</Variable>
+	        <Variable>TRACE_FILENAME=/tmp/tracebuffer</Variable>
+                <Variable>TRACE_DOORBELL=/tmp/tracebuffer.doorbell</Variable>
+                <Variable>WARNINGREPORTING_FILENAME=/tmp/warningreportingbuffer</Variable>
+                <Variable>WARNINGREPORTING_DOORBELL=/tmp/warningreportingbuffer.doorbell</Variable>
+	</Environment>
+        <CGroupSettings>
+            <!--300MB-->
+            <MemoryLimit>314572800</MemoryLimit>
+            <!--200M-->
+            <GpuMemoryLimit>209715200</GpuMemoryLimit>
+            <DeviceCgroup>
+		    <DevicesAllow name="/dev/dri/card0">c 226:0 rw</DevicesAllow>
+                    <DevicesAllow name="/dev/video10">c 81:4 rw</DevicesAllow>
+                    <DevicesAllow name="/dev/video11">c 81:1 rw</DevicesAllow>
+                    <DevicesAllow name="/dev/video12">c 81:5 rw</DevicesAllow>
+                    <DevicesAllow name="/dev/video13">c 81:0 rw</DevicesAllow>
+                    <DevicesAllow name="/dev/video14">c 81:3 rw</DevicesAllow>
+                    <DevicesAllow name="/dev/video15">c 81:2 rw</DevicesAllow>
+                    <DevicesAllow name="/dev/video16">c 81:6 rw</DevicesAllow>
+                    <DevicesAllow name="/dev/snd/controlC0">c 116:0 rw</DevicesAllow>
+                    <DevicesAllow name="/dev/snd/controlC1">c 116:32 rw</DevicesAllow>
+                    <DevicesAllow name="/dev/snd/seq">c 116:1 rw</DevicesAllow>
+                    <DevicesAllow name="/dev/snd/pcmC0D0p">c 116:16 rw</DevicesAllow>
+                    <DevicesAllow name="/dev/snd/pcmC1D0p">c 116:48 rw</DevicesAllow>
+                    <DevicesAllow name="/dev/snd/timer">c 116:33 rw</DevicesAllow>
+	    </DeviceCgroup>
+	    <!-- Devices where the major/minor IDs may change -->
+            <DynamicDevices>
+                    <Device name="/dev/video10" />
+                    <Device name="/dev/video11" />
+                    <Device name="/dev/video12" />
+                    <Device name="/dev/video13" />
+                    <Device name="/dev/video14" />
+                    <Device name="/dev/video15" />
+                    <Device name="/dev/video16" />
+            </DynamicDevices>
+        </CGroupSettings>
+        <Rootfs create="yes">
+            <MountPoints>
+                <Entry type="dir">
+                    <Source>proc</Source>
+                    <Destination>/proc</Destination>
+                    <FsType>proc</FsType>
+                    <Options>nosuid,noexec,nodev</Options>
+                </Entry>
+                <Entry type="dir">
+                    <Source>tmpfs</Source>
+                    <Destination>/dev</Destination>
+                    <FsType>tmpfs</FsType>
+                    <Options>nosuid,strictatime,mode=755,size=65536k</Options>
+                </Entry>
+                <Entry type="dir">
+                    <Source>devpts</Source>
+                    <Destination>/dev/pts</Destination>
+                    <FsType>devpts</FsType>
+                    <Options>nosuid,noexec,newinstance,ptmxmode=0666,mode=0620</Options>
+                </Entry>
+                <Entry type="dir">
+                    <Source>shm</Source>
+                    <Destination>/dev/shm</Destination>
+                    <FsType>tmpfs</FsType>
+                    <Options>nosuid,noexec,nodev,mode=1777,nr_inodes=8k</Options>
+                </Entry>
+                <Entry type="dir">
+                    <Source>sysfs</Source>
+                    <Destination>/sys</Destination>
+                    <FsType>sysfs</FsType>
+                    <Options>nosuid,noexec,nodev,ro</Options>
+                </Entry>
+                <Entry type="dir">
+                    <Source>cgroup</Source>
+                    <Destination>/sys/fs/cgroup</Destination>
+                    <FsType>cgroup</FsType>
+                    <Options>nosuid,noexec,nodev,relatime</Options>
+                </Entry>
+                <Entry type="dir">
+                    <Source>tmpfs</Source>
+                    <Destination>tmp</Destination>
+                    <FsType>tmpfs</FsType>
+                    <Options>nosuid,noexec,nodev,size=65536k,nr_inodes=8k</Options>
+                </Entry>
+                <Entry type="dir">
+                    <Source>/lib/</Source>
+                    <Destination>lib/</Destination>
+                    <Options>rbind,nosuid,nodev,ro</Options>
+                </Entry>
+                <Entry type="dir">
+                    <Source>/bin/</Source>
+                    <Destination>bin/</Destination>
+                    <Options>rbind,nosuid,nodev,ro</Options>
+                </Entry>
+                <Entry type="dir">
+                    <Source>/sbin/</Source>
+                    <Destination>sbin/</Destination>
+                    <Options>rbind,nosuid,nodev,ro</Options>
+                </Entry>
+                <Entry type="dir">
+                    <Source>/usr</Source>
+                    <Destination>/usr</Destination>
+                    <Options>rbind,nosuid,nodev,ro</Options>
+                </Entry>
+                <Entry type="dir">
+                    <Source>/opt/secure/</Source>
+                    <Destination>/opt/secure/</Destination>
+                    <Options>bind,rw,nosuid,nodev,noexec</Options>
+                </Entry>
+                <Entry type="dir">
+                    <Source>/etc/ssl/certs</Source>
+                    <Destination>/etc/ssl/certs</Destination>
+                    <Options>bind,ro,nosuid,nodev,noexec</Options>
+                </Entry>
+                <Entry type="dir">
+                    <Source>/tmp/LightningApp/</Source>
+                    <Destination>/tmp/LightningApp</Destination>
+                    <Options>bind,ro,nosuid,nodev</Options>
+                </Entry>
+                <Entry type="file">
+                    <Source>/tmp/communicator</Source>
+                    <Destination>/tmp/communicator</Destination>
+                    <Options>bind,nosuid,nodev,noexec</Options>
+	        </Entry>
+		<Entry type="file">
+		    <Source>/tmp/rdkshell_display</Source>
+                    <Destination>/tmp/rdkshell_display</Destination>
+                    <Options>bind,nosuid,nodev,noexec</Options>
+	        </Entry>
+                <Entry type="file">
+                    <Source>/tmp/video</Source>
+                    <Destination>/tmp/video</Destination>
+                    <Options>bind,rw,nosuid,nodev,noexec</Options>
+                </Entry>
+		<Entry type="dir">
+		    <Source>/etc/fonts</Source>
+		    <Destination>/etc/fonts</Destination>
+		    <Options>bind,nosuid,nodev,ro</Options>					
+		</Entry>
+            </MountPoints>
+        </Rootfs>
+        <Storage>
+            <!-- TODO:: Determine the exact size, currently set to 100M -->
+            <Loopback source="/opt/persistent/rdkservices/LightningApp/data.img" destination="/opt/persistent/rdkservices/LightningApp" size="104857600" />
+            <!-- TODO:: Determine the exact size, currently set to 128M -->
+            <Loopback source="/media/apps/.cache/lightningapp.img" destination="/media/apps/.cache/LightningApp" size="134217728" />
+        </Storage>
+    </LxcConfig>
+</CONTAINER>
