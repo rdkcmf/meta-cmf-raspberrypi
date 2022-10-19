@@ -7,7 +7,6 @@ RDEPENDS_packagegroup-rdk-oss-broadband_append = " \
     wireless-tools \
     hostapd \
     linux-firmware-ralink \
-    linux-firmware-bcm43430 \
     crda \
     ebtables \
     rtl8812au \
