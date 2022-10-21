@@ -18,10 +18,12 @@ SRC_URI_append = " \
     file://radio_param_def.cfg \
     file://bridge_mode.sh \
 "
+SRC_URI +="${@bb.utils.contains('DISTRO_FEATURES', 'webconfig_bin', 'file://argument_type_error.patch;apply=no', '', d)}"
 SRC_URI += "file://Ccspwifiagent_crash.patch;apply=no"
 do_rpi_patches () {
     cd ${S}
     if [ ! -e rpi_patch_applied ]; then
+       patch -p1 < ${WORKDIR}/argument_type_error.patch || echo "ERROR or Patch already applied"
        patch -p1 < ${WORKDIR}/Ccspwifiagent_crash.patch || echo "ERROR or Patch already applied"
        touch rpi_patch_applied
     fi

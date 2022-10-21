@@ -1,0 +1,45 @@
+Subject: RDKB-41175: Error in opening /nvram/webpa_cfg.json
+
+Reason for change: Write permission for all - /nvram/webpa_cfg.json
+Test Procedure: Verify that firmware version details are added to WebPA config file
+Risks: Low
+
+Change-Id: I6e5d4d9c10bf9d4e3f0f51263b9e18eb23bd03a0
+Signed-off-by: Indhuja Avinashi Valliammal Sivasamy <indhuja_avinashivalliammalsivasamy@comcast.com>
+
+Index: git/source/app/privilege.c
+===================================================================
+--- git.orig/source/app/privilege.c
++++ git/source/app/privilege.c
+@@ -4,6 +4,9 @@
+ 
+ static cap_user appcaps;
+ 
++#define WEBPA_CFG_FILE "/nvram/webpa_cfg.json"
++#include <sys/stat.h>
++
+ void drop_root_privilege()
+ {
+    appcaps.caps = NULL;
+@@ -17,6 +20,21 @@ void drop_root_privilege()
+    else
+    {
+        WalInfo("NonRoot feature is enabled, dropping root privileges for webpa process\n");
++       FILE *fp = fopen(WEBPA_CFG_FILE,"r");
++       if (fp == NULL)
++       {
++          WalError("WEBPA_CFG_FILE is not present, creating an empty file \n");
++          char cmd[strlen(WEBPA_CFG_FILE) + 7]; // len of 'touch /nvram/webpa_cfg.json'
++          snprintf(cmd, sizeof(cmd), "touch %s", WEBPA_CFG_FILE);
++          system(cmd);
++       }
++       else {
++          fclose(fp);
++       }
++       if (chmod(WEBPA_CFG_FILE, S_IRUSR|S_IWUSR|S_IRGRP|S_IWGRP|S_IROTH|S_IWOTH) < 0)
++       {
++           WalError("Could not set mode 0666 on %s\n", WEBPA_CFG_FILE);
++       }
+        init_capability();
+        drop_root_caps(&appcaps);
+        update_process_caps(&appcaps);
