@@ -1,5 +1,6 @@
 require recipes-core/images/rdk-generic-mediaclient-wpe-image.bb
 require recipes-core/images/add-non-root-user-group.inc
+require add-container-user-group.inc
 
 IMAGE_FEATURES += "tdk"
 
