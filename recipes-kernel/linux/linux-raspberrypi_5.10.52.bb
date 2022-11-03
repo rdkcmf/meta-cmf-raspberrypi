@@ -12,3 +12,4 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 SRC_URI += " file://powersave.cfg \
              file://android-drivers.cfg \
 "
+SRC_URI += "file://fscrypt_rootkey_gen.patch"

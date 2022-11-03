@@ -1,0 +1,376 @@
+diff --git a/fs/crypto/fscrypt_private.h b/fs/crypto/fscrypt_private.h
+index 322ecae9a758..ae1e063c3f93 100644
+--- a/fs/crypto/fscrypt_private.h
++++ b/fs/crypto/fscrypt_private.h
+@@ -28,6 +28,18 @@
+ /* Keep this in sync with include/uapi/linux/fscrypt.h */
+ #define FSCRYPT_MODE_MAX	FSCRYPT_MODE_ADIANTUM
+ 
++#define SEED "RANDOM_SEED"
++/* Encryption directory permission check for minimal access required */
++#define group_access_chck(inode)		 ((inode->i_mode & S_IRGRP) || (inode->i_mode & S_IWGRP) || (inode->i_mode & S_IXGRP))
++#define group_write_access_chck(inode)		 ((inode->i_mode & S_IWGRP))
++#define other_access_chck(inode)		 ((inode->i_mode & S_IROTH) || (inode->i_mode & S_IWOTH) || (inode->i_mode & S_IXOTH))
++
++/* buffer used for handling proces & Device specific data */
++struct fscrypt_device_data_buffer {
++	u8 *data;	/* serialized buffer data */
++	u32 len;
++};
++
+ struct fscrypt_context_v1 {
+ 	u8 version; /* FSCRYPT_CONTEXT_V1 */
+ 	u8 contents_encryption_mode;
+@@ -578,6 +590,8 @@ int fscrypt_derive_dirhash_key(struct fscrypt_info *ci,
+ void fscrypt_hash_inode_number(struct fscrypt_info *ci,
+ 			       const struct fscrypt_master_key *mk);
+ 
++int check_ownership_capability(struct file *filp);
++
+ /* keysetup_v1.c */
+ 
+ void fscrypt_put_direct_key(struct fscrypt_direct_key *dk);
+diff --git a/fs/crypto/keyring.c b/fs/crypto/keyring.c
+index d7ec52cb3d9a..09d2f6847014 100644
+--- a/fs/crypto/keyring.c
++++ b/fs/crypto/keyring.c
+@@ -22,9 +22,11 @@
+ #include <linux/key-type.h>
+ #include <linux/random.h>
+ #include <linux/seq_file.h>
++#include <crypto/sha.h>
+ 
+ #include "fscrypt_private.h"
+ 
++static void *dev_input_param;
+ static void wipe_master_key_secret(struct fscrypt_master_key_secret *secret)
+ {
+ 	fscrypt_destroy_hkdf(&secret->hkdf);
+@@ -85,6 +87,229 @@ static void fscrypt_key_describe(const struct key *key, struct seq_file *m)
+ 	}
+ }
+ 
++/*
++ * set input params information
++ * @param: input to set the value
++ */
++static void set_input_param(void *param)
++{
++        if ((param != NULL) && (dev_input_param != param))
++                dev_input_param = param;
++}
++
++/*
++ * Get input params information
++ * returns the value set at dev_input_param
++ */
++static void *get_input_param(void)
++{
++	return dev_input_param;
++}
++
++/* Get device specific information
++ * @ buffer: the outupt data is filled at this structure as serialized data
++ *
++ * Currently UUID is retrieved as device specific information.
++ * This function has generic implementation to use any other device specific information as well
++ */
++static int get_device_specific_data(struct fscrypt_device_data_buffer *buffer) 	/* Fetching device specific data */
++{
++	struct inode *inode;
++	struct file *fp = get_input_param();
++        if (fp == NULL)
++                return -ENODATA;
++	inode = file_inode(fp);
++	if ((inode == NULL) || (buffer == NULL))
++		return -EINVAL;
++	buffer->len = UUID_SIZE;
++	buffer->data = kzalloc(buffer->len, GFP_KERNEL);
++	if (!(buffer->data))
++	{
++		buffer->len = 0;
++		return -ENOMEM;
++	}
++	memcpy (buffer->data, &inode->i_sb->s_uuid.b, buffer->len);
++
++	return 0;
++}
++
++/*
++ * gets the process uid of the calling prcess
++ * @buffer: the uid details gets filled at the buffer
++ */
++static int get_process_specific_data(struct fscrypt_device_data_buffer *buffer)
++{
++	if (buffer == NULL)
++                return -EINVAL;
++	buffer->len = sizeof(uid_t);
++	buffer->data = kzalloc(buffer->len, GFP_KERNEL);
++	if (!(buffer->data))
++	{
++		buffer->len = 0;
++		return -ENOMEM;
++	}
++	memcpy (buffer->data, &(current_uid().val), buffer->len);
++
++	return 0;
++}
++
++/*
++ * function call to create/fetch the random seed from the extended filesystem secure attribute
++ * @buffer: the random seed generated/stored at extended filesystem secure attribute gets filled
++ */
++static int prepare_random_seed_data(struct fscrypt_device_data_buffer *buffer)
++{
++	int status;
++	struct inode *inode;
++	struct file *fp = get_input_param();
++	if (fp == NULL)
++		return -ENODATA;
++	inode = file_inode(fp);
++	if ((inode == NULL) || (buffer == NULL))
++                return -EINVAL;
++	buffer->len = FSCRYPT_FILE_NONCE_SIZE;
++	buffer->data = kzalloc(buffer->len, GFP_KERNEL);
++        if (buffer->data == NULL)
++	{
++		buffer->len = 0;
++		return -ENOMEM;
++	}
++	status = inode->i_sb->s_cop->get_xattr_value(inode, SEED, buffer->data, buffer->len);
++	if (status == -ENODATA) {
++		get_random_bytes(buffer->data, buffer->len);
++		status = inode->i_sb->s_cop->set_xattr_value(inode, SEED, buffer->data, buffer->len, 0);
++	}
++	if (status < 0)
++	{
++		buffer->len = 0;
++		kfree(buffer->data);
++	}
++	return status;
++}
++
++/*
++ * Check file access and ownership details of the diretory where the encryption is applied
++ * @filp: file pointer from the user space open directory
++ */
++int check_ownership_capability(struct file *filp)
++{
++	uid_t fuid;
++	uid_t fgid;
++	umode_t grp_acs;
++	umode_t oth_acs;
++	uid_t process_uid;
++	uid_t process_gid;
++	struct inode *inode = file_inode(filp);
++	if (inode == NULL)
++		return -EINVAL;
++	fuid = inode->i_uid.val;
++	fgid = inode->i_gid.val;
++	process_uid = current_uid().val;
++	process_gid = current_gid().val;
++	oth_acs = other_access_chck(inode);
++
++	if (process_uid == process_gid) {
++		/*
++		 * If process is not belogns to any group other than same UID
++		 * Use case: uid & gid are same : the folder permission should be set to 700 and respective uid:gid.
++		 * Anything other than 700 is restricted and throws permission denied error
++		 */
++
++		grp_acs = group_access_chck(inode);
++		if ((grp_acs != 0) || (oth_acs != 0) || (fuid != process_uid) || (fgid != process_gid)) {
++			fscrypt_warn(inode, "Encryption directory accces is not restricted to user");
++			return -EACCES;
++		}
++	}
++	else {
++		/*
++		 * If calling process GID is different from its UID, then the encryption directory is allowed to maximum of 750 permission.
++		 * The folder permission should be set to 750 or less, and respective uid:gid.
++		 * Anything above 750 is restricted and error handling are in place
++		 */
++
++		grp_acs = group_write_access_chck(inode);
++
++		/* Check 1: If the process is belongs to X user and Y group,
++		 * the file mode is verified against, Y group to have r-x and Other to have ---
++		 * Check 2: File ownership is verified against process uid
++		 * Check 3: file group access is  verified against both process uid or process gid
++		 */
++		if ( (grp_acs != 0) || (oth_acs != 0) || (fuid != process_uid) || !((fgid == process_gid ) || (fgid == process_uid )) ) {
++			fscrypt_warn(inode, "Encryption directory accces is not restricted to user and group");
++			return -EACCES;
++		}
++	}
++	return 0;
++	}
++
++/*
++ * To make the encryption according to prime apps requirements and more secured, along with app provided master key,
++ * process specific information
++ * device specific information
++ * random generated seed are used to generate the root_key and same has been used for encryption
++ *
++ * @filp: the encryption directory file pointer
++ * @uarg: user space supplied master key arg
++ * @root_key: the generated root_key output
++ */
++static int fscrypt_generate_root_key(struct file *filp, struct fscrypt_add_key_arg __user *uarg, struct fscrypt_device_data_buffer *root_key)
++{
++	int offset = 0, status = 0;
++	struct sha256_state sctx;
++	struct fscrypt_device_data_buffer dev_specfic_buff = {0};
++	struct fscrypt_device_data_buffer process_specfic_buff = {0};
++	struct fscrypt_device_data_buffer nonce = {0};
++	u8 sha256hash_rootkey[SHA256_DIGEST_SIZE] = {0};
++	u8 sha256hash_masterkey[SHA256_DIGEST_SIZE] = {0};
++
++	if ((filp == NULL) || (uarg == NULL) || (root_key == NULL))
++		return -EINVAL;
++	set_input_param(filp);
++	status = prepare_random_seed_data(&nonce);
++	if (status < 0)
++		goto free_mem;
++	status = get_process_specific_data(&process_specfic_buff);
++	if (status < 0)
++		goto free_mem;
++	status = get_device_specific_data(&dev_specfic_buff);
++	if (status < 0)
++                goto free_mem;
++	root_key->len = FSCRYPT_MAX_KEY_SIZE;
++	root_key->data = kzalloc(root_key->len, GFP_KERNEL);
++        if (!(root_key->data))
++	{
++		root_key->len = 0;
++		status = -ENOMEM;
++		goto free_mem;
++	}
++
++	/* Create Root Key
++	* inputs are userspace master key + process specific data +
++	* random seed + filesystem specific data
++	*/
++	sha256_init(&sctx);
++	sha256_update(&sctx, uarg->raw, uarg->raw_size);				/* sha256 for user space masterkey */
++	sha256_final(&sctx, sha256hash_masterkey);
++	sha256_init(&sctx);
++	sha256_update(&sctx, uarg->raw, uarg->raw_size);				/* Input 1 : User key  */
++	sha256_update(&sctx, process_specfic_buff.data, process_specfic_buff.len); 	/* Input 2 : process specific data UID */
++	sha256_update(&sctx, nonce.data, nonce.len);					/* Input 3 : Random seed */
++	sha256_update(&sctx, dev_specfic_buff.data, dev_specfic_buff.len);		/* Input 4 : Device specific data UUID*/
++	sha256_final(&sctx, sha256hash_rootkey);
++	memcpy(root_key->data, sha256hash_rootkey, SHA256_DIGEST_SIZE);
++	offset = SHA256_DIGEST_SIZE;
++	memcpy(root_key->data+offset, sha256hash_masterkey, SHA256_DIGEST_SIZE);
++free_mem:
++	if (process_specfic_buff.data != NULL)
++		kfree(process_specfic_buff.data);
++	if (nonce.data != NULL)
++		kfree(nonce.data);
++	if (dev_specfic_buff.data != NULL)
++		kfree(dev_specfic_buff.data);
++	return status;
++}
++
+ /*
+  * Type of key in ->s_master_keys.  Each key of this type represents a master
+  * key which has been added to the filesystem.  Its payload is a
+@@ -638,7 +863,17 @@ int fscrypt_ioctl_add_key(struct file *filp, void __user *_uarg)
+ 	struct fscrypt_add_key_arg __user *uarg = _uarg;
+ 	struct fscrypt_add_key_arg arg;
+ 	struct fscrypt_master_key_secret secret;
+-	int err;
++	int err, status;
++	struct fscrypt_device_data_buffer root_key = {0};
++
++	if (check_ownership_capability(filp) < 0)
++		return -EACCES;
++
++	status = fscrypt_generate_root_key(filp, uarg, &root_key);
++	if (status < 0)
++		return status;
++	memcpy(uarg->raw, root_key.data, uarg->raw_size);
++	kfree(root_key.data);
+ 
+ 	if (copy_from_user(&arg, uarg, sizeof(arg)))
+ 		return -EFAULT;
+@@ -923,6 +1158,9 @@ static int do_remove_key(struct file *filp, void __user *_uarg, bool all_users)
+ 	int err;
+ 	bool dead;
+ 
++	if (check_ownership_capability(filp) < 0)
++		return -EACCES;
++
+ 	if (copy_from_user(&arg, uarg, sizeof(arg)))
+ 		return -EFAULT;
+ 
+diff --git a/fs/crypto/policy.c b/fs/crypto/policy.c
+index faa0f21daa68..26dd6c99c0cd 100644
+--- a/fs/crypto/policy.c
++++ b/fs/crypto/policy.c
+@@ -442,6 +442,9 @@ int fscrypt_ioctl_set_policy(struct file *filp, const void __user *arg)
+ 	int size;
+ 	int ret;
+ 
++	if (check_ownership_capability(filp) < 0)
++		return -EACCES;
++
+ 	if (get_user(policy.version, (const u8 __user *)arg))
+ 		return -EFAULT;
+ 
+diff --git a/fs/ext4/super.c b/fs/ext4/super.c
+index 099e4afa41e5..f083257cb8c6 100644
+--- a/fs/ext4/super.c
++++ b/fs/ext4/super.c
+@@ -1483,6 +1483,12 @@ static int ext4_get_context(struct inode *inode, void *ctx, size_t len)
+ 				 EXT4_XATTR_NAME_ENCRYPTION_CONTEXT, ctx, len);
+ }
+ 
++/* wrapper function called from fscrypt for getting ext4 filesystem specific xattr value */
++static int ext4_get_xattr_value(struct inode *inode, char *name, void *value, size_t len)
++{
++	return ext4_xattr_get(inode, EXT4_XATTR_INDEX_ENCRYPTION, name, value,len);
++}
++
+ static int ext4_set_context(struct inode *inode, const void *ctx, size_t len,
+ 							void *fs_data)
+ {
+@@ -1570,6 +1576,13 @@ static int ext4_set_context(struct inode *inode, const void *ctx, size_t len,
+ 	return res;
+ }
+ 
++/* wrapper function called from fscrypt for setting ext4 filesystem specific xattr value */
++static int ext4_set_xattr_value(struct inode *inode, const char *name,
++	const void *value, size_t value_len, int flags)
++{
++	return ext4_xattr_set(inode, EXT4_XATTR_INDEX_ENCRYPTION, name, value, value_len, flags);
++}
++
+ static const union fscrypt_policy *ext4_get_dummy_policy(struct super_block *sb)
+ {
+ 	return EXT4_SB(sb)->s_dummy_enc_policy.policy;
+@@ -1590,7 +1603,9 @@ static void ext4_get_ino_and_lblk_bits(struct super_block *sb,
+ static const struct fscrypt_operations ext4_cryptops = {
+ 	.key_prefix		= "ext4:",
+ 	.get_context		= ext4_get_context,
++	.get_xattr_value	= ext4_get_xattr_value,
+ 	.set_context		= ext4_set_context,
++	.set_xattr_value	= ext4_set_xattr_value,
+ 	.get_dummy_policy	= ext4_get_dummy_policy,
+ 	.empty_dir		= ext4_empty_dir,
+ 	.max_namelen		= EXT4_NAME_LEN,
+diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
+index 8e1d31c959bf..979261280c89 100644
+--- a/include/linux/fscrypt.h
++++ b/include/linux/fscrypt.h
+@@ -61,6 +61,9 @@ struct fscrypt_operations {
+ 	int (*get_context)(struct inode *inode, void *ctx, size_t len);
+ 	int (*set_context)(struct inode *inode, const void *ctx, size_t len,
+ 			   void *fs_data);
++	int (*get_xattr_value)(struct inode *inode, char *name, void *value, size_t len);
++	int (*set_xattr_value)(struct inode *inode, const char *name,
++			const void *value, size_t value_len, int flags);
+ 	const union fscrypt_policy *(*get_dummy_policy)(struct super_block *sb);
+ 	bool (*empty_dir)(struct inode *inode);
+ 	unsigned int max_namelen;
