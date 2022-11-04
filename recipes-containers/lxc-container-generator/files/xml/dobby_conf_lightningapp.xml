@@ -5,7 +5,7 @@
         <ExecName>true</ExecName>
     </LxcParams>
     <LxcConfig>
-        <UserName>lightningapp</UserName>
+        <UserName>dobbyapp</UserName>
         <GroupName>dobbyapp</GroupName>
         <AdditionalGroups>
             <GroupName>video</GroupName>

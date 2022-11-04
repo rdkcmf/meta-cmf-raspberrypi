@@ -5,8 +5,7 @@ EXTRA_USERS_PARAMS += "\
 "
 
 EXTRA_USERS_PARAMS += "\
-    useradd -u 2000 -g dobbyapp -M -r -s /bin/nologin htmlapp; \
-    useradd -u 2001 -g dobbyapp -M -r -s /bin/nologin lightningapp; \
+    useradd -u 2000 -g dobbyapp -M -r -s /bin/nologin dobbyapp; \
 "
 
 
