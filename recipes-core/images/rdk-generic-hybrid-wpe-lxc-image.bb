@@ -1,4 +1,5 @@
 require recipes-core/images/rdk-generic-hybrid-wpe-image.bb
+require recipes-core/images/add-container-user-group.inc
 
 inherit extrausers
 inherit file-owners-and-permissions
