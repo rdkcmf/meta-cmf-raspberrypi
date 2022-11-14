@@ -94,4 +94,7 @@ DISTRO_FEATURES_append = " easymesh-controller"
 # RDKB-40900: RDKB support extender/nonrouter profile
 DISTRO_FEATURES_append = " rdkb_extender"
 
+# RDKB-44824: CoreNetLib move bb file location
+DISTRO_FEATURES_append = " core-net-lib"
+
 SESSIONMGR_WS_RPC_ENABLE = "1"
