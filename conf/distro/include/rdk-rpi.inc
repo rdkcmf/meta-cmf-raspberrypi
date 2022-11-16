@@ -100,4 +100,7 @@ DISTRO_FEATURES_append = " rdkb_extender"
 # RDKB-44824: CoreNetLib move bb file location
 DISTRO_FEATURES_append = " core-net-lib"
 
+# REFPLTB-1775: Sky team's fix for erouter0 IP issue
+DISTRO_FEATURES_append_dunfell = " RbusBuildFlagEnable"
+
 SESSIONMGR_WS_RPC_ENABLE = "1"

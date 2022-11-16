@@ -1,4 +1,5 @@
 CFLAGS_append = " -D_PLATFORM_RASPBERRYPI_"
+LDFLAGS_append = " ${@bb.utils.contains('DISTRO_FEATURES', 'RbusBuildFlagEnable', '-lrbus', '', d)}"
 
 do_configure_prepend() {
 	if ${@bb.utils.contains('DISTRO_FEATURES', 'rdkb_wan_manager', 'true', 'false', d)}; then
