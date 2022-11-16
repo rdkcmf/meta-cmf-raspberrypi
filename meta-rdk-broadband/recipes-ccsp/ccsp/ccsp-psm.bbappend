@@ -49,7 +49,13 @@ do_install_append() {
    <Record name="dmsb.wanmanager.if.1.PPPIPCPEnable" type="astr">TRUE</Record> \
    <Record name="eRT.com.cisco.spvtg.ccsp.webpa.Device.X_RDK_WebConfig.RfcEnable" type="astr">false</Record> \
    <Record name="eRT.com.cisco.spvtg.ccsp.webpa.WebConfigRfcEnable" type="astr">false</Record>' ${D}/usr/ccsp/config/bbhm_def_cfg.xml
-    fi
+
+   # Add distro feature for changes below
+   sed -i '/webpa.WebConfigRfcEnable/a \
+   <!-- Ethernet interfaces of Raspberry Pi --> \
+   <Record name="dmsb.ethagent.ethifcount" type="astr">1</Record> \
+   <Record name="dmsb.ethagent.if.1.Name" type="astr">eth0</Record>' ${D}/usr/ccsp/config/bbhm_def_cfg.xml 
+     fi
 }
 
 do_install_append_lxcbrc () {
