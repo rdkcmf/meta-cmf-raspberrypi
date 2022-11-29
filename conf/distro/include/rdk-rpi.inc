@@ -24,6 +24,9 @@ DISTRO_FEATURES_append = " ctrlm"
 DISTRO_FEATURES_append = " ctrlm_voice_sdk"
 DISTRO_FEATURES_append = " blercudaemon"
 
+# CMFSUPPORT-897 Rialto recipes in meta-cmf-video
+DISTRO_FEATURES_append = " rialto"
+
 # Disable Thunder Security
 DISTRO_FEATURES_append = " thunder_security_disable"
 
