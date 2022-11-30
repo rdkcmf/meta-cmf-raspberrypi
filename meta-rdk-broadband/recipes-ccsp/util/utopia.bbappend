@@ -5,7 +5,6 @@ DEPENDS_append = " kernel-autoconf utopia-headers libsyswrapper"
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
 SRC_URI_append = " \
     file://0001-fix-lan-handler-for-rpi.patch;apply=no \
-    file://0003-remove-autoconf.patch;apply=no \
     file://system_defaults \
 "
 
@@ -22,9 +21,6 @@ do_rpi_patches() {
     if [ ! -e rpi_patch_applied ]; then
         bbnote "Patching 0001-fix-lan-handler-for-rpi.patch"
         patch -p1 < ${WORKDIR}/0001-fix-lan-handler-for-rpi.patch
-
-        bbnote "Patching 0003-remove-autoconf.patch"
-        patch -p1 < ${WORKDIR}/0003-remove-autoconf.patch
 
         touch rpi_patch_applied
     fi
