@@ -9,7 +9,7 @@ LDFLAGS += " \
 	-lcjson \
 	   "
 
-CFLAGS_append = " -D_ENABLE_BAND_STEERING_"
+CFLAGS_append = " -D_ENABLE_BAND_STEERING_ -Wno-error=format"
 CFLAGS_append = " ${@bb.utils.contains('DISTRO_FEATURES', 'halVersion3', ' -DWIFI_HAL_VERSION_3 ', '', d)}"
 
 SRC_URI_append = " \
