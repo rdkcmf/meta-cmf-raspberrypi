@@ -4,7 +4,6 @@ RDEPENDS_packagegroup-rdk-oss-camera_append = "	\
                         rms \
                         kvs \
                         cvr \
-                        thumbnail \
                         mongoose \
                         sysint \
                         netkit-telnet \
