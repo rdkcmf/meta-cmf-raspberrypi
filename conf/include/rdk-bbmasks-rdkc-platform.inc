@@ -1,6 +1,7 @@
 BBMASK .= "|meta-cmf/recipes-common/rdkversion/"
 BBMASK .= "|meta-cmf/recipes-core/dbus/gdbus-client/"
 
+BBMASK .= "|meta-cmf-video/recipes-extended/rialto/"
 BBMASK .= "|meta-cmf-video/recipes-extended/xdial/"
 
 BBMASK .= "|meta-cmf-raspberrypi/meta-rdk/recipes-common/rfc/"
