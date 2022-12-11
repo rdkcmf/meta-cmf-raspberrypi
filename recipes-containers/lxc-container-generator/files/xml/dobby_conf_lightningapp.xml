@@ -49,6 +49,7 @@
                 <Variable>WARNINGREPORTING_FILENAME=/tmp/warningreportingbuffer</Variable>
                 <Variable>WARNINGREPORTING_DOORBELL=/tmp/warningreportingbuffer.doorbell</Variable>
 	</Environment>
+	<SeccompProfile>defaultSeccompProfile</SeccompProfile>
         <CGroupSettings>
             <!--300MB-->
             <MemoryLimit>314572800</MemoryLimit>
