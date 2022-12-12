@@ -47,6 +47,10 @@ HOSTTOOLS += " python python2.7"
 # globally disables this feature (for all images supported)
 IMAGE_FEATURES_remove = "read-only-rootfs"
 
+# Upgrade wpe-webkit to 2.28
+# The WEBBACKENDS will be migrated to meta-rdk when all other platforms have moved to a later version of wpe-webkit, e.g. 2.38
+DISTRO_FEATURES_append = " wpe-2.28"
+WEBBACKENDS := "${@bb.utils.contains('DISTRO_FEATURES', 'wpe-2.28', 'webkitbrowser-plugin', 'rdkbrowser2', d)}"
 
 GST_VERSION_morty = "1.10.4"
 
