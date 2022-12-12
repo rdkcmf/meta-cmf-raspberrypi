@@ -50,8 +50,6 @@ IMAGE_FEATURES_remove = "read-only-rootfs"
 
 GST_VERSION_morty = "1.10.4"
 
-DISTRO_FEATURES_append = " wpe-2.28"
-
 GST_VERSION_dunfell = "1.16.%"
 PREFERRED_VERSION_gstreamer1.0-libav_dunfell = "1.14.1"
 
