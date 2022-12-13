@@ -69,7 +69,7 @@ do_install_append_camera(){
 
         install -m 0644 ${S}/../systemd_units/dnsmerge-udhcpc.path ${D}${systemd_unitdir}/system
         install -m 0644 ${S}/../systemd_units/dnsmerge-upnp.path ${D}${systemd_unitdir}/system
-        install -m 0644 ${S}/../systemd_units/dnsmerge.service ${D}${systemd_unitdir}/system
+        install -m 0644 ${S}/../systemd_units/dnsmerge@.service ${D}${systemd_unitdir}/system
 
         install -m 0644 ${S}/devspec/systemd_units/amixer.service ${D}${systemd_unitdir}/system
         install -m 0644 ${S}/devspec/systemd_units/dropbear-insecure.service ${D}${systemd_unitdir}/system/dropbear.service
@@ -217,7 +217,7 @@ SYSTEMD_SERVICE_${PN}_remove = " virtual-moca-iface.service dropbear.service"
 SYSTEMD_SERVICE_${PN}_append_camera = " dump-log.timer"
 SYSTEMD_SERVICE_${PN}_append_camera = " dnsmerge-upnp.path"
 SYSTEMD_SERVICE_${PN}_append_camera = " dnsmerge-udhcpc.path"
-SYSTEMD_SERVICE_${PN}_append_camera = " dnsmerge.service"
+SYSTEMD_SERVICE_${PN}_append_camera = " dnsmerge@.service"
 
 SYSTEMD_SERVICE_${PN}_append_camera = " amixer.service"
 SYSTEMD_SERVICE_${PN}_append_camera = " dropbear.service"
