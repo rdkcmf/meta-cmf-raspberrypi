@@ -42,6 +42,9 @@ DISTRO_FEATURES_append = " apparmor"
 # Containerization support
 DISTRO_FEATURES_append = " DOBBY_CONTAINERS build_rfc_enabled"
 
+# Turn ON and OFF the hardening feature.
+DISTRO_FEATURES_NATIVE_append=" harden_dobby"
+
 HOSTTOOLS += " python python2.7"
 
 # globally disables this feature (for all images supported)
