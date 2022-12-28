@@ -122,28 +122,58 @@
 				<Options>nosuid,noexec,nodev,mode=0700,size=65536k,nr_inodes=8k</Options>
 			</Entry>
 			<Entry type="dir">
-				<Source>/lib/</Source>
-				<Destination>lib/</Destination>
+				<Source>/usr/lib/wpeframework/plugins</Source>
+				<Destination>/usr/lib/wpeframework/plugins</Destination>
 				<Options>rbind,nosuid,nodev,ro</Options>
 			</Entry>
 			<Entry type="dir">
-				<Source>/bin/</Source>
-				<Destination>bin/</Destination>
-				<Options>rbind,nosuid,nodev,ro</Options>
+                                <Source>/usr/lib/wpeframework/proxystubs</Source>
+                                <Destination>/usr/lib/wpeframework/proxystubs</Destination>
+                                <Options>rbind,nosuid,nodev,ro</Options>
 			</Entry>
-			<Entry type="dir">
-				<Source>/sbin/</Source>
-				<Destination>sbin/</Destination>
-				<Options>rbind,nosuid,nodev,ro</Options>
+                        <Entry type="dir">
+                                <Source>/usr/share/X11/xkb</Source>
+                                <Destination>/usr/share/X11/xkb</Destination>
+                                <Options>rbind,nosuid,nodev,ro</Options>
 			</Entry>
-			<Entry type="dir">
-				<Source>/usr</Source>
-				<Destination>/usr</Destination>
-				<Options>rbind,nosuid,nodev,ro</Options>
+                        <Entry type="dir">
+                                <Source>/usr/share/content/data</Source>
+                                <Destination>/usr/share/content/data</Destination>
+                                <Options>rbind,nosuid,nodev,ro</Options>
+			</Entry>			
+                        <Entry type="dir">
+                                <Source>/usr/share/ca-certificates</Source>
+                                <Destination>/usr/share/ca-certificates</Destination>
+                                <Options>rbind,nosuid,nodev,ro</Options>
 			</Entry>
+                        <Entry type="dir">
+				<Source>/usr/share/alsa</Source>
+                                <Destination>/usr/share/alsa</Destination>
+                                <Options>rbind,nosuid,nodev,ro</Options>
+			</Entry>			
+                        <Entry type="dir">
+                                <Source>/usr/share/xdial</Source>
+                                <Destination>/usr/share/xdial</Destination>
+                                <Options>rbind,nosuid,nodev,ro</Options>
+                        </Entry>			
+			<Entry type="file">
+                                <Source>/usr/bin/WPEProcess</Source>
+                                <Destination>/usr/bin/WPEProcess</Destination>
+                                <Options>rbind,nosuid,nodev,ro</Options>
+			</Entry>
+			<Entry type="file">
+                                <Source>/usr/libexec/DobbyInit</Source>
+                                <Destination>/usr/libexec/DobbyInit</Destination>
+                                <Options>rbind,nosuid,nodev,ro</Options>
+			</Entry>
+                        <Entry type="file">
+                                <Source>/usr/lib/dri/vc4_dri.so</Source>
+                                <Destination>/usr/lib/dri/vc4_dri.so</Destination>
+                                <Options>rbind,nosuid,nodev,ro</Options>
+                        </Entry>			
 			<Entry type="dir">
-				<Source>/opt/secure/</Source>
-				<Destination>/opt/secure/</Destination>
+				<Source>/opt/secure/minidumps</Source>
+				<Destination>/opt/secure/minidumps</Destination>
 				<Options>bind,rw,nosuid,nodev,noexec</Options>
 			</Entry>
 			<Entry type="dir">
@@ -177,6 +207,98 @@
 				<Options>bind,nosuid,nodev,ro</Options>					
 			</Entry>
 		</MountPoints>
+                <LibsRoBindMounts>    
+			<Entry>libasound</Entry>
+			<Entry>libwesteros_compositor</Entry>
+			<Entry>libgstcodecparsers</Entry>
+			<Entry>libessosrmgr</Entry>
+			<Entry>libwesteros_simplebuffer_server</Entry>
+			<Entry>libbz2</Entry>
+			<Entry>libwesteros_simpleshell_server</Entry>
+			<Entry>libwesteros_simplebuffer_client</Entry>
+			<Entry>libgstallocators</Entry>
+			<Entry>libsafec</Entry>
+			<Entry>liblog4c</Entry>
+			<Entry>libidn2</Entry>
+			<Entry>librdkloggers</Entry>
+			<Entry>libcjson</Entry>
+			<Entry>libcurl</Entry>
+			<Entry>libcrypto</Entry>
+			<Entry>libssl</Entry>
+			<Entry>libpcre</Entry>
+			<Entry>libffi</Entry>
+			<Entry>libgmodule</Entry>
+			<Entry>liborc</Entry>
+			<Entry>libgsttag</Entry>
+			<Entry>libwesteros_simpleshell_client</Entry>
+			<Entry>libwesteros_gl</Entry>
+			<Entry>libxkbcommon</Entry>
+			<Entry>libwayland-egl</Entry>
+			<Entry>libwayland-server</Entry>
+			<Entry>libwayland-client</Entry>
+			<Entry>libdrm</Entry>
+			<Entry>libexpat</Entry>
+			<Entry>libglapi</Entry>
+			<Entry>libgbm</Entry>
+			<Entry>libatomic</Entry>
+			<Entry>libocdm</Entry>
+			<Entry>librfcapi</Entry>
+			<Entry>libWPEFrameworkCryptography</Entry>
+			<Entry>libsecurityagent</Entry>
+			<Entry>libWPEFrameworkWebSocket</Entry>
+			<Entry>libWPEFrameworkDefinitions</Entry>
+			<Entry>libglib</Entry>
+			<Entry>libgobject</Entry>
+			<Entry>libgstreamer</Entry>
+			<Entry>libgstbase</Entry>
+			<Entry>libgstvideo</Entry>
+			<Entry>libgstaudio</Entry>
+			<Entry>libgstpbutils</Entry>
+			<Entry>libgstapp</Entry>
+			<Entry>libessos</Entry>
+			<Entry>libGLESv2</Entry>
+			<Entry>libEGL</Entry>
+			<Entry>libcobalt</Entry>
+			<Entry>libbreakpadwrapper</Entry>
+			<Entry>liblzma</Entry>
+			<Entry>libWPEFrameworkProcessContainers</Entry>
+			<Entry>libstdc++</Entry>
+			<Entry>libWPEFrameworkCore</Entry>
+			<Entry>libWPEFrameworkTracing</Entry>
+			<Entry>libWPEFrameworkProtocols</Entry>
+			<Entry>libWPEFrameworkWarningReporting</Entry>
+			<Entry>libWPEFrameworkPlugins</Entry>
+			<Entry>libWPEFrameworkCryptalgo</Entry>
+			<Entry>libgudev-1.0</Entry>
+			<Entry>libcrashlog</Entry>
+			<Entry>libgstvideoparsersbad</Entry>
+			<Entry>libgstaudioparsers</Entry>
+			<Entry>libgstapp</Entry>
+			<Entry>libgstcoreelements</Entry>
+			<Entry>libgstalsa</Entry>
+			<Entry>libgstaudioresample</Entry>
+			<Entry>libgstaudioconvert</Entry>
+			<Entry>libgstvolume</Entry>
+			<Entry>libgstwesterossink</Entry>
+			<Entry>libgstplayback</Entry>
+			<Entry>libgstlibav</Entry>				
+			<Entry>libpthread</Entry>
+			<Entry>libresolv</Entry>
+			<Entry>libnss_dns</Entry>
+			<Entry>libcap</Entry>
+			<Entry>librt</Entry>
+			<Entry>libm</Entry>
+			<Entry>libsystemd</Entry>
+			<Entry>libdl</Entry>
+			<Entry>libz</Entry>
+			<Entry>libc</Entry>
+			<Entry>libgcc_s</Entry>
+			<Entry>ld</Entry>			
+			<Entry>libmount</Entry>
+			<Entry>libblkid</Entry>
+			<Entry>libudev</Entry>
+			<Entry>libtinfo</Entry>
+		</LibsRoBindMounts>	                     		
         </Rootfs>
     </LxcConfig>
 </CONTAINER>

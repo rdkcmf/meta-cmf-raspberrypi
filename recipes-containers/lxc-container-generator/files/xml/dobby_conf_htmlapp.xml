@@ -94,7 +94,7 @@
 					<Source>tmpfs</Source>
 					<Destination>/dev</Destination>
 					<FsType>tmpfs</FsType>
-					<Options>nosuid,strictatime,mode=755,size=65536k</Options>
+					<Options>nosuid,strictatime,mode=0700,size=65536k</Options>
 				</Entry>
 				<Entry type="dir">
 					<Source>devpts</Source>
@@ -124,7 +124,7 @@
 					<Source>tmpfs</Source>
 					<Destination>tmp</Destination>
 					<FsType>tmpfs</FsType>
-					<Options>nosuid,noexec,nodev,size=65536k,nr_inodes=8k</Options>
+					<Options>nosuid,noexec,nodev,mode=0700,size=65536k,nr_inodes=8k</Options>
 				</Entry>
 				<Entry type="dir">
 					<Source>/lib/</Source>
