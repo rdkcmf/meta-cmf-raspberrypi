@@ -32,6 +32,7 @@ CXXFLAGS += "-DENABLE_THERMAL_PROTECTION"
 # This flag make work get reboot info APIs in System services
 CXXFLAGS += "-DPLATFORM_BROADCOM_REF"
 
+PACKAGECONFIG_append = " xcast"
 PACKAGECONFIG_remove = "controlservice hdmicec remoteactionmapping \
                         securityagent opencdmi datacapture"
 # displayinfo is temporarily not supported for RPi until fixes are being in main branch
