@@ -14,6 +14,9 @@ IMAGE_INSTALL_append = " ${SYSTEMD_TOOLS}"
 #REFPLTB-349 Needed for Firmware upgrade - to create file system of dual partition
 IMAGE_INSTALL_append = " e2fsprogs breakpad-staticdev"
 
+#Opensync Integration in RPI4 32bit
+IMAGE_INSTALL_append_raspberrypi4 = " mt76"
+
 #nodejs support on RPI 
 IMAGE_INSTALL_append_morty = " \
 	${@bb.utils.contains("DISTRO_FEATURES", "nodejs", " nodejs nodejs-npm ", " ", d)} \
